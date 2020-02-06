@@ -146,20 +146,10 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     MainAxisAlignment.spaceAround,
                                     children: <Widget>[
 
-                                      Checkbox(
-                                        value: _chkInspecao,
-                                        onChanged: (bool value){
-                                          setState(() {
-                                            _chkInspecao = value;
-                                          });
-                                        },
-                                        activeColor: Color.fromARGB(255, 243, 112, 33),
-                                      ),
-
                                       _checkBox.checkBox(
                                           FlutterI18n.translate(context,
                                               "containerInspecaoEstufagemDesova.checkBoxInspecao"),
-                                              (bool s) {
+                                              (s) {
                                             setState(() {
                                               _chkInspecao = s;
                                             });
@@ -177,6 +167,9 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                           FlutterI18n.translate(context,
                                               "containerInspecaoEstufagemDesova.checkBoxEstufagem"),
                                               (s) {
+                                                setState(() {
+                                                  _chkEstufagem = s;
+                                                });
                                             blocContainer.sinkEstufagem.add(s);
                                             if (snapshotForm.data) {
                                               blocContainer
@@ -190,6 +183,9 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                           FlutterI18n.translate(context,
                                               "containerInspecaoEstufagemDesova.checkBoxDesova"),
                                               (s) {
+                                                setState(() {
+                                                  _chkDesova = s;
+                                                });
                                             blocContainer.sinkDesova.add(s);
                                             if (snapshotForm.data) {
                                               blocContainer
@@ -224,8 +220,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                       }
                                     }),
 
-                                _chkInspecao == true
-                                    ? (
+
                                 _tff.textFormField(
                                     _matriculaController,
                                     FlutterI18n.translate(context,
@@ -239,8 +234,8 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     autoValidate: snapshotForm.data,
                                     verificarValidate: true,
                                     stream: blocContainer.outMatricula,
-                                    onChanged: blocContainer.changeMatricula))
-                                : new Padding(padding: new EdgeInsets.only(top: 0.0)),
+                                    onChanged: blocContainer.changeMatricula),
+
 
                                 _tff.textFormField(
                                     _ordemServicoController,
@@ -290,6 +285,8 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     verificarValidate: true,
                                     stream: blocContainer.outLocalTerminal,
                                     onChanged: blocContainer.changeLocalTerminal),
+
+                                _chkEstufagem == true || _chkDesova ? (
                                 Form(
                                   autovalidate: snapshotForm.data,
                                   key:
@@ -360,7 +357,10 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                             );
                                         }
                                       }),
-                                ),
+                                )
+                                )
+                                : new Padding(padding: new EdgeInsets.only(top: 0.0)),
+
                                 _tff.textFormField(
                                   _bookingController,
                                   FlutterI18n.translate(context,
@@ -377,6 +377,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                   onChanged: blocContainer.changeBooking,
                                   typeText: TextInputType.text,
                                 ),
+
                                 _tff.textFormField(
                                     _navioController,
                                     FlutterI18n.translate(context,
@@ -390,6 +391,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     typeText: TextInputType.text,
                                     stream: blocContainer.outNavio,
                                     onChanged: blocContainer.changeNavio),
+                                _chkEstufagem == true || _chkDesova == true ? (
                                 _tff.textFormField(
                                     _idEquipamentoontroller,
                                     FlutterI18n.translate(context,
@@ -406,7 +408,10 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     stream:
                                     blocContainer.outIdentificacaoEquipamento,
                                     onChanged: blocContainer
-                                        .changeIdentificacaoDoEquipamento),
+                                        .changeIdentificacaoDoEquipamento))
+                                : new Padding(padding: new EdgeInsets.only(top: 0.0)),
+
+                                 _chkEstufagem == true || _chkDesova == true ? (
                                 _tff.textFormField(
                                     _numeroCertificadoController,
                                     FlutterI18n.translate(context,
@@ -422,7 +427,10 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     typeText: TextInputType.text,
                                     stream: blocContainer.outNumeroCertificado,
                                     onChanged:
-                                    blocContainer.changeNumeroDoCertificado),
+                                    blocContainer.changeNumeroDoCertificado))
+                                 : new Padding(padding: new EdgeInsets.only(top: 0.0)),
+
+                                  _chkEstufagem == true || _chkDesova == true ? (
                                 _tff.textFormField(
                                     _dataVerificacao,
                                     FlutterI18n.translate(context,
@@ -448,7 +456,10 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                       }
                                       _focusNodeDataVerificacao.unfocus();
                                     }
-                                ),
+                                ))
+                                  : new Padding(padding: new EdgeInsets.only(top: 0.0)),
+
+                                  _chkEstufagem == true || _chkDesova == true ? (
                                 _tff.textFormField(
                                     _descricaoEmbalagemController,
                                     FlutterI18n.translate(context,
@@ -464,7 +475,10 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     typeText: TextInputType.multiline,
                                     stream: blocContainer.outDescricaoEmbalagem,
                                     onChanged:
-                                    blocContainer.changeDescricaoEmbalagem),
+                                    blocContainer.changeDescricaoEmbalagem))
+                                  : new Padding(padding: new EdgeInsets.only(top: 0.0)),
+
+                                  _chkEstufagem == true || _chkDesova == true ? (
                                 _tff.textFormField(
                                     _planoDeAmostraController,
                                     FlutterI18n.translate(context,
@@ -479,7 +493,10 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     maxLines: null,
                                     stream: blocContainer.outPlanosAmostragem,
                                     onChanged:
-                                    blocContainer.changePlanoDeAmostragem),
+                                    blocContainer.changePlanoDeAmostragem))
+                                  : new Padding(padding: new EdgeInsets.only(top: 0.0)),
+
+                                  _chkEstufagem == true || _chkDesova == true ? (
                                 _tff.textFormField(
                                     _idVolumesController,
                                     FlutterI18n.translate(context,
@@ -493,7 +510,10 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     stream:
                                     blocContainer.outIdentificacaoDosVolumes,
                                     onChanged: blocContainer
-                                        .changeIdentificacaoDosVolumes),
+                                        .changeIdentificacaoDosVolumes))
+                                  : new Padding(padding: new EdgeInsets.only(top: 0.0)),
+
+                                  _chkEstufagem == true || _chkDesova == true ? (
                                 Row(
                                   children: <Widget>[
                                     Column(
@@ -575,13 +595,19 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                       ],
                                     ),
                                   ],
-                                ),
+                                ))
+                                  : new Padding(padding: new EdgeInsets.only(top: 0.0)),
+
+                                  // TODO seperar campos EMPRESA e LACRE AMOSTRA, encapsulados juntos
+
+
                                 StreamBuilder<int>(
                                   stream: blocContainer.outDoubleCheck,
                                   builder: (context, snapshot) {
                                     return snapshot.data == 1
                                         ? Column(
                                       children: <Widget>[
+                                        _chkEstufagem == true || _chkDesova == true ? (
                                         _tff.textFormField(
                                             _empresaController,
                                             FlutterI18n.translate(context,
@@ -598,7 +624,10 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                             stream:
                                             blocContainer.outEmpresa,
                                             onChanged: blocContainer
-                                                .changeEmpresa),
+                                                .changeEmpresa))
+                                        : new Padding(padding: new EdgeInsets.only(top: 0.0)),
+
+                                        _chkEstufagem == true || _chkDesova == true ? (
                                         _tff.textFormField(
                                             _lacreDasAmostrasController,
                                             FlutterI18n.translate(context,
@@ -614,7 +643,8 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                             stream: blocContainer
                                                 .outLacreDasAmostras,
                                             onChanged: blocContainer
-                                                .changeLacreDasAmostras),
+                                                .changeLacreDasAmostras))
+                                            : new Padding(padding: new EdgeInsets.only(top: 0.0)),
                                       ],
                                     )
                                         : SizedBox();
@@ -641,6 +671,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                           builder: (context, snapshotForm) {
                             return Column(
                               children: <Widget>[
+                                _chkInspecao == true ? (
                                 _tff.textFormField(
                                     _numeroContainerController,
                                     FlutterI18n.translate(context,
@@ -656,7 +687,10 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     typeText: TextInputType.text,
                                     stream: blocContainer.outNumeroDoContainer,
                                     onChanged:
-                                    blocContainer.changeNumeroDoContainer),
+                                    blocContainer.changeNumeroDoContainer))
+                                : new Padding(padding: new EdgeInsets.only(top: 0.0)),
+
+                                _chkInspecao == true ? (
                                 _tff.textFormField(
                                     _taraController,
                                     FlutterI18n.translate(context,
@@ -674,7 +708,10 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     onChanged: (v) {
                                       blocContainer.sinkTara.add(
                                           _taraController.numberValue.toString());
-                                    }),
+                                    }))
+                                : new Padding(padding: new EdgeInsets.only(top: 0.0)),
+
+                                _chkInspecao == true ? (
                                 _tff.textFormField(
                                     _capacidadeController,
                                     FlutterI18n.translate(context,
@@ -690,7 +727,10 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     maxLines: null,
                                     typeText: TextInputType.number,
                                     stream: blocContainer.outCapacidade,
-                                    onChanged: blocContainer.changeCapacidade),
+                                    onChanged: blocContainer.changeCapacidade))
+                                : new Padding(padding: new EdgeInsets.only(top: 0.0)),
+
+                                _chkInspecao == true ? (
                                 BotaoData(
                                   FlutterI18n.translate(context,
                                       "containerInspecaoEstufagemDesova.dataFabricacao"),
@@ -701,11 +741,34 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                   onChanged: blocContainer.changeDataDeFabricacao,
                                   msgErroValidate: FlutterI18n.translate(context,
                                       "containerInspecaoEstufagemDesova.msgDataFabricacao"),
-                                ),
-                                richText(
-                                    FlutterI18n.translate(context,
-                                        "containerInspecaoEstufagemDesova.condicao"),
-                                    CdQPdS: true),
+                                ))
+                                : new Padding(padding: new EdgeInsets.only(top: 0.0)),
+
+                                // TODO Alinhar Radios de Condicao
+                                _chkInspecao == true ? (
+                                Column(
+                                  children: <Widget>[
+                                    RichText(
+                                      text: TextSpan(children: <TextSpan>[
+                                        TextSpan(
+                                          text: FlutterI18n.translate(context,
+                                              "containerInspecaoEstufagemDesova.condicao"),
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            color: Colors.black)),
+                                        TextSpan(
+                                            text: "*",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.red)),
+                                          ]),
+                                        ),
+
+//                                richText(
+//                                    FlutterI18n.translate(context,
+//                                        "containerInspecaoEstufagemDesova.condicao"),
+//                                    CdQPdS: true),
+
                                 StreamBuilder<int>(
                                   stream: blocContainer.outCondicao,
                                   builder: (context, snapshot) {
@@ -775,6 +838,12 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                         : SizedBox();
                                   },
                                 ),
+                                ]))
+                                : new Padding(padding: new EdgeInsets.only(top: 0.0)),
+
+
+
+                                _chkEstufagem || _chkDesova ? (
                                 _tff.textFormField(
                                     _temperaturaController,
                                     FlutterI18n.translate(context,
@@ -789,7 +858,10 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     maxLines: null,
                                     typeText: TextInputType.text,
                                     stream: blocContainer.outTemperatura,
-                                    onChanged: blocContainer.changeTemperatura),
+                                    onChanged: blocContainer.changeTemperatura))
+                                : SizedBox(),
+
+                                _chkEstufagem || _chkDesova ?(
                                 Container(
                                   padding: EdgeInsets.only(top: 20),
                                   child: Column(
@@ -883,7 +955,9 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                       ),
                                     ],
                                   ),
-                                ),
+                                ))
+                                : SizedBox(),
+
                                 _tff.textFormField(
                                     _loteController,
                                     FlutterI18n.translate(context,
@@ -899,17 +973,35 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     typeText: TextInputType.text,
                                     stream: blocContainer.outLote,
                                     onChanged: blocContainer.changeLote),
-                                BotaoData(
-                                  FlutterI18n.translate(context,
-                                      "containerInspecaoEstufagemDesova.dataLote"),
-                                  controller: _dataLote,
-                                  campoObrigatorio: true,
-                                  stream: blocContainer.outDataLote,
-                                  autoValidate: snapshotForm.data,
-                                  onChanged: blocContainer.changeDataDoLote,
-                                  msgErroValidate: FlutterI18n.translate(context,
-                                      "containerInspecaoEstufagemDesova.msgDataLote"),
-                                ),
+
+                                _tff.textFormField(//TODO adicionar no JSON de Tradução e implementar
+                                    _loteController,
+                                    FlutterI18n.translate(context,
+                                        "containerInspecaoEstufagemDesova.provisorio"),
+                                    FlutterI18n.translate(context,
+                                        "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
+                                    false,
+                                    verificarValidate: true,
+                                    autoValidate: snapshotForm.data,
+                                    campoObrigatorio: true,
+                                    maxLength: 15,
+                                    maxLines: null,
+                                    typeText: TextInputType.text,
+                                    stream: blocContainer.outLote,
+                                    onChanged: blocContainer.changeLote),
+                                // TODO remover definitivo botao dataLote
+//                                BotaoData(
+//                                  FlutterI18n.translate(context,
+//                                      "containerInspecaoEstufagemDesova.dataLote"),
+//                                  controller: _dataLote,
+//                                  campoObrigatorio: true,
+//                                  stream: blocContainer.outDataLote,
+//                                  autoValidate: snapshotForm.data,
+//                                  onChanged: blocContainer.changeDataDoLote,
+//                                  msgErroValidate: FlutterI18n.translate(context,
+//                                      "containerInspecaoEstufagemDesova.msgDataLote"),
+//                                ),
+
                                 SizedBox(
                                   height: 10,
                                 ),
@@ -1015,7 +1107,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                       ),
                     ),
                   ),
-                  StreamBuilder<List<InformacaoContainer>>(
+                  StreamBuilder<List<InformacaoContainer>>(//TODO qual a utilidade disso??
                     stream: blocContainer.outListInicialInspecaoEstufagemDesova,
                     builder: (context, snapshot) {
                       int valor;

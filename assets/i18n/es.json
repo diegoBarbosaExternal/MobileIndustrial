@@ -305,7 +305,8 @@
     "listaTelaInspecaoEstufagemDesovaColuna11": "Número Contenedor: ",
     "listaTelaInspecaoEstufagemDesovaColuna21": "Tara: ",
     "listaTelaInspecaoEstufagemDesovaColuna31": "Capacidad: ",
-    "msgCampoObrigatorio": "Campo Obligatorio"
+    "msgCampoObrigatorio": "Campo Obligatorio",
+    "provisorio": "Provisional"
   },
   "containerSupervisaoDePeso": {
     "tituloTabBar": "Supervisión de Peso",

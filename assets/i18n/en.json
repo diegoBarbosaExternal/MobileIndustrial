@@ -306,7 +306,8 @@
     "listaTelaInspecaoEstufagemDesovaColuna11": "Number Container: ",
     "listaTelaInspecaoEstufagemDesovaColuna21": "Tare: ",
     "listaTelaInspecaoEstufagemDesovaColuna31": "Capacity: ",
-    "msgCampoObrigatorio": "Required field"
+    "msgCampoObrigatorio": "Required field",
+    "provisorio": "Provisional"
   },
   "containerSupervisaoDePeso": {
     "tituloTabBar": "Weight supervision",

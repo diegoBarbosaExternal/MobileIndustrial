@@ -339,6 +339,10 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
 
   Stream<String> get outLote => _loteController.stream.transform(validateVazio);
 
+  final _provisorioController = BehaviorSubject<String>();
+
+  Stream<String> get outProvisorio => _provisorioController.stream.transform(validateVazio);
+
   final _dataLoteController = BehaviorSubject<DateTime>();
 
   Stream<String> get outDataLote =>
@@ -452,6 +456,8 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
   Function(String) get changeOutros => _lacreOutrosController.sink.add;
 
   Function(String) get changeLote => _loteController.sink.add;
+
+  Function(String) get changeProvisorio => _provisorioController.sink.add;
 
   Function(DateTime) get changeDataDoLote => _dataLoteController.sink.add;
 

@@ -199,27 +199,10 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     fontSize:
                                     maxValue(size.width * 0.03, 16)),
 
-                                StreamBuilder<bool>(
-                                    initialData: false,
-                                    stream:
-                                    blocContainer.outValidateTipoInspEstuDeso,
-                                    builder: (context, snapshot) {
-                                      if (snapshot.data == false) {
-                                        return SizedBox();
-                                      } else {
-                                        return Text(
-                                          FlutterI18n.translate(context,
-                                              "containerInspecaoEstufagemDesova.msgSelecionarTipo"),
-                                          style: TextStyle(
-                                              color: Colors.red, fontSize: 14),
-                                        );
-                                      }
-                                    }),
-
                                 Divider(
                                   indent: 15.0,
                                   endIndent: 15.0,
-                                  color: Color.fromARGB(255, 243, 112, 33),
+                                  color: Color.fromARGB(255, 243, 112, 0),
                                 ),
                               ],
                             ),

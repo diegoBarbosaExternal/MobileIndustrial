@@ -137,7 +137,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     "containerInspecaoEstufagemDesova.tipo"),
                               )),
 
-                          Card(
+                          Card( //CHECKBOXES de inspeção, estufagem e desova
                             elevation: 5,
                             child: Row(
                               mainAxisAlignment:
@@ -300,7 +300,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     stream: blocContainer.outLocalTerminal,
                                     onChanged: blocContainer.changeLocalTerminal),
 
-                                _chkEstufagem || _chkDesova ? (
+                                _chkEstufagem || _chkDesova ? (//Dropdown de produtos
                                 Form(
                                   autovalidate: snapshotForm.data,
                                   key:
@@ -321,7 +321,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                                   decoration: DropDownFormField
                                                       .decoratorDropDown(),
                                                   validator: (Produto value) {
-                                                    if (value == null) {
+                                                    if (value == null && (_chkDesova || _chkEstufagem)) {
                                                       return FlutterI18n.translate(
                                                           context,
                                                           "containerInspecaoEstufagemDesova.msgProdutoObrigatorio");
@@ -388,6 +388,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     typeText: TextInputType.text,
                                     stream: blocContainer.outNavio,
                                     onChanged: blocContainer.changeNavio),
+
                                 _chkEstufagem || _chkDesova ? (
                                 _tff.textFormField(
                                     _idEquipamentoontroller,
@@ -396,7 +397,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     FlutterI18n.translate(context,
                                         "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
                                     false,
-                                    verificarValidate: true,
+                                    verificarValidate: false,
                                     autoValidate: snapshotForm.data,
                                     campoObrigatorio: true,
                                     maxLength: 150,
@@ -416,7 +417,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     FlutterI18n.translate(context,
                                         "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
                                     false,
-                                    verificarValidate: true,
+                                    verificarValidate: false,
                                     autoValidate: snapshotForm.data,
                                     campoObrigatorio: true,
                                     maxLength: 15,
@@ -436,7 +437,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                         "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
                                     false,
                                     campoObrigatorio: true,
-                                    verificarValidate: true,
+                                    verificarValidate: false,
                                     autoValidate: snapshotForm.data,
                                     stream: blocContainer.outDataVerificacao,
                                     typeText: TextInputType.text,
@@ -464,7 +465,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     FlutterI18n.translate(context,
                                         "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
                                     false,
-                                    verificarValidate: true,
+                                    verificarValidate: false,
                                     autoValidate: snapshotForm.data,
                                     campoObrigatorio: true,
                                     maxLength: 300,
@@ -483,7 +484,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     FlutterI18n.translate(context,
                                         "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
                                     false,
-                                    verificarValidate: true,
+                                    verificarValidate: false,
                                     autoValidate: snapshotForm.data,
                                     campoObrigatorio: true,
                                     maxLength: 15,
@@ -610,7 +611,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                             FlutterI18n.translate(context,
                                                 "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
                                             false,
-                                            verificarValidate: true,
+                                            verificarValidate: false,
                                             autoValidate: snapshotForm.data,
                                             campoObrigatorio: true,
                                             maxLength: 20,
@@ -676,7 +677,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     FlutterI18n.translate(context,
                                         "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
                                     false,
-                                    verificarValidate: true,
+                                    verificarValidate: false,
                                     autoValidate: snapshotForm.data,
                                     campoObrigatorio: true,
                                     maxLength: 20,
@@ -695,7 +696,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     FlutterI18n.translate(context,
                                         "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
                                     false,
-                                    verificarValidate: true,
+                                    verificarValidate: false,
                                     autoValidate: snapshotForm.data,
                                     campoObrigatorio: true,
                                     maxLength: 10,
@@ -716,7 +717,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     FlutterI18n.translate(context,
                                         "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
                                     false,
-                                    verificarValidate: true,
+                                    verificarValidate: false,
                                     autoValidate: snapshotForm.data,
                                     campoObrigatorio: true,
                                     maxLength: 10,
@@ -846,7 +847,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     FlutterI18n.translate(context,
                                         "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
                                     false,
-                                    verificarValidate: true,
+                                    verificarValidate: false,
                                     autoValidate: snapshotForm.data,
                                     campoObrigatorio: true,
                                     maxLength: 10,
@@ -1090,7 +1091,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                       ),
                     ),
                   ),
-                  StreamBuilder<List<InformacaoContainer>>(//TODO qual a utilidade disso??
+                  StreamBuilder<List<InformacaoContainer>>(// TODO #01- Resumo exibido somente ao finalizar
                     stream: blocContainer.outListInicialInspecaoEstufagemDesova,
                     builder: (context, snapshot) {
                       int valor;
@@ -1142,6 +1143,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                           ));
                     },
                   ),
+
                   Form(
                     key: blocContainer.keyFormInspEstufDesovaResumo,
                     child: StreamBuilder<bool>(
@@ -1353,39 +1355,53 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
     blocContainer.inAutoValidateInspEstuDesoInfoContainer.add(true);
     blocContainer.inAutoValidateInspEstuDesoResumoQtd.add(true);
 
+
     bool tipo = blocContainer.validateTipoInspDeso();
+
+    /// Confere se algum tipo foi selecionado
     blocContainer.validateSinkTipoInspEstuDeso();
 
-    bool controleQuant = blocContainer.validateControleDeQuantidade();
-    if (controleQuant) {
-      blocContainer.sinkValidateControleDeQuantidade.add(true);
-    }
-    int contContainer = 0;
-    blocNumeroDoContainer.valueListNumeroDosContainers
-        .forEach((valueContainer) {
-      if (_numeroContainerController.text == valueContainer) {
-        existeDuplicidade = true;
-      } else {
-        contContainer++;
+    /// Redundância??
+
+    //if (_chkEstufagem || _chkDesova) {///===ABRE VALID===
+      bool controleQuant = blocContainer.validateControleDeQuantidade();
+
+      /// ==ED== Existe controle de quantidade. Retorna false caso correto
+      if (controleQuant) {
+        blocContainer.sinkValidateControleDeQuantidade.add(true);
       }
-    });
 
-    if (contContainer ==
-        blocNumeroDoContainer.valueListNumeroDosContainers.length) {
-      existeDuplicidade = false;
-    }
+      int contContainer = 0;
+      blocNumeroDoContainer.valueListNumeroDosContainers
+          .forEach((valueContainer) {
+        /// ==ED== Valida contagem de containers. Retorna int > 1 caso correto
+        if (_numeroContainerController.text == valueContainer) {
+          existeDuplicidade = true;
+        } else {
+          contContainer++;
+        }
+      });
 
-    if (blocContainer.keyFormInspEstufInformacaoCon.currentState.validate() &&
-        blocContainer.keyFormControleQtd.currentState.validate() &&
-        !tipo &&
-        !controleQuant &&
-        blocContainer.keyFormInspEstufDesovaResumo.currentState.validate() &&
-        blocContainer.keyFormInspEstufDesova.currentState.validate() &&
-        blocContainer.keyComboProdutoInspEstuDesova.currentState.validate()) {
-      return true;
-    } else {
-      return false;
-    }
+      if (contContainer ==
+          blocNumeroDoContainer.valueListNumeroDosContainers.length) {
+        /// ==ED== Valida duplicidade de containers. Retorna false caso correto
+        existeDuplicidade = false;
+      }
+
+
+      /// Retorna true caso correto
+      if (blocContainer.keyFormInspEstufInformacaoCon.currentState.validate() &&
+          blocContainer.keyFormControleQtd.currentState.validate() &&
+          !tipo &&
+          !controleQuant &&
+          blocContainer.keyFormInspEstufDesovaResumo.currentState.validate() &&
+          blocContainer.keyFormInspEstufDesova.currentState.validate() &&
+          blocContainer.keyComboProdutoInspEstuDesova.currentState.validate()) {
+        return true;
+      } else {
+        return false;
+      }
+     /// ===FECHA VALID===
   }
 
   bool validateInspEstuDesoResumido() {
@@ -1416,6 +1432,8 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
       return false;
     }
   }
+
+  //TODO Incluir novos campos do formulario aqui
 
   carregarCampos() async {
     DadosContainer dados;

@@ -756,7 +756,7 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
       return true;
     }
   }
-
+// TODO #04- Modificar a form aqui
   Future<bool> salvarInspecaoEstufagemDesova(uuid) async {
     try {
       Formulario formulario = await sugarBloc.getFormularioSugar();
@@ -772,26 +772,19 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
           form.dadoscontainer.desova = _desovaController.value;
           form.dadoscontainer.matricula = _matriculaController.value;
           form.dadoscontainer.ordemServico = _osController.value;
-          form.dadoscontainer.clientePrincipal =
-              _clientePrincipalController.value;
+          form.dadoscontainer.clientePrincipal = _clientePrincipalController.value;
           form.dadoscontainer.localTerminal = _localTerminalController.value;
-          form.dadoscontainer.produto = blocProduto.valueProdutoInspEstuDesova;
+          //form.dadoscontainer.produto = blocProduto.valueProdutoInspEstuDesova;
           form.dadoscontainer.booking = _bookingController.value;
           form.dadoscontainer.navio = _navioController.value;
-          form.dadoscontainer.identificacaoEquipamento =
-              _identificacaoEquipamentoController.value;
-          form.dadoscontainer.numeroCertificado =
-              _numeroCertificadoController.value;
-          form.dadoscontainer.dataVerificacao = DateFormat('MM/yy')
-              .format(_dataVerificacaoController.value);
-          form.dadoscontainer.descricaoEmbalagem =
-              _descricaoEmbalagemController.value;
-          form.dadoscontainer.planoAmostragem =
-              _planosAmostragemController.value;
-          form.dadoscontainer.identificacaoDosVolumes =
-              _identificacaoDosVolumesController.value;
-          form.dadoscontainer.doubleCheck =
-              _doubleCheckController.value == 1 ? true : false;
+          //form.dadoscontainer.identificacaoEquipamento = _identificacaoEquipamentoController.value;
+          //form.dadoscontainer.numeroCertificado =_numeroCertificadoController.value;
+          //form.dadoscontainer.dataVerificacao = DateFormat('MM/yy').format(_dataVerificacaoController.value);
+          //form.dadoscontainer.descricaoEmbalagem = _descricaoEmbalagemController.value;
+          //form.dadoscontainer.planoAmostragem =_planosAmostragemController.value;
+          //form.dadoscontainer.identificacaoDosVolumes = _identificacaoDosVolumesController.value;
+          //form.dadoscontainer.doubleCheck = _doubleCheckController.value == 1 ?
+          /*
           if(form.dadoscontainer.doubleCheck){
             form.dadoscontainer.empresa = _empresaController.value;
             form.dadoscontainer.lacreDasAmostras =
@@ -800,6 +793,7 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
                 ? int.parse(_lacreDasAmostrasController.value)
                 : 0;
           }
+          */
           form.dadoscontainer.resumo = _resumoController.value;
 
           if (form.dadoscontainer.containersRegistrados == null ||

@@ -207,7 +207,8 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                       if (snapshot.data == false) {
                                         return SizedBox();
                                       } else {
-                                        return Text(
+                                        return SizedBox();
+                                          Text(
                                           FlutterI18n.translate(context,
                                               "containerInspecaoEstufagemDesova.msgSelecionarTipo"),
                                           style: TextStyle(
@@ -1213,7 +1214,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                   .salvarInspecaoEstufagemDesova(blocSugar.valueUUIDFormAtual);
 
               if (sucesso) {
-                limparInspEstufDesov();
+                //limparInspEstufDesov();
                 blocContainer.inAutoValidateInspEstuDesoInfoContainer.add(false);
                 Scaffold.of(context).showSnackBar(SnackBar(
                   content: Text(
@@ -1558,7 +1559,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
       }
     }
   }
-
+/*
   limparInspEstufDesov() {
     _numeroContainerController.text = "";
     _taraController.text = "0.000";
@@ -1575,7 +1576,9 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
 
     blocContainer.sinkListControleDeQuant.add([]);
     blocContainer.listAuxControleDeQuantidade.clear();
+
   }
+  */
 
   @override
   // TODO: implement wantKeepAlive

@@ -774,16 +774,21 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
           form.dadoscontainer.ordemServico = _osController.value;
           form.dadoscontainer.clientePrincipal = _clientePrincipalController.value;
           form.dadoscontainer.localTerminal = _localTerminalController.value;
-          //form.dadoscontainer.produto = blocProduto.valueProdutoInspEstuDesova;
+          if (!form.dadoscontainer.inspecao && (form.dadoscontainer.estufagem || form.dadoscontainer.desova))
+          form.dadoscontainer.produto = blocProduto.valueProdutoInspEstuDesova;
           form.dadoscontainer.booking = _bookingController.value;
           form.dadoscontainer.navio = _navioController.value;
-          //form.dadoscontainer.identificacaoEquipamento = _identificacaoEquipamentoController.value;
-          //form.dadoscontainer.numeroCertificado =_numeroCertificadoController.value;
-          //form.dadoscontainer.dataVerificacao = DateFormat('MM/yy').format(_dataVerificacaoController.value);
-          //form.dadoscontainer.descricaoEmbalagem = _descricaoEmbalagemController.value;
-          //form.dadoscontainer.planoAmostragem =_planosAmostragemController.value;
-          //form.dadoscontainer.identificacaoDosVolumes = _identificacaoDosVolumesController.value;
-          //form.dadoscontainer.doubleCheck = _doubleCheckController.value == 1 ?
+          if (!form.dadoscontainer.inspecao && (form.dadoscontainer.estufagem || form.dadoscontainer.desova)) {
+            form.dadoscontainer.identificacaoEquipamento =
+                _identificacaoEquipamentoController.value;
+            form.dadoscontainer.numeroCertificado =_numeroCertificadoController.value;
+            form.dadoscontainer.dataVerificacao = DateFormat('DD/MM/yy').format(_dataVerificacaoController.value);
+            form.dadoscontainer.descricaoEmbalagem = _descricaoEmbalagemController.value;
+            form.dadoscontainer.planoAmostragem =_planosAmostragemController.value;
+            form.dadoscontainer.identificacaoDosVolumes = _identificacaoDosVolumesController.value;
+          }
+
+          //form.dadoscontainer.doubleCheck = _doubleCheckController.value == 1 ? true : false;
           /*
           if(form.dadoscontainer.doubleCheck){
             form.dadoscontainer.empresa = _empresaController.value;

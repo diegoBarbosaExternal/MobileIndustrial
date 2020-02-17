@@ -949,6 +949,7 @@ class LisContainerInspecaoEstufagemDesova {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(listInformacaoContainer[index].numeroContainer,
+
                         style: TextStyle(fontSize: 14),
                       ),
                     ],

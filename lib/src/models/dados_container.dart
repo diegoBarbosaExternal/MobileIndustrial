@@ -15,6 +15,10 @@ class DadosContainer {
   bool inspecao;
   bool estufagem;
   bool desova;
+  String dataHoraInicioInspecao;
+  String dataHoraFimInspecao;
+  String dataHoraInicioEstuDeso;
+  String dataHoraFimEstuDeso;
   String matricula;
   String ordemServico;
   String clientePrincipal;

@@ -40,7 +40,7 @@ class _HomeContainerState extends State<HomeContainer> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 5,
+      length: 4,
       child: GestureDetector(
         onTap: (){
           FocusScope.of(context).requestFocus(FocusNode());
@@ -69,11 +69,11 @@ class _HomeContainerState extends State<HomeContainer> {
                         style: TextStyle(fontSize: 12),
                       ),
                     ),
-                    Tab(
+                    /*Tab(
                         child: Text(
                           FlutterI18n.translate(context, "timeLogs.tituloTabBar"),
                           style: TextStyle(fontSize: 12),
-                        )),
+                        )),*/
                     Tab(
                         child: Text(
                           FlutterI18n.translate(
@@ -98,7 +98,7 @@ class _HomeContainerState extends State<HomeContainer> {
                   ])),
           body: TabBarView(children: [
             InspecaoEstufagemDesova(),
-            TimeLogs(),
+            //TimeLogs(),
             SupervisaoDePeso(),
             QuebraDeNota(),
             AssinaturaDigitalPage()

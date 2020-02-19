@@ -20,9 +20,9 @@ BreakBulk _$BreakBulkFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$BreakBulkToJson(BreakBulk instance) => <String, dynamic>{
+      'nomeFormulario': instance.nomeFormulario,
       'uuid': instance.uuid,
       'status': instance.status,
-      'nomeFormulario': instance.nomeFormulario,
       'dadosbreakbulk': instance.dadosbreakbulk,
       'tipoOperacao': instance.tipoOperacao,
     };

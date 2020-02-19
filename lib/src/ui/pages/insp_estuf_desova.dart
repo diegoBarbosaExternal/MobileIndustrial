@@ -39,6 +39,10 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
   final blocProduto = BlocProvider.tag('sugarGlobal').getBloc<ProdutoBloc>();
   final blocSugar = BlocProvider.tag('sugarGlobal').getBloc<SugarBloc>();
 
+  final _dataHoraInicioInspecaoController = TextEditingController();
+  final _dataHoraFimInspecaoController = TextEditingController();
+  final _dataHoraInicioEstDesoController = TextEditingController();
+  final _dataHoraFimEstDesoController = TextEditingController();
   final _matriculaController = TextEditingController();
   final _ordemServicoController = TextEditingController();
   final _clientePrincipalController = TextEditingController();
@@ -67,6 +71,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
   final _outrosController = TextEditingController();
   final _resumoController = TextEditingController();
   final _dataVerificacao = TextEditingController();
+  final _dataVerificacaoController = TextEditingController();
   final _dataFabricacao = TextEditingController();
   final _dataLote = TextEditingController();
 
@@ -76,6 +81,10 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
   bool existeDuplicidade = false;
   DateTime initialDate;
   DateTime selectedDate;
+
+  bool _chkInspecao = false;
+  bool _chkEstufagem = false;
+  bool _chkDesova = false;
 
   AlwaysDisabledFocusNode _focusNodeDataVerificacao;
 
@@ -102,10 +111,6 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
       return max;
     }
   }
-
-  bool _chkInspecao = false;
-  bool _chkEstufagem = false;
-  bool _chkDesova = false;
 
   @override
   Widget build(BuildContext context) {
@@ -226,7 +231,100 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                             ),
                           ),
 
+                          //blocContainer.
+
+                          _chkInspecao ? (
+                              Card(
+                                elevation: 5,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+
+                                    Text(
+                                      FlutterI18n.translate(context,
+                                          "containerInspecaoEstufagemDesova.timelogInsp"),
+                                      style: TextStyle(
+                                          fontSize: 16, color: Colors.black),
+                                    ),
+
+                                    SizedBox(height: 20),
+
+                                    BotaoDataHora(
+                                      FlutterI18n.translate(
+                                          context, "containerInspecaoEstufagemDesova.dataHoraInicioInspecao"),
+                                      controller: _dataHoraInicioInspecaoController,
+                                      campoObrigatorio: false,
+                                      stream: blocContainer.outDataHoraInicioInspecaoController,
+                                      autoValidate: snapshotForm.data,
+                                      onChanged: blocContainer.changeDataHoraInicioInspecao,
+                                      msgErro: FlutterI18n.translate(
+                                          context, "timeLogs.msgDataInicioObrigatorio"),
+                                    ),
+
+                                    BotaoDataHora(
+                                      FlutterI18n.translate(
+                                          context, "containerInspecaoEstufagemDesova.dataHoraFimInspecao"),
+                                      controller: _dataHoraFimInspecaoController,
+                                      campoObrigatorio: false,
+                                      stream: blocContainer.outDataHoraFimInspecaoController,
+                                      autoValidate: snapshotForm.data,
+                                      onChanged: blocContainer.changeDataHoraFimInspecao,
+                                      msgErro: FlutterI18n.translate(
+                                          context, "timeLogs.msgDataInicioObrigatorio"),
+                                    ),
+
+                                  ],
+                                ),
+                              ))
+                              : SizedBox(),
+
+                          _chkEstufagem || _chkDesova ? (
+                              Card(
+                                elevation: 5,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+
+                                    Text(
+                                      FlutterI18n.translate(context,
+                                          "containerInspecaoEstufagemDesova.timelogEstDeso"),
+                                      style: TextStyle(
+                                          fontSize: 16, color: Colors.black),
+                                    ),
+
+                                    SizedBox(height: 20),
+
+                                    BotaoDataHora(
+                                      FlutterI18n.translate(
+                                          context, "containerInspecaoEstufagemDesova.dataHoraInicioEstuDeso"),
+                                      controller: _dataHoraInicioEstDesoController,
+                                      campoObrigatorio: false,
+                                      stream: blocContainer.outDataHoraInicioEstuDesoController,
+                                      autoValidate: snapshotForm.data,
+                                      onChanged: blocContainer.changeDataHoraInicioEstuDeso,
+                                      msgErro: FlutterI18n.translate(
+                                          context, "timeLogs.msgDataInicioObrigatorio"),
+                                    ),
+
+                                    BotaoDataHora(
+                                      FlutterI18n.translate(
+                                          context, "containerInspecaoEstufagemDesova.dataHoraFimEstuDeso"),
+                                      controller: _dataHoraFimEstDesoController,
+                                      campoObrigatorio: false,
+                                      stream: blocContainer.outDataHoraFimEstuDesoController,
+                                      autoValidate: snapshotForm.data,
+                                      onChanged: blocContainer.changeDataHoraFimEstuDeso,
+                                      msgErro: FlutterI18n.translate(
+                                          context, "timeLogs.msgDataInicioObrigatorio"),
+                                    ),
+
+                                  ],
+                                ),
+                              ))
+                              : SizedBox(),
+
                           _chkInspecao || _chkEstufagem || _chkDesova ? (
+
                           Card(
                             elevation: 5,
                             child: Column(
@@ -447,7 +545,22 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     blocContainer.changeNumeroDoCertificado))
                                  : SizedBox(),
 
+
+
                                   _chkEstufagem || _chkDesova ? (
+
+                                      BotaoData(
+                                      FlutterI18n.translate(context,
+                                      "containerInspecaoEstufagemDesova.dataVerificacao"),
+                                      controller: _dataVerificacaoController,
+                                      campoObrigatorio: true,
+                                      stream: blocContainer.outDataVerificacao,
+                                      autoValidate: snapshotForm.data,
+                                      onChanged: blocContainer.changeDataVerificacao,
+                                      msgErroValidate: FlutterI18n.translate(context,
+                                      "containerSupervisaoDePeso.msgUltimaCalibracaoObrigatorio"))
+
+                                 /*
                                 _tff.textFormField(
                                     _dataVerificacao,
                                     FlutterI18n.translate(context,
@@ -460,20 +573,19 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     autoValidate: snapshotForm.data,
                                     stream: blocContainer.outDataVerificacao,
                                     typeText: TextInputType.text,
-                                    onChanged:
-                                    blocContainer.changeDataDeVerificacao,
+                                    onChanged: blocContainer.changeDataVerificacao,
                                     disableFocusNode: _focusNodeDataVerificacao,
                                     onTap: () async {
                                       MesAno date = MesAno();
                                       DateTime dateMesAno;
                                       dateMesAno = await date.mesAno(context, selectedDate, initialDate);
                                       if(dateMesAno != null){
-                                        _dataVerificacao.text = DateFormat('MM/yy').format(dateMesAno);
+                                        _dataVerificacao.text = DateFormat('dd/MM/yy').format(dateMesAno);
                                         blocContainer.sinkDataDeVerificacao.add(dateMesAno);
                                       }
                                       _focusNodeDataVerificacao.unfocus();
                                     }
-                                ))
+                                )*/)
                                   : SizedBox(),
 
                                   _chkEstufagem || _chkDesova ? (
@@ -1162,6 +1274,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                           ));
                     },
                   ),
+                  */
 
                   Form(
                     key: blocContainer.keyFormInspEstufDesovaResumo,
@@ -1460,12 +1573,15 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
     if (dados != null) {
       if (dados.inspecao == true) {
         blocContainer.sinkInspecao.add(true);
+        _chkInspecao = true;
       }
       if (dados.estufagem == true) {
         blocContainer.sinkEstufagem.add(true);
+        _chkEstufagem = true;
       }
       if (dados.desova == true) {
         blocContainer.sinkDesova.add(true);
+        _chkDesova = true;
       }
 
       if (dados.matricula != null) {
@@ -1491,7 +1607,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
       if (dados.produto != null) {
         blocProduto.valueProdutoInspEstuDesova = dados.produto;
         blocProduto.sinkGenericBloc.add(blocProduto.produtos);
-        blocContainer.keyComboProdutoInspEstuDesova.currentState.validate();
+        //blocContainer.keyComboProdutoInspEstuDesova.currentState.validate();
       }
 
       if (dados.booking != null) {
@@ -1514,13 +1630,19 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
         _numeroCertificadoController.text = dados.numeroCertificado;
         blocContainer.sinkNumeroDoCertificado.add(dados.numeroCertificado);
       }
-
+// TODO DATA VERIFICACAO
       if (dados.dataVerificacao != null) {
-        _dataVerificacao.text = dados.dataVerificacao;
-        List<String> mesAno = dados.dataVerificacao.split('/');
-        blocContainer.sinkDataDeVerificacao
-            .add(DateTime.parse('19'+mesAno[1]+'-'+mesAno[0]+'-01'));
+        //_dataVerificacaoController.text = DateFormat('dd/MM/yyyy').format(DateTime.parse(dados.dataVerificacao));
+
+        _dataVerificacaoController.text = dados.dataVerificacao;
+        blocContainer.sinkDataVerificacao.add(DateFormat('dd/MM/yyyy').parse(dados.dataVerificacao));
+        //_dataVerificacao.text = dados.dataVerificacao;
+        //List<String> mesAno = dados.dataVerificacao.split('/');
+        //blocContainer.sinkDataDeVerificacao
+        //    .add(DateTime.parse('19'+mesAno[1]+'-'+mesAno[0]+'-01'));
       }
+
+
 
       if (dados.descricaoEmbalagem != null) {
         _descricaoEmbalagemController.text = dados.descricaoEmbalagem;

@@ -257,6 +257,8 @@
     "msgCampoObrigatorio": "Campo Obrigatório"
   },
   "containerInspecaoEstufagemDesova": {
+    "timelogInsp": "Timelog - Inspeção",
+    "timelogEstDeso": "Timelog - Estufagem / Desova",
     "tituloTabBar": "Inspeção / Estufagem / Desova",
     "tipo": "Tipo",
     "checkBoxInspecao": "Inspeção",
@@ -288,6 +290,10 @@
     "capacidade": "Capacidade",
     "dataFabricacao": "Data de Fabricação",
     "msgDataFabricacao": "Data de Fabricação é obrigatória",
+    "dataHoraInicioInspecao": "Data / Hora início da Inspeção",
+    "dataHoraFimInspecao": "Data / Hora fim da Inspeção",
+    "dataHoraInicioEstuDeso": "Data / Hora início da Estufagem/Desova",
+    "dataHoraFimEstuDeso": "Data / Hora fim da Esufagem/Desova",
     "condicao": "Condição",
     "condicaoAprovado": "Aprovado",
     "condicaoReprovado": "Reprovado",

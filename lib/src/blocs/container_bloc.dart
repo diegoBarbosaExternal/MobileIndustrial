@@ -164,6 +164,27 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
 
   Stream<String> get outLocalTerminal =>
       _localTerminalController.stream.transform(validateVazio);
+  // 1536 datahora
+  //final _dataHoraInicioInspecaoController = BehaviourSubject
+  final _dataHoraInicioInspecaoController = BehaviorSubject<DateTime>();
+
+  Stream<String> get outDataHoraInicioInspecaoController =>
+      _dataHoraInicioInspecaoController.stream.transform(validateDateTime);
+
+  final _dataHoraFimInspecaoController = BehaviorSubject<DateTime>();
+
+  Stream<String> get outDataHoraFimInspecaoController =>
+      _dataHoraFimInspecaoController.stream.transform(validateDateTime);
+
+  final _dataHoraInicioEstuDesoController = BehaviorSubject<DateTime>();
+
+  Stream<String> get outDataHoraInicioEstuDesoController =>
+      _dataHoraInicioEstuDesoController.stream.transform(validateDateTime);
+
+  final _dataHoraFimEstuDesoController = BehaviorSubject<DateTime>();
+
+  Stream<String> get outDataHoraFimEstuDesoController =>
+      _dataHoraFimEstuDesoController.stream.transform(validateDateTime);
 
   final _bookingController = BehaviorSubject<String>();
 
@@ -278,6 +299,21 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
 
   Sink<bool> get inAutoValidateInspEstuDesoResumoQtd =>
       _validateInspEstDesoResumoQtdController.sink;
+
+  //---------------------------------------------------------------------------------------
+  // ON CHANGE
+
+  Function(DateTime) get changeDataHoraInicioInspecao =>
+      _dataHoraInicioInspecaoController.sink.add;
+
+  Function(DateTime) get changeDataHoraFimInspecao =>
+      _dataHoraFimInspecaoController.sink.add;
+
+  Function(DateTime) get changeDataHoraInicioEstuDeso =>
+      _dataHoraInicioInspecaoController.sink.add;
+
+  Function(DateTime) get changeDataHoraFimEstuDeso =>
+      _dataHoraFimInspecaoController.sink.add;
 
   //---------------------------------------------------------------------------------------------------
   // CONTAINERS REGISTRADOS CONTROLLERS
@@ -403,10 +439,9 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
 
   Sink<String> get sinkNumeroDoCertificado => _numeroCertificadoController.sink;
 
-  Function(DateTime) get changeDataDeVerificacao =>
-      _dataVerificacaoController.sink.add;
+  Function(DateTime) get changeDataVerificacao => _dataVerificacaoController.sink.add;
 
-  Sink<DateTime> get sinkDataDeVerificacao => _dataVerificacaoController.sink;
+  Sink<DateTime> get sinkDataVerificacao => _dataVerificacaoController.sink;
 
   Function(String) get changeDescricaoEmbalagem =>
       _descricaoEmbalagemController.sink.add;
@@ -477,6 +512,7 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
 
   List<TimeLogs> get getListTimeLogs =>
       _listInicialTimeLogsController.stream.value;
+
 
   final _selecionarDataInicioController = BehaviorSubject<DateTime>();
 
@@ -766,39 +802,44 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
 
       formulario.container.forEach((form) {
         if (form.uuid == uuid) {
-          form.nomeFormulario = _bookingController.value;
           form.dadoscontainer.inspecao = _inspecaoController.value;
           form.dadoscontainer.estufagem = _estufagemController.value;
           form.dadoscontainer.desova = _desovaController.value;
+          if (form.dadoscontainer.inspecao){
+            /// DATA / HORA INICIO E FIM INSPECAO
+            form.dadoscontainer.dataHoraInicioInspecao = DateFormat('dd/MM/yyyy HH:mm:ss').format(_dataHoraInicioInspecaoController.value);
+            form.dadoscontainer.dataHoraFimInspecao = DateFormat('dd/MM/yyyy HH:mm:ss').format(_dataHoraFimInspecaoController.value);
+          }
+          if (form.dadoscontainer.estufagem || form.dadoscontainer.desova){
+            /// DATA / HORA INICIO E FIM ESTUFAGEM DESOVA
+          }
+          form.nomeFormulario = _bookingController.value;
           form.dadoscontainer.matricula = _matriculaController.value;
           form.dadoscontainer.ordemServico = _osController.value;
           form.dadoscontainer.clientePrincipal = _clientePrincipalController.value;
           form.dadoscontainer.localTerminal = _localTerminalController.value;
-          if (!form.dadoscontainer.inspecao && (form.dadoscontainer.estufagem || form.dadoscontainer.desova))
+          if (form.dadoscontainer.estufagem || form.dadoscontainer.desova)
           form.dadoscontainer.produto = blocProduto.valueProdutoInspEstuDesova;
           form.dadoscontainer.booking = _bookingController.value;
           form.dadoscontainer.navio = _navioController.value;
-          if (!form.dadoscontainer.inspecao && (form.dadoscontainer.estufagem || form.dadoscontainer.desova)) {
-            form.dadoscontainer.identificacaoEquipamento =
-                _identificacaoEquipamentoController.value;
+          if (form.dadoscontainer.estufagem || form.dadoscontainer.desova) {
+            form.dadoscontainer.identificacaoEquipamento = _identificacaoEquipamentoController.value;
             form.dadoscontainer.numeroCertificado =_numeroCertificadoController.value;
-            form.dadoscontainer.dataVerificacao = DateFormat('DD/MM/yy').format(_dataVerificacaoController.value);
+            form.dadoscontainer.dataVerificacao = DateFormat('dd/MM/yyyy').format(_dataVerificacaoController.value);
             form.dadoscontainer.descricaoEmbalagem = _descricaoEmbalagemController.value;
             form.dadoscontainer.planoAmostragem =_planosAmostragemController.value;
             form.dadoscontainer.identificacaoDosVolumes = _identificacaoDosVolumesController.value;
+            form.dadoscontainer.doubleCheck = _doubleCheckController.value == 1 ? true : false;
+            if(form.dadoscontainer.doubleCheck){
+              form.dadoscontainer.empresa = _empresaController.value;
+              form.dadoscontainer.lacreDasAmostras =
+              (_lacreDasAmostrasController.value != null &&
+                  _lacreDasAmostrasController.value.isNotEmpty)
+                  ? int.parse(_lacreDasAmostrasController.value)
+                  : 0;
+            }
           }
 
-          //form.dadoscontainer.doubleCheck = _doubleCheckController.value == 1 ? true : false;
-          /*
-          if(form.dadoscontainer.doubleCheck){
-            form.dadoscontainer.empresa = _empresaController.value;
-            form.dadoscontainer.lacreDasAmostras =
-            (_lacreDasAmostrasController.value != null &&
-                _lacreDasAmostrasController.value.isNotEmpty)
-                ? int.parse(_lacreDasAmostrasController.value)
-                : 0;
-          }
-          */
           form.dadoscontainer.resumo = _resumoController.value;
 
           if (form.dadoscontainer.containersRegistrados == null ||

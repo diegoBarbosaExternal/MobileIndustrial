@@ -360,6 +360,7 @@ class SugarBloc implements BlocBase {
     return dado;
   }
 
+
   getQuebraNota() {
     final blocQuebraNota =
         BlocProvider.tag('container').getBloc<ContainerBloc>();

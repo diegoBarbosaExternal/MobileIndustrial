@@ -1128,6 +1128,8 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                   SizedBox(
                     height: 20,
                   ),
+
+                  _chkEstufagem || _chkDesova ? (
                   Form(
                     key: blocContainer.keyFormControleQtd,
                     child: Card(
@@ -1582,6 +1584,12 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
       if (dados.desova == true) {
         blocContainer.sinkDesova.add(true);
         _chkDesova = true;
+      }
+      if (dados.dataHoraInicioInspecao != null){
+        String dataHoraInicioInspecao = DateFormat ('dd/MM/yyyy HH:mm:ss')
+          .format(DateTime.parse(dados.dataHoraInicioInspecao));
+        _dataHoraInicioInspecaoController.text = dataHoraInicioInspecao;
+        blocContainer.sinkDataHoraInicioInspecao.add(DateTime.parse(dados.dataHoraInicioInspecao));
       }
 
       if (dados.matricula != null) {

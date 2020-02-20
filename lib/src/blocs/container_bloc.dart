@@ -171,6 +171,9 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
   Stream<String> get outDataHoraInicioInspecaoController =>
       _dataHoraInicioInspecaoController.stream.transform(validateDateTime);
 
+  Sink<DateTime> get sinkDataHoraInicioInspecao => _dataHoraInicioInspecaoController.sink;
+
+
   final _dataHoraFimInspecaoController = BehaviorSubject<DateTime>();
 
   Stream<String> get outDataHoraFimInspecaoController =>

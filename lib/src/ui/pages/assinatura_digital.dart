@@ -147,7 +147,7 @@ class _AssinaturaDigitalPageState extends State<AssinaturaDigitalPage>
                                         }
                                       } else {
                                         if (validateInspEstuDeso() &&
-                                            /*validateTimeLogs() &&*/
+                                            validateTimeLogs() &&
                                             await validateSupervisaoPeso() &&
                                             validateQuebraNota()) {
                                           finalizarFormulario();

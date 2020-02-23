@@ -36,10 +36,9 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
 
   final _notaFiscalController = TextEditingController();
   final _placaController = TextEditingController();
-  final _totalDeSacasController = MoneyMaskedTextController(
-      decimalSeparator: '.', thousandSeparator: ',', precision: 3);
-  final _totalPorContainerController = MoneyMaskedTextController(
-      decimalSeparator: '.', thousandSeparator: ',', precision: 3);
+  final _totalDeSacasController = MoneyMaskedTextController(      decimalSeparator: '.', thousandSeparator: ',', precision: 3);
+  //final _totalDeSacasController = TextEditingController();
+  final _totalPorContainerController = MoneyMaskedTextController(      decimalSeparator: '.', thousandSeparator: ',', precision: 3);
   final _sobraController = TextEditingController();
   final _avariaController = TextEditingController();
   final _faltaCargaController = TextEditingController();
@@ -328,16 +327,16 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
                                 blocContainer.sinkTotalPorContainer.add(value);
                                 if (_totalDeSacasController.text == null ||
                                     _totalDeSacasController.text.isEmpty ||
-                                    _totalDeSacasController.text == "0.000" ||
+                                    _totalDeSacasController.text == "0000" ||
                                     _totalPorContainerController.text == null ||
                                     _totalPorContainerController.text.isEmpty) {
-                                  _sobraController.text = "0.000";
+                                  _sobraController.text = "0000";
                                 } else if (_totalDeSacasController.text != null &&
                                     _totalDeSacasController.text.isNotEmpty) {
                                   _sobraController.text = (
-                                      _totalPorContainerController.numberValue -
-                                          _totalDeSacasController.numberValue)
-                                      .toStringAsFixed(3);
+                                      _totalPorContainerController.numberValue/* -
+                                          _totalDeSacasController.numberValue*/)
+                                      .toStringAsFixed(3);//TODO TotalSacasController
                                   blocContainer.sinkSobra
                                       .add(_sobraController.text);
                                 }
@@ -361,10 +360,10 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
                                 blocContainer.sinkTotalDeSacas.add(value);
                                 if (_totalDeSacasController.text == null ||
                                     _totalDeSacasController.text.isEmpty ||
-                                    _totalDeSacasController.text == "0.000" ||
+                                    _totalDeSacasController.text == "0000" ||
                                     _totalPorContainerController.text == null ||
                                     _totalPorContainerController.text.isEmpty) {
-                                  _sobraController.text = "0.000";
+                                  _sobraController.text = "0000";
                                 } else if (_totalPorContainerController.text !=
                                     null &&
                                     _totalPorContainerController

@@ -1096,11 +1096,11 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
         ? int.parse(_lacreOutrosController.value)
         : 0;
 
-    inf.lote = _loteController.value;
-    inf.data = _dataLoteController.value.toString();
-    inf.controleDeQuantidade =
-        convertStringToInt(_listControleDeQuantidadeController.value);
-    inf.total = int.parse(totalControleQuant());
+    inf.lote = _loteController.value.toString();
+    //inf.data = _dataLoteController.value.toString();
+    //inf.controleDeQuantidade =
+    //    convertStringToInt(_listControleDeQuantidadeController.value);
+    //inf.total = int.parse(totalControleQuant());
 
     return inf;
   }

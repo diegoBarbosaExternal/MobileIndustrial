@@ -955,6 +955,8 @@ class LisContainerInspecaoEstufagemDesova {
                     ],
                   ),
                 ),
+                /// TODO RESUMO DE CONTAINERS EDITADO
+                /*
                 Container(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
@@ -987,6 +989,7 @@ class LisContainerInspecaoEstufagemDesova {
                     ],
                   ),
                 ),
+                */
                 IconButton(
                     icon: Icon(
                       Icons.delete_forever,

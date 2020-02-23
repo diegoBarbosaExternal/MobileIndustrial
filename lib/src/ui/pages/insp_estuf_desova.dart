@@ -800,7 +800,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                           builder: (context, snapshotForm) {
                             return Column(
                               children: <Widget>[
-                                _chkInspecao ? (
+                                //_chkInspecao ? (
                                 _tff.textFormField(
                                     _numeroContainerController,
                                     FlutterI18n.translate(context,
@@ -816,8 +816,8 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     typeText: TextInputType.text,
                                     stream: blocContainer.outNumeroDoContainer,
                                     onChanged:
-                                    blocContainer.changeNumeroDoContainer))
-                                : SizedBox(),
+                                    blocContainer.changeNumeroDoContainer),//)
+                                //: SizedBox(),
 
                                 _chkInspecao ? (
                                 _tff.textFormField(
@@ -1003,25 +1003,24 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                   child: Column(
                                     children: <Widget>[
                                       Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            child: _tff.textFormField(
-                                                _sgs7MetrosController,
-                                                FlutterI18n.translate(context,
-                                                    "containerInspecaoEstufagemDesova.sgs7Metros"),
-                                                FlutterI18n.translate(context,
-                                                    "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
-                                                false,
-                                                campoObrigatorio: false,
-                                                maxLength: 10,
-                                                maxLines: null,
-                                                isInputFormatters: true,
-                                                typeText: TextInputType.number,
-                                                stream: blocContainer
-                                                    .outLacreSgs7Metros,
-                                                onChanged: blocContainer
-                                                    .changeSGS7Metros),
-                                          ),
+                                        children: <Widget>[Expanded(
+                                          child: _tff.textFormField(
+                                              _agenciaController,
+                                              FlutterI18n.translate(context,
+                                                  "containerInspecaoEstufagemDesova.agencia"),
+                                              FlutterI18n.translate(context,
+                                                  "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
+                                              false,
+                                              campoObrigatorio: false,
+                                              maxLength: 10,
+                                              maxLines: null,
+                                              typeText: TextInputType.text,
+                                              stream:
+                                              blocContainer.outLacreAgencia,
+                                              onChanged:
+                                              blocContainer.changeAgencia),
+                                        ),
+
                                           Expanded(
                                             child: _tff.textFormField(
                                                 _sgsDefinitivoController,
@@ -1046,20 +1045,21 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                         children: <Widget>[
                                           Expanded(
                                             child: _tff.textFormField(
-                                                _agenciaController,
+                                                _sgs7MetrosController,
                                                 FlutterI18n.translate(context,
-                                                    "containerInspecaoEstufagemDesova.agencia"),
+                                                    "containerInspecaoEstufagemDesova.sgs7Metros"),
                                                 FlutterI18n.translate(context,
                                                     "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
                                                 false,
                                                 campoObrigatorio: false,
                                                 maxLength: 10,
                                                 maxLines: null,
-                                                typeText: TextInputType.text,
-                                                stream:
-                                                blocContainer.outLacreAgencia,
-                                                onChanged:
-                                                blocContainer.changeAgencia),
+                                                isInputFormatters: true,
+                                                typeText: TextInputType.number,
+                                                stream: blocContainer
+                                                    .outLacreSgs7Metros,
+                                                onChanged: blocContainer
+                                                    .changeSGS7Metros),
                                           ),
                                           Expanded(
                                             child: _tff.textFormField(
@@ -1223,60 +1223,11 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                         ],
                       ),
                     ),
-                  ),
-                  StreamBuilder<List<InformacaoContainer>>(// TODO #01- Resumo exibido somente ao finalizar
-                    stream: blocContainer.outListInicialInspecaoEstufagemDesova,
-                    builder: (context, snapshot) {
-                      int valor;
-                      snapshot.data == null
-                          ? valor = 0
-                          : valor = snapshot.data.length;
-                      return (valor <= 0)
-                          ? SizedBox(
-                        height: 10,
-                      )
-                          : Padding(
-                          padding: EdgeInsets.only(left: 5, right: 5),
-                          child: clv.containerListView(
-                            context: context,
-                            tituloContainer: FlutterI18n.translate(context,
-                                "containerInspecaoEstufagemDesova.listaTelaInspecaoEstufagemDesovaTitulo"),
-                            child: StreamBuilder<List<InformacaoContainer>>(
-                              stream: blocContainer
-                                  .outListInicialInspecaoEstufagemDesova,
-                              builder: (context, snapshot) {
-                                switch (snapshot.connectionState) {
-                                  case ConnectionState.waiting:
-                                  case ConnectionState.none:
-                                    return SizedBox();
-                                  case ConnectionState.active:
-                                    if (snapshot.data == null ||
-                                        snapshot.data.isEmpty) {
-                                      return SizedBox();
-                                    } else {
-                                      return lcied
-                                          .lisContainerInspecaoEstufagemDesova(
-                                          contextPageInspEstuDeso:
-                                          context,
-                                          listInformacaoContainer:
-                                          snapshot.data);
-                                    }
-                                    break;
-                                  default:
-                                    return Row(
-                                      children: <Widget>[
-                                        Text(FlutterI18n.translate(context,
-                                            "msgValidacoesTelaInspecaoEstufagemDesova.msgErroBuscarInspecaoEstufagemDesova")),
-                                        Text("${snapshot.error}")
-                                      ],
-                                    );
-                                }
-                              },
-                            ),
-                          ));
-                    },
-                  ),
-                  */
+                  ))
+                  : SizedBox(),
+
+/// TODO lista de resumo aqui - 23/02
+
 
                   Form(
                     key: blocContainer.keyFormInspEstufDesovaResumo,
@@ -1312,6 +1263,60 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
               ))
                   : SizedBox(),
 
+              StreamBuilder<List<InformacaoContainer>>(//TODO Resumo somente para inspeção -- NÃO UTILIZADO--
+                stream: blocContainer.outListInicialInspecaoEstufagemDesova,
+                builder: (context, snapshot) {
+                  int valor;
+                  snapshot.data == null
+                      ? valor = 0
+                      : valor = snapshot.data.length;
+                  return (valor <= 0)
+                      ? SizedBox(
+                    height: 10,
+                  )
+                      : Padding(
+                      padding: EdgeInsets.only(left: 5, right: 5),
+                      child: clv.containerListView(
+                        context: context,
+                        tituloContainer: FlutterI18n.translate(context,
+                            "containerInspecaoEstufagemDesova.listaTelaInspecaoEstufagemDesovaTitulo"),
+                        child: StreamBuilder<List<InformacaoContainer>>(
+                          stream: blocContainer
+                              .outListInicialInspecaoEstufagemDesova,
+                          builder: (context, snapshot) {
+                            switch (snapshot.connectionState) {
+                              case ConnectionState.waiting:
+                              case ConnectionState.none:
+                                return SizedBox();
+                              case ConnectionState.active:
+                                if (snapshot.data == null ||
+                                    snapshot.data.isEmpty) {
+                                  return SizedBox();
+                                } else {
+                                  return lcied
+                                      .lisContainerInspecaoEstufagemDesova(
+                                      contextPageInspEstuDeso:
+                                      context,
+                                      listInformacaoContainer:
+                                      snapshot.data);
+                                }
+                                break;
+                              default:
+                                return Row(
+                                  children: <Widget>[
+                                    Text(FlutterI18n.translate(context,
+                                        "msgValidacoesTelaInspecaoEstufagemDesova.msgErroBuscarInspecaoEstufagemDesova")),
+                                    Text("${snapshot.error}")
+                                  ],
+                                );
+                            }
+                          },
+                        ),
+                      ));
+                },
+              ),
+
+
             ],
 
           ),
@@ -1321,7 +1326,9 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
           backgroundColor: Color.fromARGB(255, 243, 112, 33),
           onPressed: () async {
             FocusScope.of(context).requestFocus(FocusNode());
-            if (validateInspEstufDeso() && !existeDuplicidade) {
+            if (validateInspEstufDeso()
+                //&& !existeDuplicidade
+            ) {
               final blocSugar =
               BlocProvider.tag('sugarGlobal').getBloc<SugarBloc>();
 
@@ -1575,22 +1582,22 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
     if (dados != null) {
       if (dados.inspecao == true) {
         blocContainer.sinkInspecao.add(true);
-        _chkInspecao = true;
+        //_chkInspecao = true;
       }
       if (dados.estufagem == true) {
         blocContainer.sinkEstufagem.add(true);
-        _chkEstufagem = true;
+        //_chkEstufagem = true;
       }
       if (dados.desova == true) {
         blocContainer.sinkDesova.add(true);
-        _chkDesova = true;
-      }
+        //_chkDesova = true;
+      }/*
       if (dados.dataHoraInicioInspecao != null){
         String dataHoraInicioInspecao = DateFormat ('dd/MM/yyyy HH:mm:ss')
           .format(DateTime.parse(dados.dataHoraInicioInspecao));
         _dataHoraInicioInspecaoController.text = dataHoraInicioInspecao;
         blocContainer.sinkDataHoraInicioInspecao.add(DateTime.parse(dados.dataHoraInicioInspecao));
-      }
+      }*/
 
       if (dados.matricula != null) {
         _matriculaController.text = dados.matricula;
@@ -1649,8 +1656,6 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
         //blocContainer.sinkDataDeVerificacao
         //    .add(DateTime.parse('19'+mesAno[1]+'-'+mesAno[0]+'-01'));
       }
-
-
 
       if (dados.descricaoEmbalagem != null) {
         _descricaoEmbalagemController.text = dados.descricaoEmbalagem;
@@ -1764,7 +1769,7 @@ class _AddValorState extends State<AddValor> {
                       "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
                   false,
                   campoObrigatorio: true,
-                  maxLength: 3,
+                  maxLength: 4,
                   maxLines: null,
                   typeText: TextInputType.number,
                   isInputFormatters: true),

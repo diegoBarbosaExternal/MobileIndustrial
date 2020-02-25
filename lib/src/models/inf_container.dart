@@ -24,9 +24,7 @@ class InformacaoContainer {
   List<int> controleDeQuantidade;
   int total;
 
-
   InformacaoContainer.padrao();
-
 
   InformacaoContainer(
       this.numeroContainer,

@@ -1496,18 +1496,14 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
     blocContainer.inAutoValidateInspEstuDesoInfoContainer.add(true);
     blocContainer.inAutoValidateInspEstuDesoResumoQtd.add(true);
 
-
     bool tipo = blocContainer.validateTipoInspDeso();
 
-    /// Confere se algum tipo foi selecionado
     blocContainer.validateSinkTipoInspEstuDeso();
-
-    /// Redundância??
 
     //if (_chkEstufagem || _chkDesova) {///===ABRE VALID===
       bool controleQuant = blocContainer.validateControleDeQuantidade();
 
-      /// ==ED== Existe controle de quantidade. Retorna false caso correto
+
       if (controleQuant) {
         blocContainer.sinkValidateControleDeQuantidade.add(true);
       }
@@ -1515,7 +1511,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
       int contContainer = 0;
       blocNumeroDoContainer.valueListNumeroDosContainers
           .forEach((valueContainer) {
-        /// ==ED== Valida contagem de containers. Retorna int > 1 caso correto
+
         if (_numeroContainerController.text == valueContainer) {
           existeDuplicidade = true;
         } else {
@@ -1525,24 +1521,22 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
 
       if (contContainer ==
           blocNumeroDoContainer.valueListNumeroDosContainers.length) {
-        /// ==ED== Valida duplicidade de containers. Retorna false caso correto
+
         existeDuplicidade = false;
       }
 
-
-      /// Retorna true caso correto
       if (blocContainer.keyFormInspEstufInformacaoCon.currentState.validate() &&
-          blocContainer.keyFormControleQtd.currentState.validate() &&
+          //blocContainer.keyFormControleQtd.currentState.validate() &&
           !tipo &&
-          !controleQuant &&
+          //!controleQuant &&
           blocContainer.keyFormInspEstufDesovaResumo.currentState.validate() &&
-          blocContainer.keyFormInspEstufDesova.currentState.validate() &&
-          blocContainer.keyComboProdutoInspEstuDesova.currentState.validate()) {
+          blocContainer.keyFormInspEstufDesova.currentState.validate()
+         ) {
         return true;
       } else {
         return false;
       }
-     /// ===FECHA VALID===
+
   }
 
   bool validateInspEstuDesoResumido() {

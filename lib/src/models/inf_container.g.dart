@@ -23,15 +23,23 @@ InformacaoContainer _$InformacaoContainerFromJson(Map<String, dynamic> json) {
     json['data'] as String,
     (json['controleDeQuantidade'] as List)?.map((e) => e as int)?.toList(),
     json['total'] as int,
-  );
+  )
+    ..inspecao = json['inspecao'] as bool
+    ..estufagem = json['estufagem'] as bool
+    ..desova = json['desova'] as bool
+    ..produto = json['produto'] as String;
 }
 
 Map<String, dynamic> _$InformacaoContainerToJson(
         InformacaoContainer instance) =>
     <String, dynamic>{
+      'inspecao': instance.inspecao,
+      'estufagem': instance.estufagem,
+      'desova': instance.desova,
       'numeroContainer': instance.numeroContainer,
       'tara': instance.tara,
       'capacidade': instance.capacidade,
+      'produto': instance.produto,
       'dataFabricacao': instance.dataFabricacao,
       'condicao': instance.condicao,
       'razaoRejeicao': instance.razaoRejeicao,

@@ -1061,6 +1061,10 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
   InformacaoContainer adicionarInformacoesContainer() {
     InformacaoContainer inf = InformacaoContainer.padrao();
 
+    inf.inspecao = (_inspecaoController.value == true) ? true : false;
+    inf.estufagem = (_estufagemController.value == true) ? true : false;
+    inf.desova = (_desovaController.value == true) ? true : false;
+
     inf.numeroContainer = _numeroDoContainerController.value;
 
     inf.tara =
@@ -1097,10 +1101,13 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
         : 0;
 
     inf.lote = _loteController.value.toString();
+
     //inf.data = _dataLoteController.value.toString();
-    //inf.controleDeQuantidade =
-    //    convertStringToInt(_listControleDeQuantidadeController.value);
-    //inf.total = int.parse(totalControleQuant());
+    if (inf.estufagem || inf.desova) {
+      inf.controleDeQuantidade =
+          convertStringToInt(_listControleDeQuantidadeController.value);
+      inf.total = int.parse(totalControleQuant());
+    }
 
     return inf;
   }

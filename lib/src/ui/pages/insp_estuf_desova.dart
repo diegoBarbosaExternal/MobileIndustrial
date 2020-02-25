@@ -800,7 +800,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                           builder: (context, snapshotForm) {
                             return Column(
                               children: <Widget>[
-                                //_chkInspecao ? (
+                                _chkInspecao ? (
                                 _tff.textFormField(
                                     _numeroContainerController,
                                     FlutterI18n.translate(context,
@@ -816,8 +816,8 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     typeText: TextInputType.text,
                                     stream: blocContainer.outNumeroDoContainer,
                                     onChanged:
-                                    blocContainer.changeNumeroDoContainer),//)
-                                //: SizedBox(),
+                                    blocContainer.changeNumeroDoContainer))
+                                : SizedBox(),
 
                                 _chkInspecao ? (
                                 _tff.textFormField(
@@ -1263,7 +1263,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
               ))
                   : SizedBox(),
 
-              StreamBuilder<List<InformacaoContainer>>(//TODO Resumo somente para inspeção -- NÃO UTILIZADO--
+              StreamBuilder<List<InformacaoContainer>>(//TODO Resumo somente para inspeção
                 stream: blocContainer.outListInicialInspecaoEstufagemDesova,
                 builder: (context, snapshot) {
                   int valor;
@@ -1327,7 +1327,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
           onPressed: () async {
             FocusScope.of(context).requestFocus(FocusNode());
             if (validateInspEstufDeso()
-                //&& !existeDuplicidade
+                && !existeDuplicidade
             ) {
               final blocSugar =
               BlocProvider.tag('sugarGlobal').getBloc<SugarBloc>();
@@ -1336,7 +1336,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                   .salvarInspecaoEstufagemDesova(blocSugar.valueUUIDFormAtual);
 
               if (sucesso) {
-                //limparInspEstufDesov();
+                limparInspEstufDesov();
                 blocContainer.inAutoValidateInspEstuDesoInfoContainer.add(false);
                 Scaffold.of(context).showSnackBar(SnackBar(
                   content: Text(
@@ -1694,7 +1694,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
       }
     }
   }
-/*
+
   limparInspEstufDesov() {
     _numeroContainerController.text = "";
     _taraController.text = "0.000";
@@ -1713,7 +1713,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
     blocContainer.listAuxControleDeQuantidade.clear();
 
   }
-  */
+
 
   @override
   // TODO: implement wantKeepAlive

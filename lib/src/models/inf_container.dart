@@ -4,9 +4,13 @@ part 'inf_container.g.dart';
 
 @JsonSerializable()
 class InformacaoContainer {
+  bool inspecao;
+  bool estufagem;
+  bool desova;
   String numeroContainer;
   double tara;
   int capacidade;
+  String produto;
   String dataFabricacao;
   bool condicao;
   String razaoRejeicao;

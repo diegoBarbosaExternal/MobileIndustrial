@@ -803,11 +803,14 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
       final blocProduto =
           BlocProvider.tag('sugarGlobal').getBloc<ProdutoBloc>();
 
+
       formulario.container.forEach((form) {
         if (form.uuid == uuid) {
           form.dadoscontainer.inspecao = _inspecaoController.value;
+
           form.dadoscontainer.estufagem = _estufagemController.value;
           form.dadoscontainer.desova = _desovaController.value;
+
           if (form.dadoscontainer.inspecao){
             /// DATA / HORA INICIO E FIM INSPECAO
             form.dadoscontainer.dataHoraInicioInspecao = DateFormat('dd/MM/yyyy HH:mm:ss').format(_dataHoraInicioInspecaoController.value);
@@ -850,17 +853,18 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
             form.dadoscontainer.containersRegistrados = [
               adicionarInformacoesContainer()
             ];
-          } else {
-            form.dadoscontainer.containersRegistrados
-                .add(adicionarInformacoesContainer());
           }
+//          } else {
+//            form.dadoscontainer.containersRegistrados
+//                .add(adicionarInformacoesContainer());
+//          }
         }
       });
 
       sugarBloc.salvarFormularioSugar(formularioSugar: formulario);
       sugarBloc.sinkFormularioInicial.add(formulario);
       formulario.container.forEach((dadosContainer) {
-        if (dadosContainer.uuid == uuid) {
+        if (dadosContainer.uuid == uuid && _inspecaoController.value == true) {
           sinkListInicialInspecaoEstufagemDesova
               .add(dadosContainer.dadoscontainer.containersRegistrados);
         }
@@ -884,16 +888,19 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
       if (form.uuid == uuid &&
           form.dadoscontainer.containersRegistrados != null) {
         form.dadoscontainer.containersRegistrados.forEach((container) {
+          //if (container)
           blocNumeroDoContainer
               .getListNumeroDoContainer(container.numeroContainer);
+
+
         });
       }
       formulario.container.forEach((dados) {
         if (dados.uuid == uuid &&
             dados.dadoscontainer.quebraNotasFiscais != null) {
           dados.dadoscontainer.quebraNotasFiscais.forEach((quebraNota) {
-//            blocNumeroDoContainer.listValueContainer.removeWhere(
-//                    (valueNumero) => valueNumero == quebraNota.container);
+            blocNumeroDoContainer.listValueContainer.removeWhere(
+                    (valueNumero) => valueNumero == quebraNota.container);
 
             blocNumeroDoContainer.sinkListNumeroDosContainers
                 .add(blocNumeroDoContainer.listValueContainer);
@@ -1061,11 +1068,13 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
   InformacaoContainer adicionarInformacoesContainer() {
     InformacaoContainer inf = InformacaoContainer.padrao();
 
-    inf.inspecao = (_inspecaoController.value == true) ? true : false;
+    inf.inspecao = (_inspecaoController.value == true) ? true: false;
     inf.estufagem = (_estufagemController.value == true) ? true : false;
     inf.desova = (_desovaController.value == true) ? true : false;
 
-    inf.numeroContainer = _numeroDoContainerController.value;
+    inf.inspecao == true ? inf.numeroContainer = _numeroDoContainerController.value : " ";
+
+    //inf.numeroContainer = _numeroDoContainerController.value;
 
     inf.tara =
         (_taraController.value != null && _taraController.value.isNotEmpty)

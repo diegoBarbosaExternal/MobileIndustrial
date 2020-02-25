@@ -50,6 +50,8 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
     blocSugar.getQuebraNota();
     blocContainer.carregarNumeroContainer(uuid: blocSugar.valueUUIDFormAtual);
 
+
+
     super.initState();
   }
 
@@ -85,8 +87,9 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
                               key: blocContainer.keyComboNumeroContainer,
                               child: StreamBuilder<List<String>>(
                                   initialData: [],
-                                  stream: blocNumeroDoContainer
-                                      .outListNumeroDosContainers,
+                                  stream:
+                                  blocNumeroDoContainer
+                                      .outListNumeroDosContainersDistinct,
                                   builder: (context, snapshot) {
                                     return DropDownFormField.dropDownSugar(
                                       hint: FlutterI18n.translate(context,

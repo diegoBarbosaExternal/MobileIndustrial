@@ -13,11 +13,16 @@ class DropDowBlocNumeroDoContainer implements BlocBase {
   Stream<List<String>> get outListNumeroDosContainers =>
       _listNumeroDosContainers.stream;
 
+  Stream<List<String>> get outListNumeroDosContainersDistinct =>
+      _listNumeroDosContainers.stream.distinctUnique();
+
   Sink<List<String>> get sinkListNumeroDosContainers =>
       _listNumeroDosContainers.sink;
 
   List<String> get valueListNumeroDosContainers =>
       _listNumeroDosContainers.stream.value;
+
+
 
   List<String> get listValueContainer => _listNumeroDosContainers.stream.value;
 

@@ -36,9 +36,8 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
 
   final _notaFiscalController = TextEditingController();
   final _placaController = TextEditingController();
-  final _totalDeSacasController = MoneyMaskedTextController(      decimalSeparator: '.', thousandSeparator: ',', precision: 3);
-  //final _totalDeSacasController = TextEditingController();
-  final _totalPorContainerController = MoneyMaskedTextController(      decimalSeparator: '.', thousandSeparator: ',', precision: 3);
+  final _totalDeSacasController = MoneyMaskedTextController(      decimalSeparator: '', thousandSeparator: '', precision: 0);
+  final _totalPorContainerController = MoneyMaskedTextController(      decimalSeparator: '', thousandSeparator: '', precision: 0);
   final _sobraController = TextEditingController();
   final _avariaController = TextEditingController();
   final _faltaCargaController = TextEditingController();
@@ -222,8 +221,8 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
                                                 .map((Usina usina) {
                                               return DropdownMenuItem<Usina>(
                                                 value: usina,
-                                                child: Text(
-                                                  usina.usina,
+                                                child: Text("${usina.idUsina} - ${usina.usina}",
+                                                  //usina.usina,
                                                   style: TextStyle(fontSize: 10),
                                                 ),
                                               );
@@ -313,38 +312,7 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
                                     }
                                   }),
                             ),
-                            _tff.textFormField(
-                              _totalPorContainerController,
-                              FlutterI18n.translate(context,
-                                  "containerQuebraNota.totalPorContainer"),
-                              FlutterI18n.translate(context,
-                                  "containerQuebraNota.msgCampoObrigatorio"),
-                              false,
-                              verificarValidate: true,
-                              autoValidate: snapshotForm.data,
-                              campoObrigatorio: true,
-                              maxLength: 10,
-                              typeText: TextInputType.number,
-                              stream: blocContainer.outTotalPorContainer,
-                              onChanged: (value) {
-                                blocContainer.sinkTotalPorContainer.add(value);
-                                if (_totalDeSacasController.text == null ||
-                                    _totalDeSacasController.text.isEmpty ||
-                                    _totalDeSacasController.text == "0000" ||
-                                    _totalPorContainerController.text == null ||
-                                    _totalPorContainerController.text.isEmpty) {
-                                  _sobraController.text = "0000";
-                                } else if (_totalDeSacasController.text != null &&
-                                    _totalDeSacasController.text.isNotEmpty) {
-                                  _sobraController.text = (
-                                      _totalPorContainerController.numberValue/* -
-                                          _totalDeSacasController.numberValue*/)
-                                      .toStringAsFixed(3);//TODO TotalSacasController
-                                  blocContainer.sinkSobra
-                                      .add(_sobraController.text);
-                                }
-                              },
-                            ),
+
                             _tff.textFormField(
                               _totalDeSacasController,
                               FlutterI18n.translate(
@@ -371,16 +339,50 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
                                     null &&
                                     _totalPorContainerController
                                         .text.isNotEmpty) {
-                                  _sobraController.text = (
-                                      _totalPorContainerController.numberValue -
-                                          _totalDeSacasController.numberValue)
-                                      .toStringAsFixed(3);
+                                  _sobraController.text = (calculaSobra().toString());
+                                      //_totalPorContainerController.numberValue -
+                                      //    _totalDeSacasController.numberValue)
+                                      //.toStringAsFixed(3);
 
                                   blocContainer.sinkSobra
                                       .add(_sobraController.text);
                                 }
                               },
                             ),
+
+                            _tff.textFormField(
+                              _totalPorContainerController,
+                              FlutterI18n.translate(context,
+                                  "containerQuebraNota.totalPorContainer"),
+                              FlutterI18n.translate(context,
+                                  "containerQuebraNota.msgCampoObrigatorio"),
+                              false,
+                              verificarValidate: true,
+                              autoValidate: snapshotForm.data,
+                              campoObrigatorio: true,
+                              maxLength: 10,
+                              typeText: TextInputType.number,
+                              stream: blocContainer.outTotalPorContainer,
+                              onChanged: (value) {
+                                blocContainer.sinkTotalPorContainer.add(value);
+                                if (_totalDeSacasController.text == null ||
+                                    _totalDeSacasController.text.isEmpty ||
+                                    _totalDeSacasController.text == "0000" ||
+                                    _totalPorContainerController.text == null ||
+                                    _totalPorContainerController.text.isEmpty) {
+                                  _sobraController.text = "0000";
+                                } else if (_totalDeSacasController.text != null &&
+                                  _totalDeSacasController.text.isNotEmpty) {
+                                  _sobraController.text = (calculaSobra().toString());
+                                      //_totalPorContainerController.numberValue -
+                                      //_totalDeSacasController.numberValue)
+                                      //.toStringAsFixed(3);
+                                  blocContainer.sinkSobra
+                                      .add(_sobraController.text);
+                                }
+                              },
+                            ),
+
                             _tff.textFormField(
                               _sobraController,
                               FlutterI18n.translate(
@@ -390,8 +392,8 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
                               false,
                               autoValidate: snapshotForm.data,
                               //stsEnabled: false,
-                              verificarValidate: true,
-                              campoObrigatorio: true,
+                              verificarValidate: false,
+                              campoObrigatorio: false,
                               typeText: TextInputType.number,
                               stream: blocContainer.outSobra,
                             ),
@@ -402,12 +404,29 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
                               FlutterI18n.translate(context,
                                   "containerQuebraNota.msgCampoObrigatorio"),
                               false,
-                              campoObrigatorio: false,
+                              campoObrigatorio: true,
                               maxLines: null,
                               isInputFormatters: true,
                               typeText: TextInputType.number,
                               stream: blocContainer.outAvaria,
-                              onChanged: blocContainer.changeAvaria,
+                              onChanged: (value){
+                                blocContainer.changeAvaria;
+                                if (_totalDeSacasController.text == null ||
+                                    _totalDeSacasController.text.isEmpty ||
+                                    _totalDeSacasController.text == "0000" ||
+                                    _totalPorContainerController.text == null ||
+                                    _totalPorContainerController.text.isEmpty) {
+                                  _sobraController.text = "0000";
+                                } else if (_totalDeSacasController.text != null &&
+                                  _totalDeSacasController.text.isNotEmpty) {
+                                  _sobraController.text = (calculaSobra().toString());
+                                      //_totalPorContainerController.numberValue -
+                                      //_totalDeSacasController.numberValue)
+                                      //.toStringAsFixed(3);
+                                  blocContainer.sinkSobra
+                                      .add(_sobraController.text);
+                                }
+                              },
                             ),
                             _tff.textFormField(
                               _faltaCargaController,
@@ -416,11 +435,28 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
                               FlutterI18n.translate(context,
                                   "containerQuebraNota.msgCampoObrigatorio"),
                               false,
-                              campoObrigatorio: false,
+                              campoObrigatorio: true,
                               isInputFormatters: true,
                               typeText: TextInputType.number,
                               stream: blocContainer.outFaltaCarga,
-                              onChanged: blocContainer.changeFaltaCarga,
+                              onChanged: (value){
+                                blocContainer.changeFaltaCarga;
+                                if (_totalDeSacasController.text == null ||
+                                    _totalDeSacasController.text.isEmpty ||
+                                    _totalDeSacasController.text == "0000" ||
+                                    _totalPorContainerController.text == null ||
+                                    _totalPorContainerController.text.isEmpty) {
+                                  _sobraController.text = "0000";
+                                } else if (_totalDeSacasController.text != null &&
+                                  _totalDeSacasController.text.isNotEmpty) {
+                                  _sobraController.text = (calculaSobra().toString());
+                                      //_totalPorContainerController.numberValue -
+                                      //_totalDeSacasController.numberValue)
+                                      //.toStringAsFixed(3);
+                                  blocContainer.sinkSobra
+                                      .add(_sobraController.text);
+                                }
+                              },
                             ),
                             _tff.textFormField(
                               _observacaoController,
@@ -558,6 +594,19 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
     );
   }
 
+  int calculaSobra(){
+
+    var totalSacas = int.parse(_totalDeSacasController.text);
+    var totalContainer = int.parse(_totalPorContainerController.text);
+    var avaria = int.parse(_avariaController.text == "" ? "0" : _avariaController.text);
+    var faltaCarga = int.parse(_faltaCargaController.text == "" ? "0" : _faltaCargaController.text);
+
+    var sobra = totalSacas - totalContainer - avaria - faltaCarga;
+
+    return sobra;
+
+  }
+
   limparQuebraDeNota() {
     blocUsina.valueQuebraNota = null;
     blocNumeroDoContainer.valueNumeroContainer = null;
@@ -570,9 +619,9 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
     _notaFiscalController.text = "";
     _placaController.text = "";
     blocTipoAcucar.valueTipoAcucarQuebraDeNota = null;
-    _totalPorContainerController.text = "0.000";
-    _totalDeSacasController.text = "0.000";
-    _sobraController.text = "0.000";
+    _totalPorContainerController.text = "0000";
+    _totalDeSacasController.text = "0000";
+    _sobraController.text = "000";
     _avariaController.text = "";
     _faltaCargaController.text = "";
     _observacaoController.text = "";

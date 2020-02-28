@@ -342,6 +342,8 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
   Stream<String> get outDataFabricacao =>
       _dataFabricacaoController.stream.transform(validateDateTime);
 
+  Sink<DateTime> get sinkDataFabricacao => _dataFabricacaoController.sink;
+
   final _condicaoController = BehaviorSubject<int>();
 
   Stream<int> get outCondicao => _condicaoController.stream;
@@ -853,11 +855,11 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
             form.dadoscontainer.containersRegistrados = [
               adicionarInformacoesContainer()
             ];
+
+          } else if (_inspecaoController.value == true) {
+            form.dadoscontainer.containersRegistrados
+                .add(adicionarInformacoesContainer());
           }
-//          } else {
-//            form.dadoscontainer.containersRegistrados
-//                .add(adicionarInformacoesContainer());
-//          }
         }
       });
 

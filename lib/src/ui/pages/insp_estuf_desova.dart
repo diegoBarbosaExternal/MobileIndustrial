@@ -374,13 +374,13 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     FlutterI18n.translate(context,
                                         "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
                                     false,
-                                    campoObrigatorio: true,
+                                    campoObrigatorio: false,
                                     maxLength: 20,
                                     maxLines: null,
                                     isInputFormatters: true,
                                     typeText: TextInputType.number,
                                     autoValidate: snapshotForm.data,
-                                    verificarValidate: true,
+                                    verificarValidate: false,
                                     stream: blocContainer.outOrdemDeServico,
                                     onChanged:
                                     blocContainer.changeOrdemDeServico),
@@ -516,7 +516,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     false,
                                     verificarValidate: false,
                                     autoValidate: snapshotForm.data,
-                                    campoObrigatorio: true,
+                                    campoObrigatorio: false,
                                     maxLength: 150,
                                     maxLines: null,
                                     typeText: TextInputType.multiline,
@@ -536,7 +536,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     false,
                                     verificarValidate: false,
                                     autoValidate: snapshotForm.data,
-                                    campoObrigatorio: true,
+                                    campoObrigatorio: false,
                                     maxLength: 15,
                                     maxLines: null,
                                     typeText: TextInputType.text,
@@ -553,7 +553,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                       FlutterI18n.translate(context,
                                       "containerInspecaoEstufagemDesova.dataVerificacao"),
                                       controller: _dataVerificacaoController,
-                                      campoObrigatorio: true,
+                                      campoObrigatorio: false,
                                       stream: blocContainer.outDataVerificacao,
                                       autoValidate: snapshotForm.data,
                                       onChanged: blocContainer.changeDataVerificacao,
@@ -580,7 +580,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                       DateTime dateMesAno;
                                       dateMesAno = await date.mesAno(context, selectedDate, initialDate);
                                       if(dateMesAno != null){
-                                        _dataVerificacao.text = DateFormat('dd/MM/yy').format(dateMesAno);
+                                        _dataVerificacao.text = DateFormat('MM/yy').format(dateMesAno);
                                         blocContainer.sinkDataDeVerificacao.add(dateMesAno);
                                       }
                                       _focusNodeDataVerificacao.unfocus();
@@ -598,7 +598,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     false,
                                     verificarValidate: false,
                                     autoValidate: snapshotForm.data,
-                                    campoObrigatorio: true,
+                                    campoObrigatorio: false,
                                     maxLength: 300,
                                     maxLines: null,
                                     typeText: TextInputType.multiline,
@@ -617,7 +617,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     false,
                                     verificarValidate: false,
                                     autoValidate: snapshotForm.data,
-                                    campoObrigatorio: true,
+                                    campoObrigatorio: false,
                                     maxLength: 15,
                                     maxLines: null,
                                     stream: blocContainer.outPlanosAmostragem,
@@ -860,7 +860,39 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                 : SizedBox(),
 
                                 _chkInspecao ? (
-                                BotaoData(
+
+                                _tff.textFormField(
+                                  _dataFabricacao,
+                                  FlutterI18n.translate(context,
+                                    "containerInspecaoEstufagemDesova.dataFabricacao"),
+                                  FlutterI18n.translate(context,
+                                    "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
+                                    false,
+                                  campoObrigatorio: true,
+                                  verificarValidate: false,
+                                  autoValidate: snapshotForm.data,
+                                  stream: blocContainer.outDataFabricacao,
+                                  isInputFormatters: false,
+                                  //typeText: TextInputType.text,
+                                  onChanged: blocContainer.changeDataDeFabricacao,
+
+                                  //disableFocusNode: _focusNodeDataVerificacao,
+
+                                  onTap: () async {
+                                      MesAno date = MesAno();
+                                      DateTime dateMesAno;
+                                      dateMesAno = await date.mesAno(context, selectedDate, initialDate);
+                                      if(dateMesAno != null){
+                                          _dataVerificacao.text = DateFormat('MM/yyyy').format(dateMesAno);
+                                          blocContainer.sinkDataFabricacao.add(dateMesAno);
+                                      }
+                                      _focusNodeDataVerificacao.unfocus();
+                                  }
+                            )
+                            /*
+
+
+                                BotaoDataMes(
                                   FlutterI18n.translate(context,
                                       "containerInspecaoEstufagemDesova.dataFabricacao"),
                                   controller: _dataFabricacao,
@@ -871,6 +903,9 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                   msgErroValidate: FlutterI18n.translate(context,
                                       "containerInspecaoEstufagemDesova.msgDataFabricacao"),
                                 ))
+
+                                 */
+                                )
                                 : SizedBox(),
 
 
@@ -1011,7 +1046,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                               FlutterI18n.translate(context,
                                                   "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
                                               false,
-                                              campoObrigatorio: false,
+                                              campoObrigatorio: true,
                                               maxLength: 10,
                                               maxLines: null,
                                               typeText: TextInputType.text,
@@ -1029,7 +1064,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                                 FlutterI18n.translate(context,
                                                     "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
                                                 false,
-                                                campoObrigatorio: false,
+                                                campoObrigatorio: true,
                                                 maxLength: 10,
                                                 maxLines: null,
                                                 typeText: TextInputType.number,
@@ -1092,9 +1127,9 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     FlutterI18n.translate(context,
                                         "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
                                     false,
-                                    verificarValidate: true,
+                                    verificarValidate: false,
                                     autoValidate: snapshotForm.data,
-                                    campoObrigatorio: true,
+                                    campoObrigatorio: false,
                                     maxLength: 15,
                                     maxLines: null,
                                     typeText: TextInputType.text,
@@ -1108,9 +1143,9 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     FlutterI18n.translate(context,
                                         "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
                                     false,
-                                    verificarValidate: true,
+                                    verificarValidate: false,
                                     autoValidate: snapshotForm.data,
-                                    campoObrigatorio: true,
+                                    campoObrigatorio: false,
                                     maxLength: 15,
                                     maxLines: null,
                                     typeText: TextInputType.text,

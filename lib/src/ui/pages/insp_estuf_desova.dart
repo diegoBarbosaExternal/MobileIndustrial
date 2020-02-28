@@ -75,6 +75,8 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
   final _dataFabricacao = TextEditingController();
   final _dataLote = TextEditingController();
 
+
+
   int _doubleCheck = 2;
   int _condicao = 1;
 
@@ -85,11 +87,14 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
   bool _chkInspecao = false;
   bool _chkEstufagem = false;
   bool _chkDesova = false;
+  bool existeContainer = false;
 
   AlwaysDisabledFocusNode _focusNodeDataVerificacao;
+  AlwaysDisabledFocusNode _focusNodeDataFabricacao;
 
   @override
   void initState() {
+
     blocContainer.carregarNumeroContainer(uuid: blocSugar.valueUUIDFormAtual);
     _focusNodeDataVerificacao = AlwaysDisabledFocusNode();
     carregarCampos();
@@ -146,7 +151,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                             elevation: 5,
                             child: Row(
                               mainAxisAlignment:
-                              MainAxisAlignment.spaceAround,
+                              MainAxisAlignment.center,
                               children: <Widget>[
 
                                 Padding(
@@ -171,6 +176,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     fontSize:
                                     maxValue(size.width * 0.03, 16)),
 
+                                existeContainer == true ? (
                                 _checkBox.checkBox(
                                     FlutterI18n.translate(context,
                                         "containerInspecaoEstufagemDesova.checkBoxEstufagem"),
@@ -186,7 +192,11 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     },
                                     stream: blocContainer.outEstufagem,
                                     fontSize:
-                                    maxValue(size.width * 0.03, 16)),
+                                    maxValue(size.width * 0.03, 16))
+                                )
+                                    : SizedBox(),
+
+                                existeContainer == true ? (
                                 _checkBox.checkBox(
                                     FlutterI18n.translate(context,
                                         "containerInspecaoEstufagemDesova.checkBoxDesova"),
@@ -202,7 +212,10 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     },
                                     stream: blocContainer.outDesova,
                                     fontSize:
-                                    maxValue(size.width * 0.03, 16)),
+                                    maxValue(size.width * 0.03, 16))
+                                )
+                                    : SizedBox(),
+
 
                                 StreamBuilder<bool>(
                                     initialData: false,
@@ -841,73 +854,55 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                 : SizedBox(),
 
                                 _chkInspecao ? (
-                                _tff.textFormField(
-                                    _capacidadeController,
-                                    FlutterI18n.translate(context,
-                                        "containerInspecaoEstufagemDesova.capacidade"),
-                                    FlutterI18n.translate(context,
-                                        "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
-                                    false,
-                                    verificarValidate: false,
-                                    autoValidate: snapshotForm.data,
-                                    campoObrigatorio: true,
-                                    maxLength: 10,
-                                    isInputFormatters: true,
-                                    maxLines: null,
-                                    typeText: TextInputType.number,
-                                    stream: blocContainer.outCapacidade,
-                                    onChanged: blocContainer.changeCapacidade))
-                                : SizedBox(),
-
-                                _chkInspecao ? (
-
-                                _tff.textFormField(
-                                  _dataFabricacao,
-                                  FlutterI18n.translate(context,
-                                    "containerInspecaoEstufagemDesova.dataFabricacao"),
-                                  FlutterI18n.translate(context,
-                                    "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
-                                    false,
-                                  campoObrigatorio: true,
-                                  verificarValidate: false,
-                                  autoValidate: snapshotForm.data,
-                                  stream: blocContainer.outDataFabricacao,
-                                  isInputFormatters: false,
-                                  //typeText: TextInputType.text,
-                                  onChanged: blocContainer.changeDataDeFabricacao,
-
-                                  //disableFocusNode: _focusNodeDataVerificacao,
-
-                                  onTap: () async {
-                                      MesAno date = MesAno();
-                                      DateTime dateMesAno;
-                                      dateMesAno = await date.mesAno(context, selectedDate, initialDate);
-                                      if(dateMesAno != null){
-                                          _dataVerificacao.text = DateFormat('MM/yyyy').format(dateMesAno);
-                                          blocContainer.sinkDataFabricacao.add(dateMesAno);
-                                      }
-                                      _focusNodeDataVerificacao.unfocus();
-                                  }
-                            )
-                            /*
-
-
-                                BotaoDataMes(
-                                  FlutterI18n.translate(context,
-                                      "containerInspecaoEstufagemDesova.dataFabricacao"),
-                                  controller: _dataFabricacao,
-                                  campoObrigatorio: true,
-                                  stream: blocContainer.outDataFabricacao,
-                                  autoValidate: snapshotForm.data,
-                                  onChanged: blocContainer.changeDataDeFabricacao,
-                                  msgErroValidate: FlutterI18n.translate(context,
-                                      "containerInspecaoEstufagemDesova.msgDataFabricacao"),
-                                ))
-
-                                 */
+                                    _tff.textFormField(
+                                        _capacidadeController,
+                                        FlutterI18n.translate(context,
+                                            "containerInspecaoEstufagemDesova.capacidade"),
+                                        FlutterI18n.translate(context,
+                                            "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
+                                        false,
+                                        verificarValidate: false,
+                                        autoValidate: snapshotForm.data,
+                                        campoObrigatorio: true,
+                                        maxLength: 10,
+                                        isInputFormatters: true,
+                                        maxLines: null,
+                                        typeText: TextInputType.number,
+                                        stream: blocContainer.outCapacidade,
+                                        onChanged: blocContainer.changeCapacidade
+                                    )
                                 )
                                 : SizedBox(),
 
+                                _chkInspecao ? (
+                                    _tff.textFormField(
+                                        _dataFabricacao,
+                                        FlutterI18n.translate(context,
+                                            "containerInspecaoEstufagemDesova.dataFabricacao"),
+                                        FlutterI18n.translate(context,
+                                            "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
+                                        false,
+                                        campoObrigatorio: true,
+                                        verificarValidate: false,
+                                        autoValidate: snapshotForm.data,
+                                        stream: blocContainer.outDataFabricacao,
+                                        typeText: TextInputType.text,
+                                        onChanged:
+                                        blocContainer.changeDataDeFabricacao,
+                                        disableFocusNode: _focusNodeDataFabricacao,
+                                        onTap: () async {
+                                          MesAno date = MesAno();
+                                          DateTime dateMesAno;
+                                          dateMesAno = await date.mesAno(context, selectedDate, initialDate);
+                                          if(dateMesAno != null){
+                                            _dataFabricacao.text = DateFormat('MM/yyyy').format(dateMesAno);
+                                            blocContainer.sinkDataDeFabricacao.add(dateMesAno);
+                                          }
+                                          _focusNodeDataFabricacao.unfocus();
+                                        }
+                                    )
+                                )
+                                : SizedBox(),
 
                                 _chkInspecao ? (
                                 Column(
@@ -1372,6 +1367,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
 
               if (sucesso) {
                 limparInspEstufDesov();
+                carregarCampos();
                 blocContainer.inAutoValidateInspEstuDesoInfoContainer.add(false);
                 Scaffold.of(context).showSnackBar(SnackBar(
                   content: Text(
@@ -1609,6 +1605,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
     DadosContainer dados;
     dados = await blocSugar.getDadosContainer();
     if (dados != null) {
+      /*
       if (dados.inspecao == true) {
         blocContainer.sinkInspecao.add(true);
         //_chkInspecao = true;
@@ -1620,7 +1617,18 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
       if (dados.desova == true) {
         blocContainer.sinkDesova.add(true);
         //_chkDesova = true;
-      }/*
+      }
+
+       */
+
+      if (dados.containersRegistrados != null
+          && dados.containersRegistrados.length > 0) {
+        existeContainer = true;
+      } else {
+        existeContainer = false;
+      }
+
+      /*
       if (dados.dataHoraInicioInspecao != null){
         String dataHoraInicioInspecao = DateFormat ('dd/MM/yyyy HH:mm:ss')
           .format(DateTime.parse(dados.dataHoraInicioInspecao));

@@ -36,6 +36,9 @@ class _TimeLogsState extends State<TimeLogs>
 
   final _ocorrenciaController = TextEditingController();
 
+  bool _ignoraDataInicio = false;
+  bool _ignoraDataFim = false;
+
   @override
   void initState() {
     blocTP.getTipo() == 1
@@ -78,18 +81,8 @@ class _TimeLogsState extends State<TimeLogs>
                             children: <Widget>[
                               SizedBox(
                                 height: 20,
-                              ),
-                              BotaoDataHora(
-                                FlutterI18n.translate(
-                                    context, "timeLogs.selecionarDataInicio"),
-                                controller: _selecionarDataInicioController,
-                                campoObrigatorio: true,
-                                stream: blocSugarTP.outSelecionarInicioData,
-                                autoValidate: snapshotForm.data,
-                                onChanged: blocSugarTP.changeSelecionarDataInicio,
-                                msgErro: FlutterI18n.translate(
-                                    context, "timeLogs.msgDataInicioObrigatorio"),
-                              ),
+                                ),
+
                               BotaoDataHora(
                                 FlutterI18n.translate(
                                     context, "timeLogs.selecionarDataTermino"),
@@ -103,6 +96,21 @@ class _TimeLogsState extends State<TimeLogs>
                                     context,
                                     "timeLogs.msgDataTerminoObrigatorio"),
                               ),
+
+                              BotaoDataHora(
+                                FlutterI18n.translate(
+                                    context, "timeLogs.selecionarDataTermino"),
+                                controller: _selecionarDataTerminoController,
+                                campoObrigatorio: true,
+                                stream: blocSugarTP.outSelecionarTerminoData,
+                                autoValidate: snapshotForm.data,
+                                onChanged: blocSugarTP
+                                    .changeSelecionarTerminoData,
+                                msgErro: FlutterI18n.translate(
+                                    context,
+                                    "timeLogs.msgDataTerminoObrigatorio"),
+                              ),
+
                               SizedBox(
                                 height: 20,
                               ),

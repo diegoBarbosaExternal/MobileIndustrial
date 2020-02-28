@@ -481,6 +481,8 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
   Function(DateTime) get changeDataDeFabricacao =>
       _dataFabricacaoController.sink.add;
 
+  Sink<DateTime> get sinkDataDeFabricacao => _dataFabricacaoController.sink;
+
   Function(String) get changeRazaoDaRejeicao =>
       _razaoRejeicaoController.sink.add;
 

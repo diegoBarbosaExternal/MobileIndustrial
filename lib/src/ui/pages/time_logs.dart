@@ -85,13 +85,13 @@ class _TimeLogsState extends State<TimeLogs>
 
                               BotaoDataHora(
                                 FlutterI18n.translate(
-                                    context, "timeLogs.selecionarDataTermino"),
-                                controller: _selecionarDataTerminoController,
-                                campoObrigatorio: true,
-                                stream: blocSugarTP.outSelecionarTerminoData,
+                                    context, "timeLogs.selecionarDataInicio"),
+                                controller: _selecionarDataInicioController,
+                                campoObrigatorio: false,
+                                stream: blocSugarTP.outSelecionarInicioData,
                                 autoValidate: snapshotForm.data,
                                 onChanged: blocSugarTP
-                                    .changeSelecionarTerminoData,
+                                    .changeSelecionarInicioData,
                                 msgErro: FlutterI18n.translate(
                                     context,
                                     "timeLogs.msgDataTerminoObrigatorio"),
@@ -101,7 +101,7 @@ class _TimeLogsState extends State<TimeLogs>
                                 FlutterI18n.translate(
                                     context, "timeLogs.selecionarDataTermino"),
                                 controller: _selecionarDataTerminoController,
-                                campoObrigatorio: true,
+                                campoObrigatorio: false,
                                 stream: blocSugarTP.outSelecionarTerminoData,
                                 autoValidate: snapshotForm.data,
                                 onChanged: blocSugarTP
@@ -120,7 +120,7 @@ class _TimeLogsState extends State<TimeLogs>
                                   FlutterI18n.translate(
                                       context, "timeLogs.msgCampoObrigatorio"),
                                   false,
-                                  campoObrigatorio: false,
+                                  campoObrigatorio: true,
                                   maxLength: 150,
                                   maxLines: null,
                                   typeText: TextInputType.multiline,

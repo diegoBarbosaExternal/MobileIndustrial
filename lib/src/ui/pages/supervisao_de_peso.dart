@@ -123,7 +123,7 @@ class SupervisaoDePesoState extends State<SupervisaoDePeso>
                                                 child: Text(
                                                   "${usina.idUsina} - ${usina
                                                       .usina}",
-                                                  style: TextStyle(fontSize: 9),
+                                                  style: TextStyle(fontSize: 15),
                                                 ),
                                               );
                                             }).toList(),

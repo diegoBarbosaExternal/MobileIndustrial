@@ -41,8 +41,8 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
 
   final _dataHoraInicioInspecaoController = TextEditingController();
   final _dataHoraFimInspecaoController = TextEditingController();
-  final _dataHoraInicioEstDesoController = TextEditingController();
-  final _dataHoraFimEstDesoController = TextEditingController();
+  final _dataHoraInicioEstuDesoController = TextEditingController();
+  final _dataHoraFimEstuDesoController = TextEditingController();
   final _matriculaController = TextEditingController();
   final _ordemServicoController = TextEditingController();
   final _clientePrincipalController = TextEditingController();
@@ -171,12 +171,14 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                         blocContainer
                                             .validateSinkTipoInspEstuDeso();
                                       }
+                                      carregarCampos();
                                     },
                                     stream: blocContainer.outInspecao,
                                     fontSize:
                                     maxValue(size.width * 0.03, 16)),
 
-                                existeContainer == true ? (
+                                //existeContainer == true ? (
+                                true ? (
                                 _checkBox.checkBox(
                                     FlutterI18n.translate(context,
                                         "containerInspecaoEstufagemDesova.checkBoxEstufagem"),
@@ -189,6 +191,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                         blocContainer
                                             .validateSinkTipoInspEstuDeso();
                                       }
+                                      carregarCampos();
                                     },
                                     stream: blocContainer.outEstufagem,
                                     fontSize:
@@ -196,7 +199,9 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                 )
                                     : SizedBox(),
 
-                                existeContainer == true ? (
+                               // existeContainer == true ? (
+                                true ? (
+
                                 _checkBox.checkBox(
                                     FlutterI18n.translate(context,
                                         "containerInspecaoEstufagemDesova.checkBoxDesova"),
@@ -209,6 +214,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                         blocContainer
                                             .validateSinkTipoInspEstuDeso();
                                       }
+                                      carregarCampos();
                                     },
                                     stream: blocContainer.outDesova,
                                     fontSize:
@@ -310,7 +316,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     BotaoDataHora(
                                       FlutterI18n.translate(
                                           context, "containerInspecaoEstufagemDesova.dataHoraInicioEstuDeso"),
-                                      controller: _dataHoraInicioEstDesoController,
+                                      controller: _dataHoraInicioEstuDesoController,
                                       campoObrigatorio: false,
                                       stream: blocContainer.outDataHoraInicioEstuDesoController,
                                       autoValidate: snapshotForm.data,
@@ -322,7 +328,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     BotaoDataHora(
                                       FlutterI18n.translate(
                                           context, "containerInspecaoEstufagemDesova.dataHoraFimEstuDeso"),
-                                      controller: _dataHoraFimEstDesoController,
+                                      controller: _dataHoraFimEstuDesoController,
                                       campoObrigatorio: false,
                                       stream: blocContainer.outDataHoraFimEstuDesoController,
                                       autoValidate: snapshotForm.data,
@@ -1041,7 +1047,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                               FlutterI18n.translate(context,
                                                   "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
                                               false,
-                                              campoObrigatorio: true,
+                                              campoObrigatorio: false,
                                               maxLength: 10,
                                               maxLines: null,
                                               typeText: TextInputType.text,
@@ -1628,13 +1634,33 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
         existeContainer = false;
       }
 
-      /*
       if (dados.dataHoraInicioInspecao != null){
         String dataHoraInicioInspecao = DateFormat ('dd/MM/yyyy HH:mm:ss')
-          .format(DateTime.parse(dados.dataHoraInicioInspecao));
+            .format(DateTime.parse(dados.dataHoraInicioInspecao));
         _dataHoraInicioInspecaoController.text = dataHoraInicioInspecao;
         blocContainer.sinkDataHoraInicioInspecao.add(DateTime.parse(dados.dataHoraInicioInspecao));
-      }*/
+      }
+
+      if (dados.dataHoraFimInspecao != null){
+        String dataHoraFimInspecao = DateFormat ('dd/MM/yyyy HH:mm:ss')
+            .format(DateTime.parse(dados.dataHoraFimInspecao));
+        _dataHoraFimInspecaoController.text = dataHoraFimInspecao;
+        blocContainer.sinkDataHoraFimInspecao.add(DateTime.parse(dados.dataHoraFimInspecao));
+      }
+
+      if (dados.dataHoraInicioEstuDeso != null){
+        String dataHoraInicioEstuDeso = DateFormat ('dd/MM/yyyy HH:mm:ss')
+            .format(DateTime.parse(dados.dataHoraInicioEstuDeso));
+        _dataHoraInicioEstuDesoController.text = dataHoraInicioEstuDeso;
+        blocContainer.sinkDataHoraInicioEstuDeso.add(DateTime.parse(dados.dataHoraInicioEstuDeso));
+      }
+
+      if (dados.dataHoraFimEstuDeso != null){
+        String dataHoraFimEstuDeso = DateFormat ('dd/MM/yyyy HH:mm:ss')
+            .format(DateTime.parse(dados.dataHoraFimEstuDeso));
+        _dataHoraFimEstuDesoController.text = dataHoraFimEstuDeso;
+        blocContainer.sinkDataHoraFimEstuDeso.add(DateTime.parse(dados.dataHoraFimEstuDeso));
+      }
 
       if (dados.matricula != null) {
         _matriculaController.text = dados.matricula;

@@ -173,21 +173,26 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
 
   Sink<DateTime> get sinkDataHoraInicioInspecao => _dataHoraInicioInspecaoController.sink;
 
-
   final _dataHoraFimInspecaoController = BehaviorSubject<DateTime>();
 
   Stream<String> get outDataHoraFimInspecaoController =>
       _dataHoraFimInspecaoController.stream.transform(validateDateTime);
+
+  Sink<DateTime> get sinkDataHoraFimInspecao => _dataHoraFimInspecaoController.sink;
 
   final _dataHoraInicioEstuDesoController = BehaviorSubject<DateTime>();
 
   Stream<String> get outDataHoraInicioEstuDesoController =>
       _dataHoraInicioEstuDesoController.stream.transform(validateDateTime);
 
+  Sink<DateTime> get sinkDataHoraInicioEstuDeso => _dataHoraInicioEstuDesoController.sink;
+
   final _dataHoraFimEstuDesoController = BehaviorSubject<DateTime>();
 
   Stream<String> get outDataHoraFimEstuDesoController =>
       _dataHoraFimEstuDesoController.stream.transform(validateDateTime);
+
+  Sink<DateTime> get sinkDataHoraFimEstuDeso => _dataHoraFimEstuDesoController.sink;
 
   final _bookingController = BehaviorSubject<String>();
 
@@ -531,6 +536,7 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
   Stream<String> get outSelecionarTerminoData =>
       _selecionarDataTerminoController.stream.transform(validateDateTime);
 
+
   final _ocorrenciaController = BehaviorSubject<String>();
 
   Stream<String> get outOcorrencia =>
@@ -546,7 +552,7 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
 
   Function(String) get changeOcorrencia => _ocorrenciaController.sink.add;
 
-  Function(DateTime) get changeSelecionarDataInicio =>
+  Function(DateTime) get changeSelecionarInicioData =>
       _selecionarDataInicioController.sink.add;
 
   Function(DateTime) get changeSelecionarTerminoData =>

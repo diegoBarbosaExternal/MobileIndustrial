@@ -205,7 +205,7 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
                                                 hint: Text(
                                                     FlutterI18n.translate(context,
                                                         "containerQuebraNota.comboUsinas"),
-                                                style: TextStyle(fontSize: 14)),
+                                                style: TextStyle(fontSize: 15)),
                                             value: blocUsina.valueQuebraNota,
                                             onChanged: (Usina produto) {
                                               blocUsina.valueQuebraNota = produto;
@@ -223,7 +223,7 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
                                                 value: usina,
                                                 child: Text("${usina.idUsina} - ${usina.usina}",
                                                   //usina.usina,
-                                                  style: TextStyle(fontSize: 10),
+                                                  style: TextStyle(fontSize: 15),
                                                 ),
                                               );
                                             }).toList(),
@@ -331,10 +331,10 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
                                 blocContainer.sinkTotalDeSacas.add(value);
                                 if (_totalDeSacasController.text == null ||
                                     _totalDeSacasController.text.isEmpty ||
-                                    _totalDeSacasController.text == "0000" ||
+                                    _totalDeSacasController.text == "" ||
                                     _totalPorContainerController.text == null ||
                                     _totalPorContainerController.text.isEmpty) {
-                                  _sobraController.text = "0000";
+                                  _sobraController.text = "";
                                 } else if (_totalPorContainerController.text !=
                                     null &&
                                     _totalPorContainerController
@@ -367,10 +367,10 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
                                 blocContainer.sinkTotalPorContainer.add(value);
                                 if (_totalDeSacasController.text == null ||
                                     _totalDeSacasController.text.isEmpty ||
-                                    _totalDeSacasController.text == "0000" ||
+                                    _totalDeSacasController.text == "" ||
                                     _totalPorContainerController.text == null ||
                                     _totalPorContainerController.text.isEmpty) {
-                                  _sobraController.text = "0000";
+                                  _sobraController.text = "";
                                 } else if (_totalDeSacasController.text != null &&
                                   _totalDeSacasController.text.isNotEmpty) {
                                   _sobraController.text = (calculaSobra().toString());
@@ -413,10 +413,10 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
                                 blocContainer.changeAvaria;
                                 if (_totalDeSacasController.text == null ||
                                     _totalDeSacasController.text.isEmpty ||
-                                    _totalDeSacasController.text == "0000" ||
+                                    _totalDeSacasController.text == "" ||
                                     _totalPorContainerController.text == null ||
                                     _totalPorContainerController.text.isEmpty) {
-                                  _sobraController.text = "0000";
+                                  _sobraController.text = "";
                                 } else if (_totalDeSacasController.text != null &&
                                   _totalDeSacasController.text.isNotEmpty) {
                                   _sobraController.text = (calculaSobra().toString());
@@ -443,10 +443,10 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
                                 blocContainer.changeFaltaCarga;
                                 if (_totalDeSacasController.text == null ||
                                     _totalDeSacasController.text.isEmpty ||
-                                    _totalDeSacasController.text == "0000" ||
+                                    _totalDeSacasController.text == "" ||
                                     _totalPorContainerController.text == null ||
                                     _totalPorContainerController.text.isEmpty) {
-                                  _sobraController.text = "0000";
+                                  _sobraController.text = "";
                                 } else if (_totalDeSacasController.text != null &&
                                   _totalDeSacasController.text.isNotEmpty) {
                                   _sobraController.text = (calculaSobra().toString());
@@ -619,9 +619,9 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
     _notaFiscalController.text = "";
     _placaController.text = "";
     blocTipoAcucar.valueTipoAcucarQuebraDeNota = null;
-    _totalPorContainerController.text = "0000";
-    _totalDeSacasController.text = "0000";
-    _sobraController.text = "000";
+    _totalPorContainerController.text = "";
+    _totalDeSacasController.text = "";
+    _sobraController.text = "";
     _avariaController.text = "";
     _faltaCargaController.text = "";
     _observacaoController.text = "";

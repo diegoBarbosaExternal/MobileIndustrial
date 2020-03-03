@@ -571,13 +571,13 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
 
   final _marcaDaBalancaController = BehaviorSubject<String>();
 
-  Stream<String> get outMarcaDaBalanca =>
-      _marcaDaBalancaController.stream.transform(validateVazio);
+  Stream<String> get outMarcaDaBalanca => _marcaDaBalancaController.stream;
+//      _marcaDaBalancaController.stream.transform(validateVazio);
 
   final _numeroDeSerieController = BehaviorSubject<String>();
 
-  Stream<String> get outNumeroDeSerie =>
-      _numeroDeSerieController.stream.transform(validateVazio);
+  Stream<String> get outNumeroDeSerie => _numeroDeSerieController.stream;
+//      _numeroDeSerieController.stream.transform(validateVazio);
 
   final _ultimaCalibracaoController = BehaviorSubject<DateTime>();
 
@@ -586,8 +586,8 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
 
   final _numeroDeLacreController = BehaviorSubject<String>();
 
-  Stream<String> get outNumeroDeLacre =>
-      _numeroDeLacreController.stream.transform(validateVazio);
+  Stream<String> get outNumeroDeLacre => _numeroDeLacreController.stream;
+//      _numeroDeLacreController.stream.transform(validateVazio);
 
   final _mediaController = BehaviorSubject<String>();
 

@@ -396,13 +396,13 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     campoObrigatorio: false,
                                     maxLength: 20,
                                     maxLines: null,
-                                    isInputFormatters: true,
+                                    //isInputFormatters: true,
                                     typeText: TextInputType.number,
-                                    autoValidate: snapshotForm.data,
-                                    verificarValidate: false,
+                                    //autoValidate: snapshotForm.data,
+                                    //verificarValidate: false,
                                     stream: blocContainer.outOrdemDeServico,
-                                    onChanged:
-                                    blocContainer.changeOrdemDeServico),
+                                    onChanged: blocContainer.changeOrdemDeServico),
+
                                 _tff.textFormField(
                                     _clientePrincipalController,
                                     FlutterI18n.translate(context,
@@ -577,7 +577,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                       autoValidate: snapshotForm.data,
                                       onChanged: blocContainer.changeDataVerificacao,
                                       msgErroValidate: FlutterI18n.translate(context,
-                                      "containerSupervisaoDePeso.msgUltimaCalibracaoObrigatorio"))
+                                      "containerInspecaoEstufagemDesova.msgCampoObrigatorio"))
 
                                  /*
                                 _tff.textFormField(
@@ -1583,8 +1583,8 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
     if (blocContainer.listInspEstuDesoInfo != null &&
         blocContainer.listInspEstuDesoInfo.isNotEmpty &&
         blocContainer.listInspEstuDesoInfo.length > 0) {
-      if (blocContainer.keyFormInspEstufDesova.currentState.validate() &&
-          blocContainer.keyFormInspEstufDesovaResumo.currentState.validate() &&
+      if (//blocContainer.keyFormInspEstufDesova.currentState.validate() &&
+          //blocContainer.keyFormInspEstufDesovaResumo.currentState.validate() &&
           !tipo) {
         return true;
       } else {

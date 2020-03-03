@@ -152,8 +152,8 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
 
   final _osController = BehaviorSubject<String>();
 
-  Stream<String> get outOrdemDeServico =>
-      _osController.stream.transform(validateVazio);
+  Stream<String> get outOrdemDeServico => _osController.stream;
+      //_osController.stream.transform(validateVazio);
 
   final _clientePrincipalController = BehaviorSubject<String>();
 
@@ -205,13 +205,13 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
 
   final _identificacaoEquipamentoController = BehaviorSubject<String>();
 
-  Stream<String> get outIdentificacaoEquipamento =>
-      _identificacaoEquipamentoController.stream.transform(validateVazio);
+  Stream<String> get outIdentificacaoEquipamento => _identificacaoEquipamentoController.stream;
+//      _identificacaoEquipamentoController.stream.transform(validateVazio);
 
   final _numeroCertificadoController = BehaviorSubject<String>();
 
-  Stream<String> get outNumeroCertificado =>
-      _numeroCertificadoController.stream.transform(validateVazio);
+  Stream<String> get outNumeroCertificado => _numeroCertificadoController.stream;
+//      _numeroCertificadoController.stream.transform(validateVazio);
 
   final _dataVerificacaoController = BehaviorSubject<DateTime>();
 
@@ -249,13 +249,13 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
 
   final _descricaoEmbalagemController = BehaviorSubject<String>();
 
-  Stream<String> get outDescricaoEmbalagem =>
-      _descricaoEmbalagemController.stream.transform(validateVazio);
+  Stream<String> get outDescricaoEmbalagem => _descricaoEmbalagemController.stream;
+//      _descricaoEmbalagemController.stream.transform(validateVazio);
 
   final _planosAmostragemController = BehaviorSubject<String>();
 
-  Stream<String> get outPlanosAmostragem =>
-      _planosAmostragemController.stream.transform(validateVazio);
+  Stream<String> get outPlanosAmostragem => _planosAmostragemController.stream;
+//      _planosAmostragemController.stream.transform(validateVazio);
 
   final _identificacaoDosVolumesController = BehaviorSubject<String>();
 
@@ -371,7 +371,8 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
 
   final _lacreDefinitivoController = BehaviorSubject<String>();
 
-  Stream<String> get outLacreDefinitivo => _lacreDefinitivoController.stream;
+  Stream<String> get outLacreDefinitivo => //_lacreDefinitivoController.stream;
+      _lacreDefinitivoController.stream.transform(validateVazio);
 
   final _lacreAgenciaController = BehaviorSubject<String>();
 
@@ -383,11 +384,13 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
 
   final _loteController = BehaviorSubject<String>();
 
-  Stream<String> get outLote => _loteController.stream.transform(validateVazio);
+  Stream<String> get outLote => _loteController.stream;
+      //_loteController.stream.transform(validateVazio);
 
   final _provisorioController = BehaviorSubject<String>();
 
-  Stream<String> get outProvisorio => _provisorioController.stream.transform(validateVazio);
+  Stream<String> get outProvisorio => _provisorioController.stream;
+      //_provisorioController.stream.transform(validateVazio);
 
   final _dataLoteController = BehaviorSubject<DateTime>();
 

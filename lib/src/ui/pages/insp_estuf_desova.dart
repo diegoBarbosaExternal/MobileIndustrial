@@ -1541,8 +1541,29 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
       bool controleQuant = blocContainer.validateControleDeQuantidade();
 
 
+
       if (controleQuant) {
         blocContainer.sinkValidateControleDeQuantidade.add(true);
+      }
+
+      bool containerVazio = false;
+      bool dtFabricacaoIncorreta = false;
+      if (_chkInspecao){
+
+        if (_numeroContainerController.text.length < 4 ||
+            double.parse(_taraController.text) < 0.05
+          )
+        {
+          containerVazio = true;
+        }
+
+        if (_dataFabricacao.text == "" ||
+            _dataFabricacao.text.length != 7
+        )
+        {
+          dtFabricacaoIncorreta = true;
+        }
+
       }
 
       int contContainer = 0;
@@ -1565,6 +1586,8 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
       if (//blocContainer.keyFormInspEstufInformacaoCon.currentState.validate()
           //&& blocContainer.keyFormControleQtd.currentState.validate()
           !tipo
+          && !containerVazio
+          && !dtFabricacaoIncorreta
           //&& !controleQuant
           //&& blocContainer.keyFormInspEstufDesovaResumo.currentState.validate()
           //blocContainer.keyFormInspEstufDesova.currentState.validate()

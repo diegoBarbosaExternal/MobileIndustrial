@@ -1562,12 +1562,12 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
         existeDuplicidade = false;
       }
 
-      if (blocContainer.keyFormInspEstufInformacaoCon.currentState.validate() &&
-          //blocContainer.keyFormControleQtd.currentState.validate() &&
-          !tipo &&
-          //!controleQuant &&
-          blocContainer.keyFormInspEstufDesovaResumo.currentState.validate() &&
-          blocContainer.keyFormInspEstufDesova.currentState.validate()
+      if (//blocContainer.keyFormInspEstufInformacaoCon.currentState.validate()
+          //&& blocContainer.keyFormControleQtd.currentState.validate()
+          !tipo
+          //&& !controleQuant
+          //&& blocContainer.keyFormInspEstufDesovaResumo.currentState.validate()
+          //blocContainer.keyFormInspEstufDesova.currentState.validate()
          ) {
         return true;
       } else {
@@ -1635,31 +1635,38 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
       }
 
       if (dados.dataHoraInicioInspecao != null){
-        String dataHoraInicioInspecao = DateFormat ('dd/MM/yyyy HH:mm:ss')
-            .format(DateTime.parse(dados.dataHoraInicioInspecao));
-        _dataHoraInicioInspecaoController.text = dataHoraInicioInspecao;
-        blocContainer.sinkDataHoraInicioInspecao.add(DateTime.parse(dados.dataHoraInicioInspecao));
+          _dataHoraInicioInspecaoController.text = dados.dataHoraInicioInspecao.toString();
+          blocContainer.sinkDataHoraInicioInspecao.add(DateFormat('dd/MM/yyyy HH:mm:ss').parse(dados.dataHoraInicioInspecao));
       }
 
       if (dados.dataHoraFimInspecao != null){
-        String dataHoraFimInspecao = DateFormat ('dd/MM/yyyy HH:mm:ss')
-            .format(DateTime.parse(dados.dataHoraFimInspecao));
-        _dataHoraFimInspecaoController.text = dataHoraFimInspecao;
-        blocContainer.sinkDataHoraFimInspecao.add(DateTime.parse(dados.dataHoraFimInspecao));
+        _dataHoraFimInspecaoController.text = dados.dataHoraFimInspecao.toString();
+        blocContainer.sinkDataHoraFimInspecao.add(DateFormat('dd/MM/yyyy HH:mm:ss').parse(dados.dataHoraFimInspecao));
+
+//        String dataHoraFimInspecao = DateFormat ('dd/MM/yyyy HH:mm:ss')
+//            .format(DateTime.parse(dados.dataHoraFimInspecao));
+//        _dataHoraFimInspecaoController.text = dataHoraFimInspecao;
+//        blocContainer.sinkDataHoraFimInspecao.add(DateTime.parse(dados.dataHoraFimInspecao));
       }
 
       if (dados.dataHoraInicioEstuDeso != null){
-        String dataHoraInicioEstuDeso = DateFormat ('dd/MM/yyyy HH:mm:ss')
+        _dataHoraInicioEstuDesoController.text = dados.dataHoraInicioEstuDeso.toString();
+        blocContainer.sinkDataHoraInicioEstuDeso.add(DateFormat('dd/MM/yyyy HH:mm:ss').parse(dados.dataHoraInicioEstuDeso));
+        /*
+       String dataHoraInicioEstuDeso = DateFormat ('dd/MM/yyyy HH:mm:ss')
             .format(DateTime.parse(dados.dataHoraInicioEstuDeso));
         _dataHoraInicioEstuDesoController.text = dataHoraInicioEstuDeso;
-        blocContainer.sinkDataHoraInicioEstuDeso.add(DateTime.parse(dados.dataHoraInicioEstuDeso));
+        blocContainer.sinkDataHoraInicioEstuDeso.add(DateTime.parse(dados.dataHoraInicioEstuDeso));*/
       }
 
       if (dados.dataHoraFimEstuDeso != null){
+        _dataHoraFimEstuDesoController.text = dados.dataHoraFimEstuDeso.toString();
+        blocContainer.sinkDataHoraFimEstuDeso.add(DateFormat('dd/MM/yyyy HH:mm:ss').parse(dados.dataHoraFimEstuDeso));
+        /*
         String dataHoraFimEstuDeso = DateFormat ('dd/MM/yyyy HH:mm:ss')
             .format(DateTime.parse(dados.dataHoraFimEstuDeso));
         _dataHoraFimEstuDesoController.text = dataHoraFimEstuDeso;
-        blocContainer.sinkDataHoraFimEstuDeso.add(DateTime.parse(dados.dataHoraFimEstuDeso));
+        blocContainer.sinkDataHoraFimEstuDeso.add(DateTime.parse(dados.dataHoraFimEstuDeso));*/
       }
 
       if (dados.matricula != null) {

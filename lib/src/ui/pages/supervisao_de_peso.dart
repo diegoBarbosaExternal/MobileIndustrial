@@ -7,6 +7,7 @@ import 'package:sugar/src/blocs/container_bloc.dart';
 import 'package:sugar/src/blocs/sugar_bloc.dart';
 import 'package:sugar/src/blocs/usina_bloc.dart';
 import 'package:sugar/src/models/dados_container.dart';
+import 'package:sugar/src/models/tipo_usina.dart';
 import 'package:sugar/src/models/usina.dart';
 import 'package:sugar/src/ui/widgets/botao_data.dart';
 import 'package:sugar/src/ui/widgets/drop_down_validation.dart';
@@ -36,6 +37,7 @@ class SupervisaoDePesoState extends State<SupervisaoDePeso>
   final _inkjetController = TextEditingController();
 
   final blocUsina = BlocProvider.tag('sugarGlobal').getBloc<UsinaBloc>();
+//  final blocUsina = BlocProvider.tag('sugarGlobal').getBloc<TipoUsina>();
   final blocContainer = BlocProvider.tag('container').getBloc<ContainerBloc>();
   final blocSugar = BlocProvider.tag('sugarGlobal').getBloc<SugarBloc>();
 

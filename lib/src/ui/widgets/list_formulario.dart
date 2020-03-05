@@ -382,8 +382,9 @@ class LisContainerTimeLogs {
                           context, "timeLogs.listaTelaTimeLogsTituloColuna11"),
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Flexible(child: Text('${DateFormat('dd/MM/yyyy HH:mm')
-                        .format(DateTime.parse(listTL[index].dataInicial))}')),
+                    Flexible(child: Text('${listTL[index].dataInicial.toString().length > 15 ? DateFormat('dd/MM/yyyy HH:mm').format(DateTime.parse(listTL[index].dataInicial)).toString() : "***"}')),
+//                    Flexible(child: Text('${DateFormat('dd/MM/yyyy HH:mm')
+//                        .format(DateTime.parse(listTL[index].dataInicial))}')),
                   ],
                 ),
               ),
@@ -396,10 +397,9 @@ class LisContainerTimeLogs {
                           context, "timeLogs.listaTelaTimeLogsTituloColuna21"),
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Flexible(
-                      child: Text('${DateFormat('dd/MM/yyyy HH:mm')
-                          .format(DateTime.parse(listTL[index].dataTermino))}'),
-                    ),
+                    Flexible(child: Text('${listTL[index].dataTermino.toString().length > 15 ? DateFormat('dd/MM/yyyy HH:mm').format(DateTime.parse(listTL[index].dataTermino)).toString() : "***"}')),
+//                    Flexible(child: Text('${DateFormat('dd/MM/yyyy HH:mm')
+//                          .format(DateTime.parse(listTL[index].dataTermino))}')),
                   ],
                 ),
               ),
@@ -466,8 +466,10 @@ class LisContainerTimeLogs {
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 Container(
-                                    child: Text("${DateFormat('dd/MM/yyyy HH:mm')
-                                        .format(DateTime.parse(listTL[index].dataInicial))}")),
+                                      child: Text('${listTL[index].dataInicial.toString().length > 15 ? DateFormat('dd/MM/yyyy HH:mm').format(DateTime.parse(listTL[index].dataInicial)).toString() : "***"}')
+//                                    child: Text("${DateFormat('dd/MM/yyyy HH:mm')
+//                                        .format(DateTime.parse(listTL[index].dataInicial))}")
+                                ),
                                 SizedBox(height: 10),
                                 Text(
                                     FlutterI18n.translate(context,
@@ -475,8 +477,9 @@ class LisContainerTimeLogs {
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold)),
                                 Container(
-                                  child: Text("${DateFormat('dd/MM/yyyy HH:mm')
-                                      .format(DateTime.parse(listTL[index].dataTermino))}"),
+                                    child: Text('${listTL[index].dataTermino.toString().length > 15 ? DateFormat('dd/MM/yyyy HH:mm').format(DateTime.parse(listTL[index].dataTermino)).toString() : "***"}')
+//                                  child: Text("${DateFormat('dd/MM/yyyy HH:mm')
+//                                      .format(DateTime.parse(listTL[index].dataTermino))}"),
                                 ),
                                 SizedBox(height: 10),
                                 Text(

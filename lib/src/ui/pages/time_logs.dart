@@ -36,8 +36,6 @@ class _TimeLogsState extends State<TimeLogs>
 
   final _ocorrenciaController = TextEditingController();
 
-  bool _ignoraDataInicio = false;
-  bool _ignoraDataFim = false;
 
   @override
   void initState() {
@@ -92,9 +90,9 @@ class _TimeLogsState extends State<TimeLogs>
                                 autoValidate: snapshotForm.data,
                                 onChanged: blocSugarTP
                                     .changeSelecionarInicioData,
-                                msgErro: FlutterI18n.translate(
-                                    context,
-                                    "timeLogs.msgDataTerminoObrigatorio"),
+//                                msgErro: FlutterI18n.translate(
+//                                    context,
+//                                    "timeLogs.msgDataTerminoObrigatorio"),
                               ),
 
                               BotaoDataHora(
@@ -106,9 +104,9 @@ class _TimeLogsState extends State<TimeLogs>
                                 autoValidate: snapshotForm.data,
                                 onChanged: blocSugarTP
                                     .changeSelecionarTerminoData,
-                                msgErro: FlutterI18n.translate(
-                                    context,
-                                    "timeLogs.msgDataTerminoObrigatorio"),
+//                                msgErro: FlutterI18n.translate(
+//                                    context,
+//                                    "timeLogs.msgDataTerminoObrigatorio"),
                               ),
 
                               SizedBox(
@@ -185,7 +183,11 @@ class _TimeLogsState extends State<TimeLogs>
             FocusScope.of(context).requestFocus(FocusNode());
             blocSugarTP.inAutoValidateTimeLogs.add(true);
 
-            if (blocSugarTP.keyFormGlobalKeyTimeLogs.currentState.validate()) {
+            int datIniLength = _selecionarDataInicioController.text.toString().length;
+            int datFimLength = _selecionarDataTerminoController.text.toString().length;
+
+//            if (blocSugarTP.keyFormGlobalKeyTimeLogs.currentState.validate()) {
+            if ((datIniLength == 16 || datFimLength == 16) && _ocorrenciaController.text.length > 3){
               final blocSugar =
               BlocProvider.tag('sugarGlobal').getBloc<SugarBloc>();
 
@@ -202,11 +204,35 @@ class _TimeLogsState extends State<TimeLogs>
                   ),
                   backgroundColor: Colors.green,
                 ));
-              }else{
+              } else {
+                Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text(
+                FlutterI18n.translate(context,
+                "msgValidacoesTelaTimeLogs.msgErroAoSalvar"),
+                style: TextStyle(
+                fontSize: 16,
+                ),
+                ),
+                backgroundColor: Colors.red,
+                ));
+              }
+            } else {
+              if (datIniLength != 16 && datFimLength != 16){
                 Scaffold.of(context).showSnackBar(SnackBar(
                   content: Text(
                     FlutterI18n.translate(context,
-                        "msgValidacoesTelaTimeLogs.msgErroAoSalvar"),
+                        "msgValidacoesTelaTimeLogs.msgErroNenhumaData"),
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                  backgroundColor: Colors.red,
+                ));
+              } else {
+                Scaffold.of(context).showSnackBar(SnackBar(
+                  content: Text(
+                    FlutterI18n.translate(context,
+                        "msgValidacoesTelaTimeLogs.msgCamposObrigatorios"),
                     style: TextStyle(
                       fontSize: 16,
                     ),
@@ -214,18 +240,6 @@ class _TimeLogsState extends State<TimeLogs>
                   backgroundColor: Colors.red,
                 ));
               }
-            }
-            else {
-              Scaffold.of(context).showSnackBar(SnackBar(
-                content: Text(
-                  FlutterI18n.translate(context,
-                      "msgValidacoesTelaTimeLogs.msgCamposObrigatorios"),
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                backgroundColor: Colors.red,
-              ));
             }
           },
           child: Icon(

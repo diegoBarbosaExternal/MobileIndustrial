@@ -1312,43 +1312,106 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                   )
                       : Padding(
                       padding: EdgeInsets.only(left: 5, right: 5),
-                      child: clv.containerListView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+
+                          Container(
+                            width: double.infinity,
+                            height: 50,
+                            child: Center(
+                              child: Text( condicaoContainers(snapshot).toString(),
+                                style: TextStyle(fontSize: 18, color: Colors.white),
+                              ),
+                            ),
+                            decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 080, 079, 081),
+                                border: Border.fromBorderSide(BorderSide(
+                                    color: Color.fromARGB(255, 243, 112, 33,)
+                                ))),
+                          ),
+
+                        clv.containerListView(
                         context: context,
                         tituloContainer: FlutterI18n.translate(context,
                             "containerInspecaoEstufagemDesova.listaTelaInspecaoEstufagemDesovaTitulo"),
+
                         child: StreamBuilder<List<InformacaoContainer>>(
-                          stream: blocContainer
-                              .outListInicialInspecaoEstufagemDesova,
-                          builder: (context, snapshot) {
-                            switch (snapshot.connectionState) {
-                              case ConnectionState.waiting:
-                              case ConnectionState.none:
-                                return SizedBox();
-                              case ConnectionState.active:
-                                if (snapshot.data == null ||
-                                    snapshot.data.isEmpty) {
+                            stream: blocContainer
+                                .outListInicialInspecaoEstufagemDesova,
+                            builder: (context, snapshot) {
+                              switch (snapshot.connectionState) {
+                                case ConnectionState.waiting:
+                                case ConnectionState.none:
                                   return SizedBox();
-                                } else {
-                                  return lcied
-                                      .lisContainerInspecaoEstufagemDesova(
-                                      contextPageInspEstuDeso:
-                                      context,
-                                      listInformacaoContainer:
-                                      snapshot.data);
-                                }
-                                break;
-                              default:
-                                return Row(
-                                  children: <Widget>[
-                                    Text(FlutterI18n.translate(context,
-                                        "msgValidacoesTelaInspecaoEstufagemDesova.msgErroBuscarInspecaoEstufagemDesova")),
-                                    Text("${snapshot.error}")
-                                  ],
-                                );
-                            }
-                          },
-                        ),
-                      ));
+                                case ConnectionState.active:
+                                  if (snapshot.data == null ||
+                                      snapshot.data.isEmpty) {
+                                    return SizedBox();
+                                  } else {
+                                    return lcied
+                                        .lisContainerInspecaoEstufagemDesova(
+                                        contextPageInspEstuDeso:
+                                        context,
+                                        listInformacaoContainer:
+                                        snapshot.data);
+                                  }
+                                  break;
+                                default:
+                                  return Row(
+                                    children: <Widget>[
+                                      Text(FlutterI18n.translate(context,
+                                          "msgValidacoesTelaInspecaoEstufagemDesova.msgErroBuscarInspecaoEstufagemDesova")),
+                                      Text("${snapshot.error}")
+                                    ],
+                                  );
+                              }
+                            },
+                          ),
+                      ),
+
+
+
+                        ],
+                      ),
+//                      child: clv.containerListView(
+//                        context: context,
+//                        tituloContainer: FlutterI18n.translate(context,
+//                            "containerInspecaoEstufagemDesova.listaTelaInspecaoEstufagemDesovaTitulo"),
+//                        child: StreamBuilder<List<InformacaoContainer>>(
+//                          stream: blocContainer
+//                              .outListInicialInspecaoEstufagemDesova,
+//                          builder: (context, snapshot) {
+//                            switch (snapshot.connectionState) {
+//                              case ConnectionState.waiting:
+//                              case ConnectionState.none:
+//                                return SizedBox();
+//                              case ConnectionState.active:
+//                                if (snapshot.data == null ||
+//                                    snapshot.data.isEmpty) {
+//                                  return SizedBox();
+//                                } else {
+//                                  return lcied
+//                                      .lisContainerInspecaoEstufagemDesova(
+//                                      contextPageInspEstuDeso:
+//                                      context,
+//                                      listInformacaoContainer:
+//                                      snapshot.data);
+//                                }
+//                                break;
+//                              default:
+//                                return Row(
+//                                  children: <Widget>[
+//                                    Text(FlutterI18n.translate(context,
+//                                        "msgValidacoesTelaInspecaoEstufagemDesova.msgErroBuscarInspecaoEstufagemDesova")),
+//                                    Text("${snapshot.error}")
+//                                  ],
+//                                );
+//                            }
+//                          },
+//                        ),
+//                      )
+                  );
                 },
               ),
 
@@ -1786,6 +1849,23 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
         blocContainer.sinkResumo.add(dados.resumo);
       }
     }
+  }
+
+  String condicaoContainers(var snapshot){
+    String t_result = "";
+    String t_titulo = FlutterI18n.translate(context,"containerInspecaoEstufagemDesova.tituloCondicao");
+    String t_aprovado = FlutterI18n.translate(context,"containerInspecaoEstufagemDesova.condicaoAprovado");
+    String t_reprovado = FlutterI18n.translate(context,"containerInspecaoEstufagemDesova.condicaoReprovado");
+    int condicaoAprovado = 0;
+    int condicaoReprovado = 0;
+    snapshot.data.forEach((intContainer) {
+      intContainer.condicao == true ? condicaoAprovado++ : condicaoReprovado++;
+    }
+    );
+    t_result = (t_titulo + "\n" +
+                t_aprovado + ": " + condicaoAprovado.toString() + "   " + t_reprovado + ": " + condicaoReprovado.toString()
+                );
+    return t_result;
   }
 
   limparInspEstufDesov() {

@@ -123,9 +123,8 @@ class SupervisaoDePesoState extends State<SupervisaoDePeso>
                                               return DropdownMenuItem<Usina>(
                                                 value: usina,
                                                 child: Text(
-                                                  "${usina.idUsina} - ${usina
-                                                      .usina}",
-                                                  style: TextStyle(fontSize: 15),
+                                                  "${usina.usina}",
+                                                  style: TextStyle(fontSize: 14),
                                                 ),
                                               );
                                             }).toList(),
@@ -192,8 +191,9 @@ class SupervisaoDePesoState extends State<SupervisaoDePeso>
                                 stream: blocContainer.outUltimaCalibracao,
                                 autoValidate: snapshotForm.data,
                                 onChanged: blocContainer.changeUltimaCalibracao,
-                                msgErroValidate: FlutterI18n.translate(context,
-                                    "containerSupervisaoDePeso.msgUltimaCalibracaoObrigatorio")),
+//                                msgErroValidate: FlutterI18n.translate(context,
+//                                    "containerSupervisaoDePeso.msgUltimaCalibracaoObrigatorio")
+                            ),
                             SizedBox(
                               height: 10,
                             ),

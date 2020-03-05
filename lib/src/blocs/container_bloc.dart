@@ -167,30 +167,32 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
   // 1536 datahora
   //final _dataHoraInicioInspecaoController = BehaviourSubject
   final _dataHoraInicioInspecaoController = BehaviorSubject<DateTime>();
+//    final _dataHoraInicioInspecaoController = BehaviorSubject<String>();
 
-  Stream<String> get outDataHoraInicioInspecaoController =>
-      _dataHoraInicioInspecaoController.stream.transform(validateDateTime);
+  Stream<String> get outDataHoraInicioInspecaoController => //_dataHoraInicioInspecaoController.stream;
+      _dataHoraInicioInspecaoController.stream.transform(validateDataOpcional);
 
   Sink<DateTime> get sinkDataHoraInicioInspecao => _dataHoraInicioInspecaoController.sink;
+//  Sink<String> get sinkDataHoraInicioInspecao => _dataHoraInicioInspecaoController.sink;
 
   final _dataHoraFimInspecaoController = BehaviorSubject<DateTime>();
 
   Stream<String> get outDataHoraFimInspecaoController =>
-      _dataHoraFimInspecaoController.stream.transform(validateDateTime);
+      _dataHoraFimInspecaoController.stream.transform(validateDataOpcional);
 
   Sink<DateTime> get sinkDataHoraFimInspecao => _dataHoraFimInspecaoController.sink;
 
   final _dataHoraInicioEstuDesoController = BehaviorSubject<DateTime>();
 
   Stream<String> get outDataHoraInicioEstuDesoController =>
-      _dataHoraInicioEstuDesoController.stream.transform(validateDateTime);
+      _dataHoraInicioEstuDesoController.stream.transform(validateDataOpcional);
 
   Sink<DateTime> get sinkDataHoraInicioEstuDeso => _dataHoraInicioEstuDesoController.sink;
 
   final _dataHoraFimEstuDesoController = BehaviorSubject<DateTime>();
 
   Stream<String> get outDataHoraFimEstuDesoController =>
-      _dataHoraFimEstuDesoController.stream.transform(validateDateTime);
+      _dataHoraFimEstuDesoController.stream.transform(validateDataOpcional);
 
   Sink<DateTime> get sinkDataHoraFimEstuDeso => _dataHoraFimEstuDesoController.sink;
 
@@ -216,7 +218,7 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
   final _dataVerificacaoController = BehaviorSubject<DateTime>();
 
   Stream<String> get outDataVerificacao =>
-      _dataVerificacaoController.stream.transform(validateDateTime);
+      _dataVerificacaoController.stream.transform(validateDataOpcional);
 
   final _validateTipoInspEstuDesoController = BehaviorSubject<bool>();
 
@@ -318,10 +320,10 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
       _dataHoraFimInspecaoController.sink.add;
 
   Function(DateTime) get changeDataHoraInicioEstuDeso =>
-      _dataHoraInicioInspecaoController.sink.add;
+      _dataHoraInicioEstuDesoController.sink.add;
 
   Function(DateTime) get changeDataHoraFimEstuDeso =>
-      _dataHoraFimInspecaoController.sink.add;
+      _dataHoraFimEstuDesoController.sink.add;
 
   //---------------------------------------------------------------------------------------------------
   // CONTAINERS REGISTRADOS CONTROLLERS
@@ -531,13 +533,13 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
 
   final _selecionarDataInicioController = BehaviorSubject<DateTime>();
 
-  Stream<String> get outSelecionarInicioData =>
-      _selecionarDataInicioController.stream.transform(validateDateTime);
+  Stream<String> get outSelecionarInicioData => //_selecionarDataInicioController.stream;
+      _selecionarDataInicioController.stream.transform(validateDataOpcional);
 
   final _selecionarDataTerminoController = BehaviorSubject<DateTime>();
 
-  Stream<String> get outSelecionarTerminoData =>
-      _selecionarDataTerminoController.stream.transform(validateDateTime);
+  Stream<String> get outSelecionarTerminoData => //_selecionarDataTerminoController.stream;
+      _selecionarDataTerminoController.stream.transform(validateDataOpcional);
 
 
   final _ocorrenciaController = BehaviorSubject<String>();
@@ -582,7 +584,7 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
   final _ultimaCalibracaoController = BehaviorSubject<DateTime>();
 
   Stream<String> get outUltimaCalibracao =>
-      _ultimaCalibracaoController.stream.transform(validateDateTime);
+      _ultimaCalibracaoController.stream.transform(validateDataOpcional);
 
   final _numeroDeLacreController = BehaviorSubject<String>();
 
@@ -831,6 +833,9 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
           }
           if (form.dadoscontainer.estufagem || form.dadoscontainer.desova){
             /// DATA / HORA INICIO E FIM ESTUFAGEM DESOVA
+            form.dadoscontainer.dataHoraInicioEstuDeso = DateFormat('dd/MM/yyyy HH:mm:ss').format(_dataHoraInicioEstuDesoController.value);
+            form.dadoscontainer.dataHoraFimEstuDeso = DateFormat('dd/MM/yyyy HH:mm:ss').format(_dataHoraFimEstuDesoController.value);
+
           }
           form.nomeFormulario = _bookingController.value;
           form.dadoscontainer.matricula = _matriculaController.value;
@@ -1137,8 +1142,12 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
   TimeLogs adicionarTimeLogs() {
     TimeLogs timeLogs = TimeLogs.padrao();
 
-    timeLogs.dataInicial = _selecionarDataInicioController.value.toString();
-    timeLogs.dataTermino = _selecionarDataTerminoController.value.toString();
+    String tl_ini = _selecionarDataInicioController.value.toString() != "null" ? _selecionarDataInicioController.value.toString() : "***";
+    String tl_fim = _selecionarDataTerminoController.value.toString() != "null" ? _selecionarDataTerminoController.value.toString() : "***";
+
+    //timeLogs.dataInicial = _selecionarDataInicioController.value.toString();
+    timeLogs.dataInicial = tl_ini;
+    timeLogs.dataTermino = tl_fim;
     timeLogs.ocorrencia = _ocorrenciaController.value;
 
     return timeLogs;

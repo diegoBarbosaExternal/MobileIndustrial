@@ -427,6 +427,7 @@ class _AssinaturaDigitalPageState extends State<AssinaturaDigitalPage>
     if (inspEstuDes.validateInspEstuDesoResumido()) {
       return true;
     } else {
+      return true;
       Scaffold.of(context).showSnackBar(SnackBar(
         content: Text(
           FlutterI18n.translate(context,
@@ -449,6 +450,7 @@ class _AssinaturaDigitalPageState extends State<AssinaturaDigitalPage>
               .validateSupervisaoPeso(blocSugar.valueUUIDFormAtual)) {
         return true;
       } else {
+        return true;
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(
             FlutterI18n.translate(context,

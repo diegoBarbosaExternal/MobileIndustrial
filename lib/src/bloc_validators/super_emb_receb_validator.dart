@@ -21,8 +21,15 @@ class SupEmbRecebStateValidator {
         }
       });
 
-
-
+  final validateDataOpcional = StreamTransformer<DateTime, String>.fromHandlers(
+      handleData: (date, sink) {
+        if (date != null) {
+          sink.add(date.toString());
+        }
+        else {
+          sink.add("***");
+        }
+      });
 
 
   final validateDateTime = StreamTransformer<DateTime, String>.fromHandlers(

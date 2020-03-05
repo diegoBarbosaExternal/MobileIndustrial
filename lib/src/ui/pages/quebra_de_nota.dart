@@ -221,9 +221,8 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
                                                 .map((Usina usina) {
                                               return DropdownMenuItem<Usina>(
                                                 value: usina,
-                                                child: Text("${usina.idUsina} - ${usina.usina}",
-                                                  //usina.usina,
-                                                  style: TextStyle(fontSize: 15),
+                                                child: Text("${usina.usina}",
+                                                  style: TextStyle(fontSize: 14),
                                                 ),
                                               );
                                             }).toList(),

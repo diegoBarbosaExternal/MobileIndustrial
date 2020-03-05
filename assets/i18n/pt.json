@@ -74,6 +74,7 @@
   },
   "msgValidacoesTelaTimeLogs": {
     "msgErroBuscarTimeLogs": "Error ao buscar TimeLogs: ",
+    "msgErroNenhumaData": "Preencha ao menos um dos campos de data!",
     "msgDadosSalvosComSucesso": "Os dados de 'TimeLogs' foram salvos com sucesso!",
     "msgCamposObrigatorios": "Você possui campos obrigatórios a serem preenchidos nesta tela!",
     "msgExcluirTimeLogsDialog": "Excluir",
@@ -284,6 +285,9 @@
     "doubleCheckNao": "Não",
     "empresa": "Empresa",
     "lacreAmostras": "Lacre das Amostras",
+    "tituloCondicao": "Condição de Contêineres",
+    "condicaoAprovado" : "Aprovado",
+    "condicaoReprovado:" : "Reprovado",
     "resumo": "Resumo",
     "numeroContainer": "Número do Container",
     "tara": "Tara",

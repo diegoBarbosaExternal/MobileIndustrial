@@ -48,9 +48,6 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
   void initState() {
     blocSugar.getQuebraNota();
     blocContainer.carregarNumeroContainer(uuid: blocSugar.valueUUIDFormAtual);
-
-
-
     super.initState();
   }
 
@@ -81,6 +78,7 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
                         elevation: 5,
                         child: Column(
                           children: <Widget>[
+
                             Form(
                               autovalidate: snapshotForm.data,
                               key: blocContainer.keyComboNumeroContainer,
@@ -88,7 +86,7 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
                                   initialData: [],
                                   stream:
                                   blocNumeroDoContainer
-                                      .outListNumeroDosContainersDistinct,
+                                      .outListNumeroDosContainers,
                                   builder: (context, snapshot) {
                                     return DropDownFormField.dropDownSugar(
                                       hint: FlutterI18n.translate(context,
@@ -141,6 +139,7 @@ class _QuebraDeNotaState extends State<QuebraDeNota>
                                     );
                                   }),
                             ),
+
                             _tff.textFormField(
                               _notaFiscalController,
                               FlutterI18n.translate(

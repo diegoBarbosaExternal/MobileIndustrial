@@ -80,6 +80,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
   int _doubleCheck = 2;
   int _condicao = 1;
 
+
   bool existeDuplicidade = false;
   DateTime initialDate;
   DateTime selectedDate;
@@ -101,6 +102,8 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
     initialDate = DateTime.now();
     selectedDate = initialDate;
     super.initState();
+
+
   }
 
   @override
@@ -342,8 +345,98 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                               ))
                               : SizedBox(),
 
-                          _chkInspecao || _chkEstufagem || _chkDesova ? (
+                          /// Lista de containers Registrados
+                          _chkEstufagem || _chkDesova ? (
+                              Card(
+                                elevation: 5,
+                                child: Column (
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text( "Containers Registrados",
+//                                      FlutterI18n.translate(context,
+//                                          "containerInspecaoEstufagemDesova.timelogEstDeso"),
+                                      style: TextStyle(
+                                          fontSize: 16, color: Colors.black),
+                                    ),
 
+
+                                    Form(
+                                      autovalidate: snapshotForm.data,
+                                      key: blocContainer.keyComboNumeroContainer,
+                                      child: StreamBuilder<List<String>>(
+                                          initialData: [],
+                                          stream:
+                                          blocNumeroDoContainer
+                                              .outListNumeroDosContainers,
+                                          builder: (context, snapshot) {
+                                            return DropDownFormField.dropDownSugar(
+                                              hint: FlutterI18n.translate(context,
+                                                  "containerQuebraNota.comboNumeroContainer"),
+                                              dropDown: DropdownButtonFormField<String>(
+                                                decoration:
+                                                DropDownFormField.decoratorDropDown(),
+                                                validator: (String value) {
+                                                  if (value == null ||
+                                                      blocNumeroDoContainer
+                                                          .valueNumeroContainer ==
+                                                          null) {
+                                                    return FlutterI18n.translate(context,
+                                                        "containerQuebraNota.msgNumeroContainerObrigatorio");
+                                                  } else {
+                                                    return null;
+                                                  }
+                                                },
+                                                hint: Text(
+                                                  FlutterI18n.translate(context,
+                                                      "containerQuebraNota.comboNumeroContainer"),
+                                                  style: TextStyle(fontSize: 13.0),
+                                                ),
+                                                value: blocNumeroDoContainer
+                                                    .valueNumeroContainer,
+                                                onChanged: (String value) {
+                                                  blocNumeroDoContainer
+                                                      .valueNumeroContainer = value;
+
+                                                  blocContainer.changeNumeroDoContainer(value);
+
+                                                  blocNumeroDoContainer
+                                                      .sinkListNumeroDosContainers
+                                                      .add(blocNumeroDoContainer
+                                                      .listValueContainer);
+                                                  if (snapshotForm.data) {
+                                                    blocContainer
+                                                        .keyFormQuebraNota.currentState
+                                                        .validate();
+                                                  }
+                                                },
+                                                items: snapshot.data.map((String value) {
+                                                  return DropdownMenuItem<String>(
+                                                    value: value,
+                                                    child: Text(
+                                                      value,
+                                                      style: TextStyle(fontSize: 13),
+                                                    ),
+                                                  );
+                                                }).toList(),
+                                              ),
+                                            );
+                                          }),
+                                    ),
+
+
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+
+
+                                  ],
+
+
+                                ),
+                              )
+                          ): SizedBox(),
+
+                          _chkInspecao || _chkEstufagem || _chkDesova ? (
                           Card(
                             elevation: 5,
                             child: Column(
@@ -419,6 +512,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     stream: blocContainer.outClientePrincipal,
                                     onChanged:
                                     blocContainer.changeClientePrincipal),
+
                                 _tff.textFormField(
                                     _localTerminalController,
                                     FlutterI18n.translate(context,
@@ -436,6 +530,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     onChanged: blocContainer.changeLocalTerminal),
 
                                 _chkEstufagem || _chkDesova ? (//Dropdown de produtos
+
                                 Form(
                                   autovalidate: snapshotForm.data,
                                   key:
@@ -890,6 +985,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                         false,
                                         campoObrigatorio: true,
                                         verificarValidate: false,
+                                        maxLength: 7,
                                         autoValidate: snapshotForm.data,
                                         stream: blocContainer.outDataFabricacao,
                                         typeText: TextInputType.text,
@@ -1019,7 +1115,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                     campoObrigatorio: true,
                                     maxLength: 10,
                                     maxLines: null,
-                                    typeText: TextInputType.text,
+                                    typeText: TextInputType.number,
                                     stream: blocContainer.outTemperatura,
                                     onChanged: blocContainer.changeTemperatura))
                                 : SizedBox(),
@@ -1374,43 +1470,6 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
 
                         ],
                       ),
-//                      child: clv.containerListView(
-//                        context: context,
-//                        tituloContainer: FlutterI18n.translate(context,
-//                            "containerInspecaoEstufagemDesova.listaTelaInspecaoEstufagemDesovaTitulo"),
-//                        child: StreamBuilder<List<InformacaoContainer>>(
-//                          stream: blocContainer
-//                              .outListInicialInspecaoEstufagemDesova,
-//                          builder: (context, snapshot) {
-//                            switch (snapshot.connectionState) {
-//                              case ConnectionState.waiting:
-//                              case ConnectionState.none:
-//                                return SizedBox();
-//                              case ConnectionState.active:
-//                                if (snapshot.data == null ||
-//                                    snapshot.data.isEmpty) {
-//                                  return SizedBox();
-//                                } else {
-//                                  return lcied
-//                                      .lisContainerInspecaoEstufagemDesova(
-//                                      contextPageInspEstuDeso:
-//                                      context,
-//                                      listInformacaoContainer:
-//                                      snapshot.data);
-//                                }
-//                                break;
-//                              default:
-//                                return Row(
-//                                  children: <Widget>[
-//                                    Text(FlutterI18n.translate(context,
-//                                        "msgValidacoesTelaInspecaoEstufagemDesova.msgErroBuscarInspecaoEstufagemDesova")),
-//                                    Text("${snapshot.error}")
-//                                  ],
-//                                );
-//                            }
-//                          },
-//                        ),
-//                      )
                   );
                 },
               ),
@@ -1432,7 +1491,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
               BlocProvider.tag('sugarGlobal').getBloc<SugarBloc>();
 
               bool sucesso = await blocContainer
-                  .salvarInspecaoEstufagemDesova(blocSugar.valueUUIDFormAtual);
+                  .salvarInspecaoEstufagemDesova(blocSugar.valueUUIDFormAtual, _numeroContainerController.text);
 
               if (sucesso) {
                 limparInspEstufDesov();
@@ -1626,14 +1685,15 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
         {
           dtFabricacaoIncorreta = true;
         }
-
       }
 
       int contContainer = 0;
       blocNumeroDoContainer.valueListNumeroDosContainers
           .forEach((valueContainer) {
 
+
         if (_numeroContainerController.text == valueContainer) {
+          if (_chkInspecao)
           existeDuplicidade = true;
         } else {
           contContainer++;
@@ -1844,6 +1904,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
         }
       }
 
+
       if (dados.resumo != null) {
         _resumoController.text = dados.resumo;
         blocContainer.sinkResumo.add(dados.resumo);
@@ -1859,6 +1920,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
     int condicaoAprovado = 0;
     int condicaoReprovado = 0;
     snapshot.data.forEach((intContainer) {
+
       intContainer.condicao == true ? condicaoAprovado++ : condicaoReprovado++;
     }
     );

@@ -820,9 +820,6 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
       final blocProduto =
           BlocProvider.tag('sugarGlobal').getBloc<ProdutoBloc>();
 
-
-
-
       formulario.container.forEach((form) {
         if (form.uuid == uuid) {
           form.dadoscontainer.inspecao = _inspecaoController.value;
@@ -883,6 +880,7 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
             }
 
             form.dadoscontainer.containersRegistrados[indexContainer] = adicionarInformacoesContainer();
+            form.dadoscontainer.containersRegistrados[indexContainer].total += int.parse(totalControleQuant() != null ? totalControleQuant() : "0");
 
           } else {
 
@@ -891,7 +889,6 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
             ];
 
           }
-
 
           if (form.dadoscontainer.containersRegistrados == null ||
               form.dadoscontainer.containersRegistrados.isEmpty) {
@@ -902,7 +899,6 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
             form.dadoscontainer.containersRegistrados
                 .add(adicionarInformacoesContainer());
           }
-
 
         }
       });
@@ -1164,12 +1160,13 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
 
     inf.lote = _loteController.value.toString();
 
-    //inf.data = _dataLoteController.value.toString();
+    inf.data = _dataLoteController.value.toString();
     if (inf.estufagem || inf.desova) {
       inf.controleDeQuantidade =
           convertStringToInt(_listControleDeQuantidadeController.value);
-      inf.total = int.parse(totalControleQuant());
+      //inf.total = int.parse(totalControleQuant() != null ? totalControleQuant() : "0");
     }
+    //inf.total = int.parse(totalControleQuant() != null ? totalControleQuant() : "0");
 
     return inf;
   }

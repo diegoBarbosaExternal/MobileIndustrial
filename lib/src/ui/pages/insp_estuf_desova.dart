@@ -1144,7 +1144,7 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
                                                   "containerInspecaoEstufagemDesova.msgCampoObrigatorio"),
                                               false,
                                               campoObrigatorio: false,
-                                              maxLength: 10,
+                                              maxLength: 15,
                                               maxLines: null,
                                               typeText: TextInputType.text,
                                               stream:
@@ -1904,7 +1904,6 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
         }
       }
 
-
       if (dados.resumo != null) {
         _resumoController.text = dados.resumo;
         blocContainer.sinkResumo.add(dados.resumo);
@@ -1920,10 +1919,8 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
     int condicaoAprovado = 0;
     int condicaoReprovado = 0;
     snapshot.data.forEach((intContainer) {
-
       intContainer.condicao == true ? condicaoAprovado++ : condicaoReprovado++;
-    }
-    );
+    });
     t_result = (t_titulo + "\n" +
                 t_aprovado + ": " + condicaoAprovado.toString() + "   " + t_reprovado + ": " + condicaoReprovado.toString()
                 );
@@ -1948,7 +1945,6 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
     blocContainer.listAuxControleDeQuantidade.clear();
 
   }
-
 
   @override
   // TODO: implement wantKeepAlive

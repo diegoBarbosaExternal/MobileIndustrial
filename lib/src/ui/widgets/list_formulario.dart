@@ -934,8 +934,30 @@ class LisContainerInspecaoEstufagemDesova {
             elevation: 5,
             child: Column(
               children: <Widget>[
+
+                /// Status de volume
                 Container(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(5.0),
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        FlutterI18n.translate(
+                            context, "containerInspecaoEstufagemDesova.listaTelaInspecaoEstufagemDesovaColuna41"),
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Flexible(
+                        child:  Text( "CHEIO",
+                          //listInformacaoContainer[index].numeroContainer,
+                          style: TextStyle(fontSize: 14),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                /// Numero do Container
+                Container(
+                  padding: const EdgeInsets.all(5.0),
                   child: Row(
                     children: <Widget>[
                       Text(
@@ -943,26 +965,19 @@ class LisContainerInspecaoEstufagemDesova {
                             context, "containerInspecaoEstufagemDesova.listaTelaInspecaoEstufagemDesovaColuna11"),
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(listInformacaoContainer[index].numeroContainer,
-
-                        style: TextStyle(fontSize: 14),
+                      Flexible(
+                        child:  Text(
+                          listInformacaoContainer[index].numeroContainer,
+                          style: TextStyle(fontSize: 14),
+                        ),
                       ),
                     ],
                   ),
                 ),
-                /// TODO RESUMO DE CONTAINERS EDITADO
 
-
+                /// Tara
                 Container(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: Row(
                     children: <Widget>[
                       Text(
@@ -978,8 +993,9 @@ class LisContainerInspecaoEstufagemDesova {
                   ),
                 ),
 
+                /// Capacidade
                 Container(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: Row(
                     children: <Widget>[
                       Text(
@@ -989,6 +1005,24 @@ class LisContainerInspecaoEstufagemDesova {
                       ),
                       Flexible(
                         child: Text(listInformacaoContainer[index].capacidade.toString(),
+                          style: TextStyle(fontSize: 14),
+                        ),),
+                    ],
+                  ),
+                ),
+
+                /// Total Controle de Quantidade
+                Container(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        FlutterI18n.translate(
+                            context, "containerInspecaoEstufagemDesova.totalControleQuantidade"),
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Flexible(
+                        child: Text(listInformacaoContainer[index].total.toString(),
                           style: TextStyle(fontSize: 14),
                         ),),
                     ],
@@ -1155,6 +1189,28 @@ class LisContainerInspecaoEstufagemDesova {
     );
   }
 }
+
+ String statusVolume(int status){
+
+  String result = "";
+
+  switch (status){
+
+    case 1:
+      result = "VAZIO";
+      break;
+    case 2:
+      result = "PARCIAL";
+      break;
+    case 3:
+      result = "COMPLETO";
+      break;
+    default:
+      result = "";
+      break;
+  }
+  return result;
+ }
 
 class LisContainerQuebraDeNota {
   final blocContainer = BlocProvider.tag('container').getBloc<ContainerBloc>();

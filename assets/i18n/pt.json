@@ -319,6 +319,10 @@
     "listaTelaInspecaoEstufagemDesovaColuna11": "Número Container: ",
     "listaTelaInspecaoEstufagemDesovaColuna21": "Tara: ",
     "listaTelaInspecaoEstufagemDesovaColuna31": "Capacidade: ",
+    "listaTelaInspecaoEstufagemDesovaColuna41": "Status de Volume: ",
+    "statusVolume1": "VAZIO",
+    "statusVolume2": "PARCIAL",
+    "statusVolume3": "COMPLETO",
     "msgCampoObrigatorio": "Campo Obrigatório",
     "provisorio": "Provisório"
   },

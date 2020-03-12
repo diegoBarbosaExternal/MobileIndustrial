@@ -853,7 +853,13 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
             form.dadoscontainer.navio = _navioController.value;
             form.dadoscontainer.resumo = _resumoController.value;
 
+            //form.dadoscontainer.containersRegistrados[indexContainer].total = 0;
             //form.dadoscontainer.containersRegistrados.add(adicionarInformacoesContainer());
+
+            if (form.dadoscontainer.containersRegistrados == null ||
+                form.dadoscontainer.containersRegistrados.isEmpty) {
+              form.dadoscontainer.containersRegistrados = [adicionarInformacoesContainer()];
+            }
 
           } else if (!_inspecaoController.value){ /// else index > -1
             /// DATA / HORA INICIO E FIM ESTUFAGEM DESOVA
@@ -878,26 +884,26 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
                     : 0;
               }
             }
+//            form.dadoscontainer.containersRegistrados[indexContainer] = adicionarInformacoesContainer();
 
-            form.dadoscontainer.containersRegistrados[indexContainer] = adicionarInformacoesContainer();
-            form.dadoscontainer.containersRegistrados[indexContainer].total += int.parse(totalControleQuant() != null ? totalControleQuant() : "0");
+            if (form.dadoscontainer.containersRegistrados[indexContainer].controleDeQuantidade != null) {
+              atualizaInformacoesContainer(form.dadoscontainer.containersRegistrados[indexContainer]);
+            } else {
+              form.dadoscontainer.containersRegistrados[indexContainer] = adicionarInformacoesContainer();
+            }
+
+
+            if (form.dadoscontainer.containersRegistrados[indexContainer].total == null ||
+                form.dadoscontainer.containersRegistrados[indexContainer].total < 1){
+              form.dadoscontainer.containersRegistrados[indexContainer].total = int.parse(totalControleQuant());
+            } else {
+              form.dadoscontainer.containersRegistrados[indexContainer].total += int.parse(totalControleQuant() != null ? totalControleQuant() : 0);
+            }
 
           } else {
+//            form.dadoscontainer.containersRegistrados = [adicionarInformacoesContainer()];
+          int log = 1;
 
-            form.dadoscontainer.containersRegistrados = [
-              adicionarInformacoesContainer()
-            ];
-
-          }
-
-          if (form.dadoscontainer.containersRegistrados == null ||
-              form.dadoscontainer.containersRegistrados.isEmpty) {
-            form.dadoscontainer.containersRegistrados = [
-              adicionarInformacoesContainer()
-            ];
-          } else if (_inspecaoController.value == true) {
-            form.dadoscontainer.containersRegistrados
-                .add(adicionarInformacoesContainer());
           }
 
         }
@@ -1107,14 +1113,42 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
     }
   }
 
+  atualizaInformacoesContainer(var form){
+    InformacaoContainer inf = form;
+
+    //inf.inspecao = (_inspecaoController.value == true) ? true: false;
+    inf.estufagem = (_estufagemController.value == true) ? true : false;
+    inf.desova = (_desovaController.value == true) ? true : false;
+    //inf.numeroContainer = _numeroDoContainerController.value;
+    //inf.tara = inf.tara ?? 0;
+    //inf.capacidade = inf.capacidade ?? 0;
+    //inf.dataFabricacao = inf.dataFabricacao ?? _dataFabricacaoController.value.toString();
+    inf.temperatura = _temperaturaController.value;
+    inf.lacreSgs7Metros = (_lacreSgs7MetrosController.value != null &&
+        _lacreSgs7MetrosController.value.isNotEmpty)
+        ? int.parse(_lacreSgs7MetrosController.value)
+        : inf.lacreSgs7Metros;
+    inf.lacreDefinitivo = (_lacreDefinitivoController.value != null &&
+        _lacreDefinitivoController.value.isNotEmpty)
+        ? int.parse(_lacreDefinitivoController.value)
+        : inf.lacreDefinitivo;
+    inf.lacreAgencia = _lacreAgenciaController.value ?? inf.lacreAgencia;
+    inf.lacreOutros = (_lacreOutrosController.value != null &&
+        _lacreOutrosController.value.isNotEmpty)
+        ? int.parse(_lacreOutrosController.value)
+        : inf.lacreOutros;
+    inf.lote = _loteController.value.toString() ?? inf.lote;
+    int abc = 1;
+    //inf.total = int.parse(inf.total.toString() == "null" ? totalControleQuant() : inf.total.toString());
+  }
+
   InformacaoContainer adicionarInformacoesContainer() {
     InformacaoContainer inf = InformacaoContainer.padrao();
 
-    inf.inspecao = (_inspecaoController.value == true) ? true: false;
+    inf.inspecao = true;
+    //inf.inspecao = (_inspecaoController.value == true) ? true: false;
     inf.estufagem = (_estufagemController.value == true) ? true : false;
     inf.desova = (_desovaController.value == true) ? true : false;
-
-    //inf.inspecao == true ? inf.numeroContainer = _numeroDoContainerController.value : " ";
 
     inf.numeroContainer = _numeroDoContainerController.value;
 
@@ -1129,13 +1163,7 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
         : 0;
 
     inf.dataFabricacao = _dataFabricacaoController.value.toString();
-
-
     inf.condicao = true;
-//    if (_condicaoController.value != 1) {
-//      inf.condicao = false;
-//    }
-
     inf.condicao = (_condicaoController.value == 1 || _condicaoController.value == null) ? true : false;
     if(!inf.condicao){
       inf.razaoRejeicao = _razaoRejeicaoController.value;
@@ -1145,21 +1173,16 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
             _lacreSgs7MetrosController.value.isNotEmpty)
         ? int.parse(_lacreSgs7MetrosController.value)
         : 0;
-
     inf.lacreDefinitivo = (_lacreDefinitivoController.value != null &&
             _lacreDefinitivoController.value.isNotEmpty)
         ? int.parse(_lacreDefinitivoController.value)
         : 0;
-
     inf.lacreAgencia = _lacreAgenciaController.value;
-
     inf.lacreOutros = (_lacreOutrosController.value != null &&
             _lacreOutrosController.value.isNotEmpty)
         ? int.parse(_lacreOutrosController.value)
         : 0;
-
     inf.lote = _loteController.value.toString();
-
     inf.data = _dataLoteController.value.toString();
     if (inf.estufagem || inf.desova) {
       inf.controleDeQuantidade =

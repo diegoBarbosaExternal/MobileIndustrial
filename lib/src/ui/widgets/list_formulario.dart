@@ -17,6 +17,9 @@ import 'package:sugar/src/ui/pages/home_break_bulk.dart';
 import 'package:sugar/src/ui/pages/home_container.dart';
 import 'package:intl/intl.dart';
 
+/// Status de volume Maximo permitido por container
+final int maxVolume = 540;
+
 class ListNaoSincronizados {
   final blocSugar = BlocProvider.tag('sugarGlobal').getBloc<SugarBloc>();
   final bloc = BlocProvider.tag('tipoFormulario').getBloc<TipoFormularioBloc>();
@@ -946,7 +949,7 @@ class LisContainerInspecaoEstufagemDesova {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Flexible(
-                        child:  Text( "CHEIO",
+                        child:  Text( statusVolume(context, listInformacaoContainer[index].total),
                           //listInformacaoContainer[index].numeroContainer,
                           style: TextStyle(fontSize: 14),
                         ),
@@ -1022,7 +1025,7 @@ class LisContainerInspecaoEstufagemDesova {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Flexible(
-                        child: Text(listInformacaoContainer[index].total.toString(),
+                        child: Text(listInformacaoContainer[index].total.toString() != "null" ? listInformacaoContainer[index].total.toString() : "0",
                           style: TextStyle(fontSize: 14),
                         ),),
                     ],
@@ -1190,24 +1193,14 @@ class LisContainerInspecaoEstufagemDesova {
   }
 }
 
- String statusVolume(int status){
-
+ String statusVolume(var context, int status){
   String result = "";
-
-  switch (status){
-
-    case 1:
-      result = "VAZIO";
-      break;
-    case 2:
-      result = "PARCIAL";
-      break;
-    case 3:
-      result = "COMPLETO";
-      break;
-    default:
-      result = "";
-      break;
+  if (status == null || status < 1){
+    result = FlutterI18n.translate(context, "containerInspecaoEstufagemDesova.statusVolume1");
+  } else if (status > 0 && status < maxVolume){
+    result = FlutterI18n.translate(context, "containerInspecaoEstufagemDesova.statusVolume2");
+  } else {
+    result = FlutterI18n.translate(context, "containerInspecaoEstufagemDesova.statusVolume3");
   }
   return result;
  }

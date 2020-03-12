@@ -1662,8 +1662,6 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
     //if (_chkEstufagem || _chkDesova) {///===ABRE VALID===
       bool controleQuant = blocContainer.validateControleDeQuantidade();
 
-
-
       if (controleQuant) {
         blocContainer.sinkValidateControleDeQuantidade.add(true);
       }
@@ -1772,7 +1770,6 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
       }
 
        */
-
       if (dados.containersRegistrados != null
           && dados.containersRegistrados.length > 0) {
         existeContainer = true;

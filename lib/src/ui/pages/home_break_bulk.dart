@@ -21,12 +21,18 @@ class HomeBreakBulk extends StatefulWidget {
 }
 
 class _HomeBreakBulkState extends State<HomeBreakBulk> {
+
+  int tabCount = 5;
+  String formTipo = "";
+  var Extcontext;
+  var Extsnapshot;
+
   final blocSuperEmbRecBloc =
-      BlocProvider.tag('breakbulk').getBloc<BreakBulkBloc>();
+  BlocProvider.tag('breakbulk').getBloc<BreakBulkBloc>();
   final blocProduto = BlocProvider.tag('sugarGlobal').getBloc<ProdutoBloc>();
   final blocUsina = BlocProvider.tag('sugarGlobal').getBloc<UsinaBloc>();
   final blocTipoUsina =
-      BlocProvider.tag('sugarGlobal').getBloc<TipoUsinaBloc>();
+  BlocProvider.tag('sugarGlobal').getBloc<TipoUsinaBloc>();
   final blocTipoAcucar =
   BlocProvider.tag('sugarGlobal').getBloc<TipoAcucarBloc>();
   final bloc = BlocProvider.tag('tipoFormulario').getBloc<TipoFormularioBloc>();
@@ -46,103 +52,218 @@ class _HomeBreakBulkState extends State<HomeBreakBulk> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-        length: 5,
-        child: StreamBuilder<int>(
-            stream: bloc.outTipoOperacaoBreakBulk,
-            builder: (context, snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.waiting:
-                case ConnectionState.none:
-                return Center(
-                    child: CircularProgressIndicator(
-                        backgroundColor: Color.fromARGB(255, 243, 112, 33),
-                        valueColor: AlwaysStoppedAnimation(Colors.white)));
-                case ConnectionState.active:
-                  if(snapshot.data == 2){
-                    blocSugar.sinkIdFormAtualSincronizado.add(2);
-                  }else{
-                    blocSugar.sinkIdFormAtualSincronizado.add(1);
-                  }
-                  return GestureDetector(
-                    onTap: (){
-                      FocusScope.of(context).requestFocus(FocusNode());
-                    },
-                    child: Scaffold(
-                      appBar: AppBar(
-                          title: Text(
-                            'Break Bulk',
-                            style: TextStyle(fontSize: 25),
-                          ),
-                          centerTitle: true,
-                          backgroundColor: Color.fromARGB(255, 080, 079, 081),
-                          bottom: TabBar(
-                              indicatorSize: TabBarIndicatorSize.tab,
-                              unselectedLabelColor: Colors.grey,
-                              indicatorColor: Color.fromARGB(255, 243, 112, 33),
-                              isScrollable: true,
-                              tabs: [
-                                Tab(
+    return StreamBuilder<int>(
+        stream: bloc.outTipoOperacaoBreakBulk,
+        builder: (context, snapshot) {
+
+          if (snapshot.connectionState == ConnectionState.waiting ||
+              snapshot.connectionState == ConnectionState.none){
+            return Center(
+                child: CircularProgressIndicator(
+                    backgroundColor: Color.fromARGB(255, 243, 112, 33),
+                    valueColor: AlwaysStoppedAnimation(Colors.white)));
+          } else if (snapshot.connectionState == ConnectionState.active) {
+
+            if (snapshot.data == 2) {
+              tabCount = 4;
+              blocSugar.sinkIdFormAtualSincronizado.add(2);
+              return GestureDetector(
+                onTap: () {
+                  FocusScope.of(context).requestFocus(FocusNode());
+                },
+                child: DefaultTabController(
+                  length: tabCount,
+                  child: Scaffold(
+                    appBar: AppBar(
+                        title: Text(
+                          'Break Bulk',
+                          style: TextStyle(fontSize: 25),
+                        ),
+                        centerTitle: true,
+                        backgroundColor: Color.fromARGB(255, 080, 079, 081),
+                        bottom:
+
+                        TabBar(
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            unselectedLabelColor: Colors.grey,
+                            indicatorColor: Color.fromARGB(255, 243, 112, 33),
+                            isScrollable: true,
+                            tabs: [
+                              // SUPER EMB RECEB
+                              Tab(
+                                child: Text(
+                                  FlutterI18n.translate(context,
+                                      "breakbulkSuperEmbReceb.tituloTabBar"),
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              ),
+                              // CAMINHOES
+                              Tab(
+                                  child: Column(
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .center,
+                                      children: <Widget>[
+                                        Text(
+                                          FlutterI18n.translate(context,
+                                              "breakbulkCaminhoesVagoes.tituloTabBar"),
+                                          style: TextStyle(fontSize: 12),
+                                        ),
+                                      ])),
+                              // TIMELOGS
+//                              Tab(
+//                                  child: Text(
+//                                    FlutterI18n.translate(
+//                                        context, "timeLogs.tituloTabBar"),
+//                                    style: TextStyle(fontSize: 12),
+//                                  )),
+                              Tab(
                                   child: Text(
                                     FlutterI18n.translate(context,
-                                        "breakbulkSuperEmbReceb.tituloTabBar"),
+                                        "breakbulkEmbarque.tituloTabBar"),
                                     style: TextStyle(fontSize: 12),
-                                  ),
-                                ),
-                                Tab(
-                                    child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Text(
-                                            FlutterI18n.translate(context,
-                                                "breakbulkCaminhoesVagoes.tituloTabBar"),
-                                            style: TextStyle(fontSize: 12),
-                                          ),
-                                        ])),
-                                Tab(
-                                    child: Text(
-                                      FlutterI18n.translate(
-                                          context, "timeLogs.tituloTabBar"),
-                                      style: TextStyle(fontSize: 12),
-                                    )),
-                                snapshot.data == 2
-                                    ? Tab(
-                                    child: Text(
-                                      FlutterI18n.translate(context,
-                                          "breakbulkEmbarque.tituloTabBar"),
-                                      style: TextStyle(fontSize: 12),
-                                    ))
-                                    : Tab(
-                                    child: Text(
-                                        FlutterI18n.translate(context,
-                                            "breakbulkRecebimento.tituloTabBar"),
-                                        style: TextStyle(fontSize: 12))),
-                                Tab(
-                                    child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Text(
-                                            FlutterI18n.translate(context,
-                                                "assinaturaDigital.tituloTabBar"),
-                                            style: TextStyle(fontSize: 12),
-                                          ),
-                                        ]))
-                              ])),
-                      body: TabBarView(children: [
+                                  )),
+
+//                              Tab(
+//                                  child: Text(
+//                                      FlutterI18n.translate(context,
+//                                          "breakbulkRecebimento.tituloTabBar"),
+//                                      style: TextStyle(fontSize: 12))),
+                              Tab(
+                                  child: Column(
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .center,
+                                      children: <Widget>[
+                                        Text(
+                                          FlutterI18n.translate(context,
+                                              "assinaturaDigital.tituloTabBar"),
+                                          style: TextStyle(fontSize: 12),
+                                        ),
+                                      ]))
+                            ])),
+
+                    body:  TabBarView(
+                      children: [
                         SupEmbReceb(),
                         CaminhoesVagoes(),
-                        TimeLogs(),
-                        snapshot.data == 2 ? Embarque() : Recebimento(),
-                        AssinaturaDigitalPage(),
-                      ]),
+                        Embarque(),
+                        Assinatura(),
+                      ],
                     ),
-                  );
-                default:
-                  return Text(
-                      'Error ao buscar LatLng: ${snapshot.error}');
-              }
+                  ),
+                ),
+              );
+            } else {
+              tabCount = 3;
+              blocSugar.sinkIdFormAtualSincronizado.add(1);
+              return GestureDetector(
+                onTap: () {
+                  FocusScope.of(context).requestFocus(FocusNode());
+                },
+                child: DefaultTabController(
+                  length: tabCount,
+                  child: Scaffold(
+                    appBar: AppBar(
+                        title: Text(
+                          'Break Bulk',
+                          style: TextStyle(fontSize: 25),
+                        ),
+                        centerTitle: true,
+                        backgroundColor: Color.fromARGB(255, 080, 079, 081),
+                        bottom:
 
+                        TabBar(
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            unselectedLabelColor: Colors.grey,
+                            indicatorColor: Color.fromARGB(255, 243, 112, 33),
+                            isScrollable: true,
+                            tabs: [
+                              // SUPER EMB RECEB
+                              Tab(
+                                child: Text(
+                                  FlutterI18n.translate(context,
+                                      "breakbulkSuperEmbReceb.tituloTabBar"),
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              ),
+                              // CAMINHOES
+                              Tab(
+                                  child: Column(
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .center,
+                                      children: <Widget>[
+                                        Text(
+                                          FlutterI18n.translate(context,
+                                              "breakbulkCaminhoesVagoes.tituloTabBar"),
+                                          style: TextStyle(fontSize: 12),
+                                        ),
+                                      ])),
+                              // TIMELOGS
+//                              Tab(
+//                                  child: Text(
+//                                    FlutterI18n.translate(
+//                                        context, "timeLogs.tituloTabBar"),
+//                                    style: TextStyle(fontSize: 12),
+//                                  )),
 
-            }));
+                              Tab(
+                                  child: Column(
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .center,
+                                      children: <Widget>[
+                                        Text(
+                                          FlutterI18n.translate(context,
+                                              "assinaturaDigital.tituloTabBar"),
+                                          style: TextStyle(fontSize: 12),
+                                        ),
+                                      ]))
+                            ])),
+
+                    body:  TabBarView(
+                      children: [
+                        SupEmbReceb(),
+                        CaminhoesVagoes(),
+                        Assinatura(),
+                      ],
+                    ),
+
+                  ),
+                ),
+              );
+            }
+
+          } else {
+            return Text(
+                'Erro ao buscar LatLng: ${snapshot.error}'
+            );
+          }
+        }
+    );
   }
 }
+
+
+listaTabs4 (){
+
+  TabBarView(
+    children: [
+      SupEmbReceb(),
+      CaminhoesVagoes(),
+      Embarque(),
+      Assinatura(),
+    ],
+  );
+}
+
+listaTabs3 (){
+
+  TabBarView(
+    children: [
+      SupEmbReceb(),
+      CaminhoesVagoes(),
+      Assinatura(),
+    ],
+  );
+
+
+}
+

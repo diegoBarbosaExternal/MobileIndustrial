@@ -15,6 +15,7 @@ import 'package:sugar/src/models/formulario.dart';
 import 'package:sugar/src/models/recebimento.dart';
 import 'package:sugar/src/models/sincronizar_breakbulk.dart';
 import 'package:sugar/src/models/time_logs.dart';
+import 'package:intl/intl.dart';
 
 class BreakBulkBloc extends BlocBase with SupEmbRecebStateValidator {
   final LoginBloc blocLogin =
@@ -114,6 +115,11 @@ class BreakBulkBloc extends BlocBase with SupEmbRecebStateValidator {
   Stream<String> get outProduto =>
       _produtoController.stream.transform(validateDropDownProduto);
 
+  final _dataReferenciaController = BehaviorSubject<DateTime>();
+
+  Stream<String> get outDataReferencia =>
+      _dataReferenciaController.stream.transform(validateDataOpcional);
+
   final _ordemServicoController = BehaviorSubject<String>();
 
   Stream<String> get outOrdemServico =>
@@ -155,6 +161,10 @@ class BreakBulkBloc extends BlocBase with SupEmbRecebStateValidator {
 
   Function(String) get changeClientePrincipal =>
       _clientePrincipalController.sink.add;
+
+  Function(DateTime) get changeDataReferencia => _dataReferenciaController.sink.add;
+
+  Sink<DateTime> get sinkDataReferencia => _dataReferenciaController.sink;
 
   Function(String) get changeOLocalTerminal =>
       _localTerminalController.sink.add;
@@ -299,12 +309,12 @@ class BreakBulkBloc extends BlocBase with SupEmbRecebStateValidator {
   final _selecionarDataInicioController = BehaviorSubject<DateTime>();
 
   Stream<String> get outSelecionarInicioData =>
-      _selecionarDataInicioController.stream.transform(validateDateTime);
+      _selecionarDataInicioController.stream.transform(validateDataOpcional);
 
   final _selecionarDataTerminoController = BehaviorSubject<DateTime>();
 
   Stream<String> get outSelecionarTerminoData =>
-      _selecionarDataTerminoController.stream.transform(validateDateTime);
+      _selecionarDataTerminoController.stream.transform(validateDataOpcional);
 
   final _ocorrenciaController = BehaviorSubject<String>();
 
@@ -323,7 +333,7 @@ class BreakBulkBloc extends BlocBase with SupEmbRecebStateValidator {
   Function(DateTime) get changeSelecionarDataInicio =>
       _selecionarDataInicioController.sink.add;
 
-  Function(DateTime) get changeSelecionarTerminoData =>
+  Function(DateTime) get changeSelecionarDataTermino =>
       _selecionarDataTerminoController.sink.add;
 
   Sink<bool> get inAutoValidateTimeLogs => _validateTimeLogsController.sink;
@@ -506,6 +516,7 @@ class BreakBulkBloc extends BlocBase with SupEmbRecebStateValidator {
       Formulario formulario = await sugarBloc.getFormularioSugar();
       formulario.breakBulk.forEach((form) {
         if (form.uuid == uuid) {
+          form.dadosbreakbulk.dataReferencia = DateFormat('dd/MM/yyyy').format(_dataReferenciaController.value);
           form.dadosbreakbulk.produto = blocProduto.valueProdutSuperEmbReceb;
           form.dadosbreakbulk.ordemDeServico = _ordemServicoController.value;
           form.dadosbreakbulk.clientePrincipal =

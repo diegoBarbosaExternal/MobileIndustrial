@@ -60,15 +60,15 @@
     "msgCamposObrigatorios": "Você possui campos obrigatórios a serem preenchidos nesta tela!"
   },
   "msgValidacoesTelaCaminhoesVagoes": {
-    "msgErroBuscarCaminhoesVagoes": "Error ao buscar Caminhões / Vagões: ",
-    "msgDadosSalvosComSucesso": "Os dados de 'Caminhões / Vagões' foram salvos com sucesso!",
+    "msgErroBuscarCaminhoesVagoes": "Error ao buscar Caminhões: ",
+    "msgDadosSalvosComSucesso": "Os dados de 'Caminhões' foram salvos com sucesso!",
     "msgErroAoSalvar": "Erro ao Salvar",
     "msgCamposObrigatorios": "Você possui campos obrigatórios a serem preenchidos nesta tela!",
     "msgExcluirCaminhaoVagaoDialog": "Excluir",
     "msgExcluirCaminhaoVagaoDialogCancelar": "Cancelar",
     "msgExcluirCaminhaoVagaoDialogTitulo": "Pressione 'Excluir' se deseja apagar o registro",
-    "msgExcluirCaminhaoVagaoDialogSubTitulo": "Caminhões/Vagões Nº ",
-    "msgExcluirCaminhaoVagaoDialogValor1": "Caminhões/Vagões: ",
+    "msgExcluirCaminhaoVagaoDialogSubTitulo": "Caminhões Nº ",
+    "msgExcluirCaminhaoVagaoDialogValor1": "Caminhões: ",
     "msgExcluirCaminhaoVagaoDialogValor2": "Nota Fiscal: ",
     "msgExcluirCaminhaoVagaoDialogValor3": "Quantidade : "
   },
@@ -110,7 +110,7 @@
   "msgValidacoesTelaAssinaturaDigital": {
     "msgCamposObrigatorios": "Você possui campos obrigatórios a serem preenchidos nesta tela!",
     "msgCamposObrigatoriosSuperEmbReceb": "Você possui campos obrigatórios a serem preenchidos a tela Super/Emb/Receb",
-    "msgSalvarAoMenosUmaInformacaoCaminhaoVagao": "Salve ao menos uma informação em 'Caminhões Vagões' para poder sincronizar",
+    "msgSalvarAoMenosUmaInformacaoCaminhaoVagao": "Salve ao menos uma informação em 'Caminhões' para poder sincronizar",
     "msgSalvarAoMenosUmaInformacaoTimeLogs": "Salve ao menos uma informação em 'TimeLogs' para poder sincronizar",
     "msgSalvarAoMenosUmaInformacaoEmbarque": "Salve ao menos uma informação em 'Embarque' para poder sincronizar",
     "msgSalvarAoMenosUmaInformacaoRecebimento": "Salve ao menos uma informação em 'Recebimento' para poder sincronizar",
@@ -184,6 +184,7 @@
   "breakbulkSuperEmbReceb": {
     "tituloTabBar": "Super / Emb / Receb",
     "comboProdutos": "Produtos (Obrigatório)",
+    "dataReferencia": "Data de Referência",
     "ordemServico": "Ordem de Serviço",
     "clientePrincipal": "Cliente / Principal",
     "localTerminal": "Local / Terminal",
@@ -195,8 +196,8 @@
     "usina": "Usina"
   },
   "breakbulkCaminhoesVagoes": {
-    "tituloTabBar": "Caminhões / Vagões",
-    "caminhoesVagoes": "Caminhões / Vagões",
+    "tituloTabBar": "Caminhões",
+    "caminhoesVagoes": "Caminhões",
     "notaFiscal": "Nota Fiscal",
     "quantidade": "Quantidade",
     "avarias": "Avarias",
@@ -209,8 +210,8 @@
     "totalUnidades": "Total de Unidades",
     "observacao": "Observação",
     "resumo": "   Resumo",
-    "listaTelaCaminhoesVagoesTitulo": "Caminhões/Vagões",
-    "listaTelaCaminhoesVagoesColuna11": "Caminhões/Vagões: ",
+    "listaTelaCaminhoesVagoesTitulo": "Caminhões",
+    "listaTelaCaminhoesVagoesColuna11": "Caminhões: ",
     "listaTelaCaminhoesVagoesColuna21": "Nota Fiscal: ",
     "listaTelaCaminhoesVagoesColuna31": "Quant: ",
     "msgCampoObrigatorio": "Campo Obrigatório",

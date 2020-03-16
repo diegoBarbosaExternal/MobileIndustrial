@@ -89,7 +89,7 @@ class _TimeLogsState extends State<TimeLogs>
                                 stream: blocSugarTP.outSelecionarInicioData,
                                 autoValidate: snapshotForm.data,
                                 onChanged: blocSugarTP
-                                    .changeSelecionarInicioData,
+                                    .changeSelecionarDataInicio,
 //                                msgErro: FlutterI18n.translate(
 //                                    context,
 //                                    "timeLogs.msgDataTerminoObrigatorio"),
@@ -103,7 +103,7 @@ class _TimeLogsState extends State<TimeLogs>
                                 stream: blocSugarTP.outSelecionarTerminoData,
                                 autoValidate: snapshotForm.data,
                                 onChanged: blocSugarTP
-                                    .changeSelecionarTerminoData,
+                                    .changeSelecionarDataTermino,
 //                                msgErro: FlutterI18n.translate(
 //                                    context,
 //                                    "timeLogs.msgDataTerminoObrigatorio"),

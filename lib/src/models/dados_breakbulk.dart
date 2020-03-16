@@ -12,6 +12,7 @@ class DadosBreakBulk {
 
 
   //TAG : SUPERVISAO / EMABRQUE / RECEBIMENTO
+  String dataReferencia;
   String ordemDeServico;
   String clientePrincipal;
   String localTerminal;

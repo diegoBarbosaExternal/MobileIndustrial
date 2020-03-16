@@ -557,10 +557,10 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
 
   Function(String) get changeOcorrencia => _ocorrenciaController.sink.add;
 
-  Function(DateTime) get changeSelecionarInicioData =>
+  Function(DateTime) get changeSelecionarDataInicio =>
       _selecionarDataInicioController.sink.add;
 
-  Function(DateTime) get changeSelecionarTerminoData =>
+  Function(DateTime) get changeSelecionarDataTermino =>
       _selecionarDataTerminoController.sink.add;
 
   Sink<bool> get inAutoValidateTimeLogs => _validateTimeLogsController.sink;

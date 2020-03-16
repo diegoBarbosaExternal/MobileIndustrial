@@ -11,6 +11,11 @@ import 'package:sugar/src/models/produto.dart';
 import 'package:sugar/src/ui/widgets/drop_down_validation.dart';
 import 'package:sugar/src/ui/widgets/form_text_field.dart';
 import 'package:sugar/src/ui/widgets/botao_data.dart';
+import 'package:sugar/src/blocs/usina_bloc.dart';
+import 'package:sugar/src/blocs/tipo_usina_bloc.dart';
+import 'package:sugar/src/models/tipo_usina.dart';
+import 'package:sugar/src/models/usina.dart';
+
 
 class SupEmbReceb extends StatefulWidget {
   @override
@@ -22,12 +27,16 @@ class _SupEmbRecebState extends State<SupEmbReceb>
   MyWidget tff = MyWidget();
   final _formKey = GlobalKey<FormState>();
 
+  final _dataReferenciaController = TextEditingController();
   final _ordemServicoController = TextEditingController();
   final _clientePrincipalController = TextEditingController();
   final _localTerminal = TextEditingController();
   final _navio = TextEditingController();
   final _origem = TextEditingController();
 
+  final blocUsinaSup = BlocProvider.tag('sugarGlobal').getBloc<UsinaBloc>();
+  final blocTipoUsinaSup =
+  BlocProvider.tag('sugarGlobal').getBloc<TipoUsinaBloc>();
 
   final blocProduto = BlocProvider.tag('sugarGlobal').getBloc<ProdutoBloc>();
   final blocSuperEmbRecBloc =
@@ -50,7 +59,6 @@ class _SupEmbRecebState extends State<SupEmbReceb>
   @override
   void dispose() {
     blocProduto.valueProdutSuperEmbReceb = null;
-
     super.dispose();
   }
 
@@ -74,17 +82,16 @@ class _SupEmbRecebState extends State<SupEmbReceb>
                     builder: (context, snapshotForm) {
                       return Column(
                         children: <Widget>[
-                          BotaoDataHora(
-                            FlutterI18n.translate(
-                                context, "breakbulkSuperEmbReceb.dataReferencia"),//TODO Incluir nos arquivos de tradução / Implementar
-                            //controller: _selecionarDataInicioController,
-                            campoObrigatorio: true,
-                            //stream: blocSugarTP.outSelecionarInicioData,
-                            autoValidate: snapshotForm.data,
-                            //onChanged: blocSugarTP.changeSelecionarDataInicio,
-                            msgErro: FlutterI18n.translate(
-                                context, "timeLogs.msgDataInicioObrigatorio"),
-                          ),
+                          BotaoData(
+                              FlutterI18n.translate(context,
+                                  "breakbulkSuperEmbReceb.dataReferencia"),
+                              controller: _dataReferenciaController,
+                              campoObrigatorio: true,
+                              stream: blocSuperEmbRecBloc.outDataReferencia,
+                              autoValidate: snapshotForm.data,
+                              onChanged: blocSuperEmbRecBloc.changeDataReferencia,
+                              msgErroValidate: FlutterI18n.translate(context,
+                                  "breakbulkSuperEmbReceb.msgCampoObrigatorio")),
                           Form(
                             autovalidate: snapshotForm.data,
                             key: blocSuperEmbRecBloc.keyComboProdutoSuperEmbRec,
@@ -151,6 +158,7 @@ class _SupEmbRecebState extends State<SupEmbReceb>
                                 }),
                           ),
 
+
                           tff.textFormField(
                               _ordemServicoController,
                               FlutterI18n.translate(
@@ -159,13 +167,14 @@ class _SupEmbRecebState extends State<SupEmbReceb>
                                   "breakbulkSuperEmbReceb.msgCampoObrigatorio"),
                               false,
                               autoValidate: snapshotForm.data,
-                              campoObrigatorio: true,
+                              campoObrigatorio: false,
                               maxLength: 20,
                               isInputFormatters: true,
                               typeText: TextInputType.number,
                               stream: blocSuperEmbRecBloc.outOrdemServico,
                               onChanged: blocSuperEmbRecBloc.changeOS,
                               verificarValidate: true),
+
 //                          tff.textFormField(_clientePrincipalController,
 //                              FlutterI18n.translate(
 //                                  context,
@@ -181,18 +190,143 @@ class _SupEmbRecebState extends State<SupEmbReceb>
 //                              onChanged:
 //                                  blocSuperEmbRecBloc.changeClientePrincipal,
 //                              verificarValidate: true),
-                          tff.textFormField(
-                            _origem,
-                            FlutterI18n.translate(
-                                context, "breakbulkSuperEmbReceb.usina"),
-                            FlutterI18n.translate(context,
-                                "breakbulkSuperEmbReceb.msgCampoObrigatorio"),
-                            false,
-                            campoObrigatorio: true,
-                            typeText: TextInputType.text,
-                            maxLength: 20,
-                            stream: blocSuperEmbRecBloc.outOrigem,
-                            onChanged: blocSuperEmbRecBloc.changeOrigem,
+
+                          Form(
+                            autovalidate: snapshotForm.data,
+                            key: blocSuperEmbRecBloc.keyComboTipoUsina,
+                            child: StreamBuilder<List<TipoUsina>>(
+                                stream: blocTipoUsinaSup.outGenericBloc,
+                                builder: (context, snapshot) {
+                                  switch (snapshot.connectionState) {
+                                    case ConnectionState.waiting:
+                                    case ConnectionState.none:
+                                      return SizedBox();
+                                    case ConnectionState.active:
+                                      return DropDownFormField.dropDownSugar(
+                                        hint: FlutterI18n.translate(context,
+                                            "breakbulkRecebimento.comboTipoUsina"),
+                                        dropDown:
+                                        DropdownButtonFormField<TipoUsina>(
+                                          validator: (TipoUsina value) {
+                                            if (value == null ||
+                                                blocTipoUsinaSup.valueTipoUsina ==
+                                                    null) {
+                                              return FlutterI18n.translate(
+                                                  context,
+                                                  "breakbulkRecebimento.msgComboTipoUsinaObrigatorio");
+                                            } else {
+                                              return null;
+                                            }
+                                          },
+                                          decoration: DropDownFormField
+                                              .decoratorDropDown(),
+                                          hint: Text(
+                                            FlutterI18n.translate(context,
+                                                "breakbulkRecebimento.comboTipoUsina"),
+                                            style: TextStyle(fontSize: 14),
+                                          ),
+                                          value: blocTipoUsinaSup.valueTipoUsina,
+                                          onChanged: (TipoUsina tipoUsina) {
+                                            blocTipoUsinaSup.valueTipoUsina =
+                                                tipoUsina;
+                                            blocTipoUsinaSup.sinkGenericBloc
+                                                .add(blocTipoUsinaSup.tipoUsinas);
+//                                            if (snapshotForm.data) {
+//                                              blocRecebimento.keyFormRecebimento
+//                                                  .currentState
+//                                                  .validate();
+//                                            }
+                                            blocUsinaSup.sinkGenericBloc
+                                                .add(blocUsinaSup.usinas);
+                                          },
+                                          items: snapshot.data
+                                              .map((TipoUsina tipoUsina) {
+                                            return DropdownMenuItem<TipoUsina>(
+                                              value: tipoUsina,
+                                              child: Text(
+                                                tipoUsina.nomeTipoUsina,
+                                                style: TextStyle(fontSize: 13),
+                                              ),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      );
+                                    default:
+                                      return Text(
+                                          'Error ao buscar combo de tipo usinas: '
+                                              '${snapshot.error}');
+                                  }
+                                }),
+                          ),
+                          Form(
+                            autovalidate: snapshotForm.data,
+                            key: blocSuperEmbRecBloc.keyComboUsinaRecebimento,
+                            child: StreamBuilder<List<Usina>>(
+                                stream: blocUsinaSup.outGenericBloc,
+                                builder: (context, snapshot) {
+                                  switch (snapshot.connectionState) {
+                                    case ConnectionState.waiting:
+                                    case ConnectionState.none:
+                                      return SizedBox();
+                                    case ConnectionState.active:
+                                      return DropDownFormField.dropDownSugar(
+                                          hint: FlutterI18n.translate(context,
+                                              "breakbulkRecebimento.comboUsina"),
+                                          dropDown: blocTipoUsinaSup
+                                              .valueTipoUsina !=
+                                              null
+                                              ? DropdownButtonFormField<Usina>(
+                                            validator: (Usina value) {
+                                              if (value == null ||
+                                                  blocUsinaSup
+                                                      .valueRecebimento ==
+                                                      null) {
+                                                return FlutterI18n.translate(
+                                                    context,
+                                                    "breakbulkRecebimento.msgComboUsinaObrigatorio");
+                                              } else {
+                                                return null;
+                                              }
+                                            },
+                                            decoration: DropDownFormField
+                                                .decoratorDropDown(),
+                                            hint: Text(FlutterI18n.translate(
+                                                context,
+                                                "breakbulkRecebimento.comboUsina")),
+                                            value: blocUsinaSup
+                                                .valueRecebimento,
+                                            onChanged: (Usina usina) {
+                                              blocUsinaSup.valueRecebimento =
+                                                  usina;
+                                              blocUsinaSup.sinkGenericBloc
+                                                  .add(blocUsinaSup.usinas);
+//                                              if (snapshotForm.data) {
+//                                                blocRecebimento
+//                                                    .keyFormRecebimento
+//                                                    .currentState
+//                                                    .validate();
+//                                              }
+                                            },
+                                            items: snapshot.data
+                                                .map((Usina usina) {
+                                              return DropdownMenuItem<
+                                                  Usina>(
+                                                value: usina,
+                                                child: Text(
+                                                  usina.usina,
+                                                  style: TextStyle(
+                                                      fontSize: 10),
+                                                ),
+                                              );
+                                            }).toList(),
+                                          )
+                                              : SizedBox());
+                                    default:
+                                      return Text(
+                                          'Error ao buscar combo de usinas: '
+                                              '${snapshot.error}');
+                                  }
+                                }),
                           ),
                           tff.textFormField(_localTerminal, FlutterI18n.translate(
                               context, "breakbulkSuperEmbReceb.localTerminal"),

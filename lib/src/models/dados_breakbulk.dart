@@ -3,6 +3,8 @@ import 'package:sugar/src/models/embarque.dart';
 import 'package:sugar/src/models/produto.dart';
 import 'package:sugar/src/models/recebimento.dart';
 import 'package:sugar/src/models/time_logs.dart';
+import 'package:sugar/src/models/usina.dart';
+import 'package:sugar/src/models/tipo_usina.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'dados_breakbulk.g.dart';
@@ -13,10 +15,11 @@ class DadosBreakBulk {
 
   //TAG : SUPERVISAO / EMABRQUE / RECEBIMENTO
   String dataReferencia;
-  String ordemDeServico;
-  String clientePrincipal;
-  String localTerminal;
   Produto produto;
+  String ordemDeServico;
+  Usina usinaSER;
+  String localTerminal;
+  String clientePrincipal;
   String navio;
   String origem;
 

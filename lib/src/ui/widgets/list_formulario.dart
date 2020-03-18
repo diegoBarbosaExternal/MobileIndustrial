@@ -210,7 +210,7 @@ class LisContainerCaminhoesVagoes {
           child: Column(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.only(top: 10.0, left: 10.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Row(
                   children: <Widget>[
                     Text(
@@ -218,13 +218,11 @@ class LisContainerCaminhoesVagoes {
                           "breakbulkCaminhoesVagoes.listaTelaCaminhoesVagoesColuna11"),
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
+                    Flexible(child: Text('${listCV[index].caminhoesVagoes}')),
                   ],
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.all(10.0),
-                child: Text('${listCV[index].caminhoesVagoes}'),
-              ),
+
               Container(
                 padding: const EdgeInsets.all(10.0),
                 child: Row(

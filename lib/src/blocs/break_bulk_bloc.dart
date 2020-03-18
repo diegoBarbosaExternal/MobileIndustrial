@@ -519,8 +519,8 @@ class BreakBulkBloc extends BlocBase with SupEmbRecebStateValidator {
           form.dadosbreakbulk.dataReferencia = DateFormat('dd/MM/yyyy').format(_dataReferenciaController.value);
           form.dadosbreakbulk.produto = blocProduto.valueProdutSuperEmbReceb;
           form.dadosbreakbulk.ordemDeServico = _ordemServicoController.value;
-          form.dadosbreakbulk.clientePrincipal =
-              _clientePrincipalController.value;
+          //form.dadosbreakbulk.clientePrincipal =_clientePrincipalController.value;
+          form.dadosbreakbulk.usinaSER = blocUsina.valueRecebimento;
           form.dadosbreakbulk.localTerminal = _localTerminalController.value;
           form.dadosbreakbulk.navio = _navioController.value;
           form.dadosbreakbulk.origem = _origemController.value;

@@ -36,16 +36,21 @@ DadosBreakBulk _$DadosBreakBulkFromJson(Map<String, dynamic> json) {
         ?.toList(),
     json['inspetorSgs'] as String,
     json['terminal'] as String,
-  )..dataReferencia = json['dataReferencia'] as String;
+  )
+    ..dataReferencia = json['dataReferencia'] as String
+    ..usinaSER = json['usinaSER'] == null
+        ? null
+        : Usina.fromJson(json['usinaSER'] as Map<String, dynamic>);
 }
 
 Map<String, dynamic> _$DadosBreakBulkToJson(DadosBreakBulk instance) =>
     <String, dynamic>{
       'dataReferencia': instance.dataReferencia,
-      'ordemDeServico': instance.ordemDeServico,
-      'clientePrincipal': instance.clientePrincipal,
-      'localTerminal': instance.localTerminal,
       'produto': instance.produto,
+      'ordemDeServico': instance.ordemDeServico,
+      'usinaSER': instance.usinaSER,
+      'localTerminal': instance.localTerminal,
+      'clientePrincipal': instance.clientePrincipal,
       'navio': instance.navio,
       'origem': instance.origem,
       'caminhoesVagoesRegistrados': instance.caminhoesVagoesRegistrados,

@@ -6,6 +6,8 @@ part 'caminhoes_vagoes.g.dart';
 class CaminhoesVagoes {
   String caminhoesVagoes;
   String notaFiscal;
+  String placa;
+  String pesoNota;
   String quantidade;
   bool molhada;
   bool suja;

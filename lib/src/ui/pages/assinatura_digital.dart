@@ -15,6 +15,7 @@ import 'package:sugar/src/ui/pages/supervisao_de_peso.dart';
 import 'package:sugar/src/ui/widgets/awasome_dialog.dart';
 import 'package:sugar/src/utils/cores.dart' as Cores;
 
+/// Assinatura digital Container
 class AssinaturaDigitalPage extends StatefulWidget {
   @override
   _AssinaturaDigitalPageState createState() => _AssinaturaDigitalPageState();
@@ -127,18 +128,22 @@ class _AssinaturaDigitalPageState extends State<AssinaturaDigitalPage>
                               FocusScope.of(context).requestFocus(FocusNode());
                                     bool insp = blocAssinatura
                                         .validarAssinaturaInspetor();
-                                    bool term = blocAssinatura
-                                        .validarAssinaturaTerminal();
+
+                                    bool term = true;
+                                    if (blocTP.getTipo() != 1)
+                                      bool term = blocAssinatura.validarAssinaturaTerminal();
+
 
                                     if (insp && term) {
                                       if (blocTP.getTipo() == 1) {
                                         if (await validateSuperEmbReceb() &&
-                                            validateCaminhoesVagoes() &&
-                                            validateTimeLogs()) {
+                                            validateCaminhoesVagoes()
+                                            //validateTimeLogs()
+                                            ) {
                                           if (blocTP.getTipoOperacao == 1) {
-                                            if (validateRecebimento()) {
+                                            //if (validateRecebimento()) {
                                               finalizarFormulario();
-                                            }
+                                            //}
                                           } else {
                                             if (validateEmbarque()) {
                                               finalizarFormulario();

@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'package:camera/camera.dart';
+
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -46,6 +49,56 @@ class _CaminhoesVagoesState extends State<CaminhoesVagoes>
     carregarCampos();
     super.initState();
   }
+
+  File imgArquivo;
+
+  cameraAbrirGaleria() async{
+
+  }
+
+  cameraAbrirCamera(){
+
+  }
+
+  Future<void> cameraExibeOpcoes(BuildContext context){
+    return showDialog<void>(
+    context: context,
+    builder: (BuildContext context){
+    return AlertDialog(
+    title: Text('Selecione uma fonte'),
+    content: SingleChildScrollView(
+      child: ListBody(
+        children: <Widget>[
+          GestureDetector(
+            child: Text("Galeria"),
+            onTap: (){
+              cameraAbrirGaleria();
+
+            },
+          ),
+          Padding(padding: EdgeInsets.all(8.0)),
+          GestureDetector(
+            child: Text("Câmera"),
+            onTap: (){
+              cameraAbrirCamera();
+            },
+          ),
+        ],
+      ),
+    ),
+    actions: <Widget>[
+    FlatButton(
+    child: Text('Continuar'),
+    onPressed: () {
+    //Navigator.of(dialogContext).pop(); // Dismiss alert dialog
+    },
+    ),
+    ],
+    );
+    },
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -129,25 +182,25 @@ class _CaminhoesVagoesState extends State<CaminhoesVagoes>
                               stream: blocCaminhoesVagoes.outNotaFiscal,
                               onChanged: blocCaminhoesVagoes.changeNotaFiscal,
                             ),
-                            _tff.textFormField(//TODO Incluir nos arquivos de tradução / Implementar
-                              _quantidadeSacasRecebController,
-                              FlutterI18n.translate(
-                                  context, "breakbulkCaminhoesVagoes.quantidadeSacas"),
-                              FlutterI18n.translate(context,
-                                  "breakbulkCaminhoesVagoes.msgCampoObrigatorio"),
-                              false,
-                              autoValidate: snapshotForm.data,
-                              verificarValidate: true,
-                              campoObrigatorio: true,
-                              maxLength: 7,
-                              typeText: TextInputType.text,
-                              stream: blocCaminhoesVagoes.outQuantidadeSacasReceb,
-                              onChanged: blocCaminhoesVagoes.changeQuantidadeSacasReceb,
-                            ),
+//                            _tff.textFormField(//TODO Incluir nos arquivos de tradução / Implementar
+//                              _quantidadeSacasRecebController,
+//                              FlutterI18n.translate(
+//                                  context, "breakbulkCaminhoesVagoes.quantidadeSacas"),
+//                              FlutterI18n.translate(context,
+//                                  "breakbulkCaminhoesVagoes.msgCampoObrigatorio"),
+//                              false,
+//                              autoValidate: snapshotForm.data,
+//                              verificarValidate: true,
+//                              campoObrigatorio: true,
+//                              maxLength: 7,
+//                              typeText: TextInputType.text,
+//                              stream: blocCaminhoesVagoes.outQuantidadeSacasReceb,
+//                              onChanged: blocCaminhoesVagoes.changeQuantidadeSacasReceb,
+//                            ),
                             _tff.textFormField(_quantidadeController,
                                 FlutterI18n.translate(
                                     context,
-                                    "breakbulkCaminhoesVagoes.quantidade"),
+                                    "breakbulkCaminhoesVagoes.quantidadeSacas"),
                                 FlutterI18n.translate(context,
                                     "breakbulkCaminhoesVagoes.msgCampoObrigatorio"),
                                 false,
@@ -312,6 +365,22 @@ class _CaminhoesVagoesState extends State<CaminhoesVagoes>
                                 maxLength: 250,
                                 maxLines: null,
                                 typeText: TextInputType.multiline),
+                            Center(
+                              child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                Text("Nenhuma imagem selecionada!"),
+                                RaisedButton(onPressed: (){
+                                  cameraExibeOpcoes(context);
+                                },
+                                  child: Text("Selecionar imagem"),
+                                )
+                              ],
+                            ),
+                            ),
+
+
                           ],
                         ),
                       ),

@@ -16,12 +16,19 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.1.0 <3.0.0"
 
+####  ATENÇÃO: SEMPRE QUE ADICIONAR UMA DEPENDÊNDIA, RODAR O SEGUINTE COMANDO
+####  NO TERMINAL DO ANDROID STUDIO
+####
+####  flutter pub get
+
+
 dependencies:
   flutter:
     sdk: flutter
   bloc_pattern: 2.5.1
   flutter_masked_text: 0.8.0              # Aplica Máscara no campo
   path_provider: 1.5.1                    # Package para localizar pastas comuns do dispositivo
+  path: ^1.6.4                            # Cria caminhos que funcionam em qualquer plataforma
   rxdart: 0.22.6
   dio: 3.0.8                              # Cliente Web que suporta Download de arquivos
   datetime_picker_formfield: 1.0.0        # Seletor de hora
@@ -33,6 +40,7 @@ dependencies:
   uuid: 2.0.4                             # Gerador de UUID
   flutter_i18n: 0.8.3                     # Acessa arquivo JSON com traduções, baseado na localização
   month_picker_dialog: 0.3.0              # Seletor de data
+  camera: ^0.5.7+4                        # Dependência padrão do Flutter para camera
 
 
   # The following adds the Cupertino Icons font to your application.

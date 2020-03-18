@@ -108,5 +108,3 @@ class _HomeContainerState extends State<HomeContainer> {
     );
   }
 }
-
-

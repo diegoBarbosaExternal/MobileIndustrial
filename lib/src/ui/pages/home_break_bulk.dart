@@ -146,7 +146,7 @@ class _HomeBreakBulkState extends State<HomeBreakBulk> {
                         SupEmbReceb(),
                         CaminhoesVagoes(),
                         Embarque(),
-                        Assinatura(),
+                        AssinaturaDigitalPage()
                       ],
                     ),
                   ),
@@ -222,7 +222,7 @@ class _HomeBreakBulkState extends State<HomeBreakBulk> {
                       children: [
                         SupEmbReceb(),
                         CaminhoesVagoes(),
-                        Assinatura(),
+                        AssinaturaDigitalPage()
                       ],
                     ),
 
@@ -240,7 +240,6 @@ class _HomeBreakBulkState extends State<HomeBreakBulk> {
     );
   }
 }
-
 
 listaTabs4 (){
 
@@ -263,7 +262,4 @@ listaTabs3 (){
       Assinatura(),
     ],
   );
-
-
 }
-

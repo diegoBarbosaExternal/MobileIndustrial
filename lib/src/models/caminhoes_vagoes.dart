@@ -21,6 +21,8 @@ class CaminhoesVagoes {
   CaminhoesVagoes(
       this.caminhoesVagoes,
       this.notaFiscal,
+      this.placa,
+      this.pesoNota,
       this.quantidade,
       this.molhada,
       this.suja,

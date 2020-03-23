@@ -210,45 +210,198 @@ class LisContainerCaminhoesVagoes {
           child: Column(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.only(left: 10.0, top:10.0),
+                //padding: const EdgeInsets.all(5.0),
                 child: Row(
                   children: <Widget>[
                     Text(
                       FlutterI18n.translate(context,
-                          "breakbulkCaminhoesVagoes.listaTelaCaminhoesVagoesColuna11"),
+                          "breakbulkCaminhoesVagoes.caminhoesVagoes"),
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Flexible(child: Text('${listCV[index].caminhoesVagoes}')),
+                    Flexible(child: Text(": " + '${listCV[index].caminhoesVagoes}')),
                   ],
                 ),
               ),
 
               Container(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.only(left: 10.0, top:10.0),
                 child: Row(
                   children: <Widget>[
                     Text(
                       FlutterI18n.translate(context,
-                          "breakbulkCaminhoesVagoes.listaTelaCaminhoesVagoesColuna21"),
+                          "breakbulkCaminhoesVagoes.placa"),
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Flexible(child: Text('${listCV[index].notaFiscal}')),
+                    Flexible(child: Text(": " + '${listCV[index].placa}')),
                   ],
                 ),
               ),
+
               Container(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.only(left: 10.0, top:10.0),
                 child: Row(
                   children: <Widget>[
                     Text(
                       FlutterI18n.translate(context,
-                          "breakbulkCaminhoesVagoes.listaTelaCaminhoesVagoesColuna31"),
+                          "breakbulkCaminhoesVagoes.pesoNota"),
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Flexible(child: Text('${listCV[index].quantidade}')),
+                    Flexible(child: Text(": " + '${listCV[index].pesoNota}')),
                   ],
                 ),
               ),
+
+              Container(
+                padding: const EdgeInsets.only(left: 10.0, top:10.0),
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                      FlutterI18n.translate(context,
+                          "breakbulkCaminhoesVagoes.notaFiscal"),
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Flexible(child: Text(": " + '${listCV[index].notaFiscal}')),
+                  ],
+                ),
+              ),
+
+              Container(
+                padding: const EdgeInsets.only(left: 10.0, top:10.0),
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                      FlutterI18n.translate(context,
+                          "breakbulkCaminhoesVagoes.quantidadeSacas"),
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Flexible(child: Text(": " + '${listCV[index].quantidade}')),
+                  ],
+                ),
+              ),
+
+              Padding(
+                padding: EdgeInsets.only(top: 20),
+                child: Center(
+                  child: Text(
+                    FlutterI18n.translate(context,
+                        "breakbulkCaminhoesVagoes.avarias"),
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.all(5),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                                FlutterI18n.translate(context,
+                                    "breakbulkCaminhoesVagoes.molhadas"),
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text(": " + '${listCV[index].molhada ? "Sim": "Não"}'),
+                          ],
+                        ),
+
+                      ),
+
+                      Container(
+                        padding: EdgeInsets.all(5),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                                FlutterI18n.translate(context,
+                                    "breakbulkCaminhoesVagoes.rasgadas"),
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text(": " + '${listCV[index].rasgada ? "Sim": "Não"}'),
+                          ],
+                        ),
+
+                      ),
+
+                    ],
+                  ),
+
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.all(5),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                                FlutterI18n.translate(context,
+                                    "breakbulkCaminhoesVagoes.sujas"),
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text(": " + '${listCV[index].suja ? "Sim": "Não"}'),
+                          ],
+                        ),
+
+                      ),
+
+                      Container(
+                        padding: EdgeInsets.all(5),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                                FlutterI18n.translate(context,
+                                    "breakbulkCaminhoesVagoes.empedradas"),
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text(": " + '${listCV[index].empedrada ? "Sim": "Não"}'),
+                          ],
+                        ),
+
+                      ),
+
+                    ],
+                  ),
+
+                ],
+              ),
+
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Text(FlutterI18n.translate(context, "breakbulkCaminhoesVagoes.faltas"),
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(": " + '${listCV[index].falta}'),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text(FlutterI18n.translate(context, "breakbulkCaminhoesVagoes.sobras"),
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(": " + '${listCV[index].sobra}'),
+                    ],
+                  ),
+                ],
+              ),
+
+              Container(
+                padding: const EdgeInsets.only(left: 10.0, top:10.0),
+                child: Row(
+                  children: <Widget>[
+                    Text(FlutterI18n.translate(context, "breakbulkCaminhoesVagoes.totalUnidades"),
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(": " + '${listCV[index].totalUnidades}'),
+                  ]
+                ),
+              ),
+
               IconButton(
                   icon: Icon(
                     Icons.delete_forever,

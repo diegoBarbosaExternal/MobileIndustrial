@@ -239,6 +239,16 @@ class BreakBulkBloc extends BlocBase with SupEmbRecebStateValidator {
   Stream<String> get outSobras =>
       _sobrasController.stream.transform(validateVazio);
 
+  final _totalSacasRecebidasController = BehaviorSubject<String>();
+
+  Stream<String> get outTotalSacasRecebidas =>
+      _totalSacasRecebidasController.stream;
+
+  final _pesoTotalSacasRecebidasController = BehaviorSubject<String>();
+
+  Stream<String> get outPesoTotalSacasRecebidas =>
+      _pesoTotalSacasRecebidasController.stream;
+
   final _totalUnidadesController = BehaviorSubject<String>();
 
   Stream<String> get outTotalUnidades =>
@@ -292,6 +302,10 @@ class BreakBulkBloc extends BlocBase with SupEmbRecebStateValidator {
   Function(String) get changeFaltas => _faltasController.sink.add;
 
   Function(String) get changeSobras => _sobrasController.sink.add;
+
+  Function(String) get changeTotalSacasRecebidas => _totalSacasRecebidasController.sink.add;
+
+  Function(String) get changePesoTotalSacasRecebidas => _pesoTotalSacasRecebidasController.sink.add;
 
   Function(String) get changeTotalUnidades => _totalUnidadesController.sink.add;
 

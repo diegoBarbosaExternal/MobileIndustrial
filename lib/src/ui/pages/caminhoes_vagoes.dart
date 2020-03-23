@@ -31,11 +31,15 @@ class _CaminhoesVagoesState extends State<CaminhoesVagoes>
   CheckBox _checkBox = CheckBox();
   ContainerListView clv = ContainerListView();
 
+  final int kgPadraoSaca = 50;
+
   final _caminhaoVagaoController = TextEditingController();
   final _notaFiscalController = TextEditingController();
   final _quantidadeController = TextEditingController();
   final _faltasController = TextEditingController();
   final _sobrasController = TextEditingController();
+  final _totalSacasRecebidasController = TextEditingController();
+  final _pesoTotalSacasRecebidasController = TextEditingController();
   final _unidadesController = TextEditingController();
   final _resumoController = TextEditingController();
   final _observacaoController = TextEditingController();
@@ -205,7 +209,12 @@ class _CaminhoesVagoesState extends State<CaminhoesVagoes>
                                     "breakbulkCaminhoesVagoes.msgCampoObrigatorio"),
                                 false,
                                 stream: blocCaminhoesVagoes.outQuantidade,
-                                onChanged: blocCaminhoesVagoes.changeQuantidade,
+                                onChanged: (value) {
+                                  blocCaminhoesVagoes.changeQuantidade;
+                                  _unidadesController.text = calculaTotalSacas().toString();
+                                  _pesoTotalSacasRecebidasController.text = calculaPesoTotalSacas().toString();
+
+                                },
                                 autoValidate: snapshotForm.data,
                                 verificarValidate: true,
                                 isInputFormatters: true,
@@ -277,8 +286,13 @@ class _CaminhoesVagoesState extends State<CaminhoesVagoes>
                                         isInputFormatters: true,
                                         maxLength: 5,
                                         stream: blocCaminhoesVagoes.outFaltas,
-                                        onChanged:
-                                        blocCaminhoesVagoes.changeFaltas)),
+                                        onChanged: (value){
+                                          blocCaminhoesVagoes.changeFaltas;
+                                          _unidadesController.text = calculaTotalSacas().toString();
+                                          _pesoTotalSacasRecebidasController.text = calculaPesoTotalSacas().toString();
+                                        }
+                                    )
+                                ),
                                 Expanded(
                                     child: _tff.textFormField(_sobrasController,
                                         FlutterI18n.translate(
@@ -292,26 +306,63 @@ class _CaminhoesVagoesState extends State<CaminhoesVagoes>
                                         maxLength: 5,
                                         isInputFormatters: true,
                                         stream: blocCaminhoesVagoes.outSobras,
-                                        onChanged:
-                                        blocCaminhoesVagoes.changeSobras)),
+                                        onChanged: (value){
+                                          blocCaminhoesVagoes.changeSobras;
+                                          _unidadesController.text = calculaTotalSacas().toString();
+                                          _pesoTotalSacasRecebidasController.text = calculaPesoTotalSacas().toString();
+
+                                        }
+                                    )
+                                ),
                               ],
                             ),
-                            _tff.textFormField(_unidadesController,
-                                FlutterI18n.translate(
-                                    context,
-                                    "breakbulkCaminhoesVagoes.totalUnidades"),
-                                FlutterI18n.translate(context,
-                                    "breakbulkCaminhoesVagoes.msgCampoObrigatorio"),
-                                false,
-                                autoValidate: snapshotForm.data,
-                                verificarValidate: true,
-                                typeText: TextInputType.number,
-                                campoObrigatorio: true,
-                                isInputFormatters: true,
-                                maxLength: 5,
-                                stream: blocCaminhoesVagoes.outTotalUnidades,
-                                onChanged:
-                                blocCaminhoesVagoes.changeTotalUnidades),
+
+                            _tff.textFormField(
+                              _unidadesController,
+                              FlutterI18n.translate(
+                                  context, "breakbulkCaminhoesVagoes.totalSacasRecebidas"),
+                              FlutterI18n.translate(context,
+                                  "breakbulkCaminhoesVagoes.msgCampoObrigatorio"),
+                              false,
+                              autoValidate: snapshotForm.data,
+                              //stsEnabled: false,
+                              verificarValidate: false,
+                              campoObrigatorio: false,
+                              typeText: TextInputType.number,
+                              stream: blocCaminhoesVagoes.outTotalUnidades,
+                            ),
+
+                            _tff.textFormField(
+                              _pesoTotalSacasRecebidasController,
+                              FlutterI18n.translate(
+                                  context, "breakbulkCaminhoesVagoes.pesoTotalSacasRecebidas"),
+                              FlutterI18n.translate(context,
+                                  "breakbulkCaminhoesVagoes.msgCampoObrigatorio"),
+                              false,
+                              autoValidate: snapshotForm.data,
+                              //stsEnabled: false,
+                              verificarValidate: false,
+                              campoObrigatorio: false,
+                              typeText: TextInputType.number,
+                              stream: blocCaminhoesVagoes.outPesoTotalSacasRecebidas,
+                            ),
+
+//                            _tff.textFormField(_unidadesController,
+//                                FlutterI18n.translate(
+//                                    context,
+//                                    "breakbulkCaminhoesVagoes.totalUnidades"),
+//                                FlutterI18n.translate(context,
+//                                    "breakbulkCaminhoesVagoes.msgCampoObrigatorio"),
+//                                false,
+//                                autoValidate: snapshotForm.data,
+//                                verificarValidate: true,
+//                                typeText: TextInputType.number,
+//                                campoObrigatorio: true,
+//                                isInputFormatters: true,
+//                                maxLength: 5,
+//                                stream: blocCaminhoesVagoes.outTotalUnidades,
+//                                onChanged:
+//                                blocCaminhoesVagoes.changeTotalUnidades),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
@@ -488,6 +539,22 @@ class _CaminhoesVagoesState extends State<CaminhoesVagoes>
         ),
       ),
     );
+  }
+
+  int calculaTotalSacas(){
+
+    var qtdSacas = int.parse(_quantidadeController.text == "" ? "0" : _quantidadeController.text);
+    var sobras = int.parse(_sobrasController.text == "" ? "0" : _sobrasController.text);
+    var faltas = int.parse(_faltasController.text == "" ? "0" : _faltasController.text);
+
+    var total = qtdSacas + sobras - faltas;
+    return total;
+
+  }
+
+  int calculaPesoTotalSacas(){
+    var total = int.parse(_unidadesController.text) * kgPadraoSaca;
+    return total;
   }
 
   limparCaminhoesVagoes() {

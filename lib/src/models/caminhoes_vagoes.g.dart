@@ -10,6 +10,8 @@ CaminhoesVagoes _$CaminhoesVagoesFromJson(Map<String, dynamic> json) {
   return CaminhoesVagoes(
     json['caminhoesVagoes'] as String,
     json['notaFiscal'] as String,
+    json['placa'] as String,
+    json['pesoNota'] as String,
     json['quantidade'] as String,
     json['molhada'] as bool,
     json['suja'] as bool,
@@ -26,6 +28,8 @@ Map<String, dynamic> _$CaminhoesVagoesToJson(CaminhoesVagoes instance) =>
     <String, dynamic>{
       'caminhoesVagoes': instance.caminhoesVagoes,
       'notaFiscal': instance.notaFiscal,
+      'placa': instance.placa,
+      'pesoNota': instance.pesoNota,
       'quantidade': instance.quantidade,
       'molhada': instance.molhada,
       'suja': instance.suja,

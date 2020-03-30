@@ -210,7 +210,7 @@ class LisContainerCaminhoesVagoes {
           child: Column(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.only(left: 10.0, top:10.0),
+                padding: const EdgeInsets.only(left: 10.0, top:5.0),
                 //padding: const EdgeInsets.all(5.0),
                 child: Row(
                   children: <Widget>[
@@ -225,7 +225,7 @@ class LisContainerCaminhoesVagoes {
               ),
 
               Container(
-                padding: const EdgeInsets.only(left: 10.0, top:10.0),
+                padding: const EdgeInsets.only(left: 10.0, top:5.0),
                 child: Row(
                   children: <Widget>[
                     Text(
@@ -239,7 +239,7 @@ class LisContainerCaminhoesVagoes {
               ),
 
               Container(
-                padding: const EdgeInsets.only(left: 10.0, top:10.0),
+                padding: const EdgeInsets.only(left: 10.0, top:5.0),
                 child: Row(
                   children: <Widget>[
                     Text(
@@ -253,7 +253,7 @@ class LisContainerCaminhoesVagoes {
               ),
 
               Container(
-                padding: const EdgeInsets.only(left: 10.0, top:10.0),
+                padding: const EdgeInsets.only(left: 10.0, top:5.0),
                 child: Row(
                   children: <Widget>[
                     Text(
@@ -267,7 +267,7 @@ class LisContainerCaminhoesVagoes {
               ),
 
               Container(
-                padding: const EdgeInsets.only(left: 10.0, top:10.0),
+                padding: const EdgeInsets.only(left: 10.0, top:5.0),
                 child: Row(
                   children: <Widget>[
                     Text(
@@ -281,7 +281,7 @@ class LisContainerCaminhoesVagoes {
               ),
 
               Padding(
-                padding: EdgeInsets.only(top: 20),
+                padding: EdgeInsets.only(top: 10),
                 child: Center(
                   child: Text(
                     FlutterI18n.translate(context,
@@ -366,7 +366,7 @@ class LisContainerCaminhoesVagoes {
               ),
 
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -391,14 +391,50 @@ class LisContainerCaminhoesVagoes {
               ),
 
               Container(
-                padding: const EdgeInsets.only(left: 10.0, top:10.0),
+                padding: const EdgeInsets.only(left: 10.0, top:5.0),
+                child: Row(
+                    children: <Widget>[
+                      Text(FlutterI18n.translate(context, "breakbulkCaminhoesVagoes.totalUnidades"),
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(": " + '${listCV[index].totalUnidades}'),
+                    ]
+                ),
+              ),
+
+              Container(
+                padding: const EdgeInsets.only(left: 10.0, top:5.0),
+                child: Row(
+                    children: <Widget>[
+                      Text(FlutterI18n.translate(context, "breakbulkCaminhoesVagoes.pesoTotalSacasRecebidas"),
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(": " + '${listCV[index].pesoTotalUnidades}'),
+                    ]
+                ),
+              ),
+
+              Container(
+                padding: const EdgeInsets.only(left: 10.0, top:5.0),
                 child: Row(
                   children: <Widget>[
-                    Text(FlutterI18n.translate(context, "breakbulkCaminhoesVagoes.totalUnidades"),
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    Text(FlutterI18n.translate(context,"breakbulkCaminhoesVagoes.observacao"),
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    Text(": " + '${listCV[index].totalUnidades}'),
-                  ]
+                    Flexible(child: Text(": " + '${listCV[index].observacao}')),
+                  ],
+                ),
+              ),
+
+              Container(
+                padding: const EdgeInsets.only(left: 10.0, top:5.0),
+                child: Row(
+                  children: <Widget>[
+                    Text(FlutterI18n.translate(context,"breakbulkCaminhoesVagoes.resumo"),
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Flexible(child: Text(": " + '${listCV[index].resumo}')),
+                  ],
                 ),
               ),
 

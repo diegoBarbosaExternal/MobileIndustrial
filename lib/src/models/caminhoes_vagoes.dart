@@ -8,15 +8,17 @@ class CaminhoesVagoes {
   String notaFiscal;
   String placa;
   String pesoNota;
-  String quantidade;
+  String quantidade;//
   bool molhada;
   bool suja;
   bool rasgada;
   bool empedrada;
-  int falta;
-  int sobra;
-  int totalUnidades;
+  int falta;//
+  int sobra;//
+  int totalUnidades;//
+  int pesoTotalUnidades;//
   String observacao;
+  String resumo;
 
   CaminhoesVagoes(
       this.caminhoesVagoes,
@@ -31,7 +33,9 @@ class CaminhoesVagoes {
       this.falta,
       this.sobra,
       this.totalUnidades,
-      this.observacao);
+      this.pesoTotalUnidades,
+      this.observacao,
+      this.resumo);
 
   factory CaminhoesVagoes.fromJson(Map<String, dynamic> json) =>
       _$CaminhoesVagoesFromJson(json);

@@ -558,11 +558,11 @@ class BreakBulkBloc extends BlocBase with SupEmbRecebStateValidator {
             form.dadosbreakbulk.caminhoesVagoesRegistrados = [
               adicionarCaminhoesVagoes()
             ];
-            form.dadosbreakbulk.resumo = _resumoController.value;
+            //form.dadosbreakbulk.resumo = _resumoController.value;
           } else {
             form.dadosbreakbulk.caminhoesVagoesRegistrados
                 .add(adicionarCaminhoesVagoes());
-            form.dadosbreakbulk.resumo = _resumoController.value;
+            //form.dadosbreakbulk.resumo = _resumoController.value;
           }
         }
       });
@@ -744,6 +744,8 @@ class BreakBulkBloc extends BlocBase with SupEmbRecebStateValidator {
 
     caminhoesVagoes.caminhoesVagoes = _caminhoesVagoesController.value;
     caminhoesVagoes.notaFiscal = _notaFiscalController.value;
+    caminhoesVagoes.placa = _placaController.value;
+    caminhoesVagoes.pesoNota = _pesoNotaController.value;
     caminhoesVagoes.quantidade = _quantidadeController.value;
 
     caminhoesVagoes.molhada = _molhadasBloc.value;
@@ -763,8 +765,13 @@ class BreakBulkBloc extends BlocBase with SupEmbRecebStateValidator {
         _totalUnidadesController.value.isNotEmpty)
         ? int.parse(_totalUnidadesController.value)
         : 0;
+    caminhoesVagoes.pesoTotalUnidades = (_pesoTotalSacasRecebidasController.value != null &&
+        _pesoTotalSacasRecebidasController.value.isNotEmpty)
+        ? int.parse(_pesoTotalSacasRecebidasController.value)
+        : 0;
 
     caminhoesVagoes.observacao = _observacaoController.value;
+    caminhoesVagoes.resumo = _resumoController.value;
 
     return caminhoesVagoes;
   }

@@ -20,7 +20,9 @@ CaminhoesVagoes _$CaminhoesVagoesFromJson(Map<String, dynamic> json) {
     json['falta'] as int,
     json['sobra'] as int,
     json['totalUnidades'] as int,
+    json['pesoTotalUnidades'] as int,
     json['observacao'] as String,
+    json['resumo'] as String,
   );
 }
 
@@ -38,5 +40,7 @@ Map<String, dynamic> _$CaminhoesVagoesToJson(CaminhoesVagoes instance) =>
       'falta': instance.falta,
       'sobra': instance.sobra,
       'totalUnidades': instance.totalUnidades,
+      'pesoTotalUnidades': instance.pesoTotalUnidades,
       'observacao': instance.observacao,
+      'resumo': instance.resumo,
     };

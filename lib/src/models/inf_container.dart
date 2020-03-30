@@ -7,6 +7,8 @@ class InformacaoContainer {
   bool inspecao;
   bool estufagem;
   bool desova;
+  String dataHoraInicioInspecao;
+  String dataHoraFimInspecao;
   String numeroContainer;
   double tara;
   int capacidade;
@@ -27,6 +29,11 @@ class InformacaoContainer {
   InformacaoContainer.padrao();
 
   InformacaoContainer(
+      this.inspecao,
+      this.estufagem,
+      this.desova,
+      this.dataHoraInicioInspecao,
+      this.dataHoraFimInspecao,
       this.numeroContainer,
       this.tara,
       this.capacidade,

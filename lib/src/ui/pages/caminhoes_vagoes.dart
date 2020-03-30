@@ -391,22 +391,18 @@ class _CaminhoesVagoesState extends State<CaminhoesVagoes>
                         ),
                       ),
                       Card(
-                        margin: EdgeInsets.only(top: 20),
-                        elevation: 20,
+                        //margin: EdgeInsets.only(top: 20),
+                        elevation: 5,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Padding(
-                                padding: EdgeInsets.only(top: 10),
-                                child: Text(
-                                  FlutterI18n.translate(context,
-                                      "breakbulkCaminhoesVagoes.resumo"),
-                                  style: TextStyle(fontSize: 16),
-                                )),
-                            _tff.textFormField(
-                                _resumoController, "", FlutterI18n.translate(
-                                context,
-                                "breakbulkCaminhoesVagoes.msgCampoObrigatorio"),
+                            _tff.textFormField(_resumoController,
+                                FlutterI18n.translate(
+                                    context,
+                                    "breakbulkCaminhoesVagoes.resumo"),
+                                FlutterI18n.translate(
+                                    context,
+                                    "breakbulkCaminhoesVagoes.msgCampoObrigatorio"),
                                 false,
                                 stream: blocCaminhoesVagoes.outResumo,
                                 onChanged: blocCaminhoesVagoes.changeResumo,

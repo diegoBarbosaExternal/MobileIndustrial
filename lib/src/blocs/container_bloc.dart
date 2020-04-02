@@ -826,6 +826,15 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
           form.dadoscontainer.estufagem = _estufagemController.value;
           form.dadoscontainer.desova = _desovaController.value;
 
+          form.nomeFormulario = _bookingController.value;
+          form.dadoscontainer.matricula = _matriculaController.value;
+          form.dadoscontainer.ordemServico = _osController.value;
+          form.dadoscontainer.clientePrincipal = _clientePrincipalController.value;
+          form.dadoscontainer.localTerminal = _localTerminalController.value;
+          form.dadoscontainer.booking = _bookingController.value;
+          form.dadoscontainer.navio = _navioController.value;
+          form.dadoscontainer.resumo = _resumoController.value;
+
           int indexContainer = -1;
 
           if (!_inspecaoController.value && form.dadoscontainer.containersRegistrados.length > 0) {
@@ -840,32 +849,28 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
           if (indexContainer == -1 ) {
 
             /// DATA / HORA INICIO E FIM INSPECAO
-            if (form.dadoscontainer.inspecao){
-              form.dadoscontainer.dataHoraInicioInspecao = DateFormat('dd/MM/yyyy HH:mm:ss').format(_dataHoraInicioInspecaoController.value);
-              form.dadoscontainer.dataHoraFimInspecao = DateFormat('dd/MM/yyyy HH:mm:ss').format(_dataHoraFimInspecaoController.value);
-            }
-            form.nomeFormulario = _bookingController.value;
-            form.dadoscontainer.matricula = _matriculaController.value;
-            form.dadoscontainer.ordemServico = _osController.value;
-            form.dadoscontainer.clientePrincipal = _clientePrincipalController.value;
-            form.dadoscontainer.localTerminal = _localTerminalController.value;
-            form.dadoscontainer.booking = _bookingController.value;
-            form.dadoscontainer.navio = _navioController.value;
-            form.dadoscontainer.resumo = _resumoController.value;
+//            if (form.dadoscontainer.inspecao){
+//              form.dadoscontainer.dataHoraInicioInspecao = DateFormat('dd/MM/yyyy HH:mm:ss').format(_dataHoraInicioInspecaoController.value);
+//              form.dadoscontainer.dataHoraFimInspecao = DateFormat('dd/MM/yyyy HH:mm:ss').format(_dataHoraFimInspecaoController.value);
+//            }
+
 
             //form.dadoscontainer.containersRegistrados[indexContainer].total = 0;
-            //form.dadoscontainer.containersRegistrados.add(adicionarInformacoesContainer());
+
 
             if (form.dadoscontainer.containersRegistrados == null ||
                 form.dadoscontainer.containersRegistrados.isEmpty) {
               form.dadoscontainer.containersRegistrados = [adicionarInformacoesContainer()];
+            } else {
+              form.dadoscontainer.containersRegistrados.add(adicionarInformacoesContainer());
             }
 
           } else if (!_inspecaoController.value){ /// else index > -1
             /// DATA / HORA INICIO E FIM ESTUFAGEM DESOVA
             if (form.dadoscontainer.estufagem || form.dadoscontainer.desova){
-              form.dadoscontainer.dataHoraInicioEstuDeso = DateFormat('dd/MM/yyyy HH:mm:ss').format(_dataHoraInicioEstuDesoController.value);
-              form.dadoscontainer.dataHoraFimEstuDeso = DateFormat('dd/MM/yyyy HH:mm:ss').format(_dataHoraFimEstuDesoController.value);
+
+              form.dadoscontainer.containersRegistrados[indexContainer].dataHoraInicioEstuDeso = DateFormat('dd/MM/yyyy HH:mm:ss').format(_dataHoraInicioEstuDesoController.value);
+              form.dadoscontainer.containersRegistrados[indexContainer].dataHoraFimEstuDeso = DateFormat('dd/MM/yyyy HH:mm:ss').format(_dataHoraFimEstuDesoController.value);
               form.dadoscontainer.identificacaoEquipamento = _identificacaoEquipamentoController.value;
               form.dadoscontainer.numeroCertificado =_numeroCertificadoController.value;
               form.dadoscontainer.dataVerificacao = DateFormat('dd/MM/yyyy').format(_dataVerificacaoController.value);
@@ -887,10 +892,13 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
 //            form.dadoscontainer.containersRegistrados[indexContainer] = adicionarInformacoesContainer();
 
             if (form.dadoscontainer.containersRegistrados[indexContainer].controleDeQuantidade != null) {
+              //form.dadoscontainer.containersRegistrados[indexContainer].controleDeQuantidade =
               atualizaInformacoesContainer(form.dadoscontainer.containersRegistrados[indexContainer]);
             } else {
               form.dadoscontainer.containersRegistrados[indexContainer] = adicionarInformacoesContainer();
             }
+
+            //if (form.dadoscontainer.containersRegistrados[indexContainer].dataHoraInicioInspecao)
 
 
             if (form.dadoscontainer.containersRegistrados[indexContainer].total == null ||
@@ -903,9 +911,7 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
           } else {
 //            form.dadoscontainer.containersRegistrados = [adicionarInformacoesContainer()];
           int log = 1;
-
           }
-
         }
       });
 
@@ -1113,8 +1119,7 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
     }
   }
 
-  atualizaInformacoesContainer(var form){
-    InformacaoContainer inf = form;
+  atualizaInformacoesContainer(InformacaoContainer inf){
 
     //inf.inspecao = (_inspecaoController.value == true) ? true: false;
     inf.estufagem = (_estufagemController.value == true) ? true : false;
@@ -1145,15 +1150,22 @@ class ContainerBloc extends BlocBase with SupEmbRecebStateValidator {
   InformacaoContainer adicionarInformacoesContainer() {
     InformacaoContainer inf = InformacaoContainer.padrao();
 
+
     inf.inspecao = true;
-    //inf.inspecao = (_inspecaoController.value == true) ? true: false;
     inf.estufagem = (_estufagemController.value == true) ? true : false;
     inf.desova = (_desovaController.value == true) ? true : false;
 
+    inf.dataHoraInicioInspecao = (_dataHoraInicioInspecaoController.value != null)
+        ? DateFormat('dd/MM/yyyy HH:mm:ss').format(_dataHoraInicioInspecaoController.value).toString()
+        : "";
+
+    inf.dataHoraFimInspecao = (_dataHoraFimInspecaoController.value != null)
+        ? DateFormat('dd/MM/yyyy HH:mm:ss').format(_dataHoraFimInspecaoController.value).toString()
+        : "";
+
     inf.numeroContainer = _numeroDoContainerController.value;
 
-    inf.tara =
-        (_taraController.value != null && _taraController.value.isNotEmpty)
+    inf.tara = (_taraController.value != null && _taraController.value.isNotEmpty)
             ? double.parse(_taraController.value)
             : 0.0;
 

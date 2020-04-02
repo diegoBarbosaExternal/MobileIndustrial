@@ -63,11 +63,7 @@ DadosContainer _$DadosContainerFromJson(Map<String, dynamic> json) {
         ?.toList(),
     json['inspetorSgs'] as String,
     json['terminal'] as String,
-  )
-    ..dataHoraInicioInspecao = json['dataHoraInicioInspecao'] as String
-    ..dataHoraFimInspecao = json['dataHoraFimInspecao'] as String
-    ..dataHoraInicioEstuDeso = json['dataHoraInicioEstuDeso'] as String
-    ..dataHoraFimEstuDeso = json['dataHoraFimEstuDeso'] as String;
+  );
 }
 
 Map<String, dynamic> _$DadosContainerToJson(DadosContainer instance) =>
@@ -75,10 +71,6 @@ Map<String, dynamic> _$DadosContainerToJson(DadosContainer instance) =>
       'inspecao': instance.inspecao,
       'estufagem': instance.estufagem,
       'desova': instance.desova,
-      'dataHoraInicioInspecao': instance.dataHoraInicioInspecao,
-      'dataHoraFimInspecao': instance.dataHoraFimInspecao,
-      'dataHoraInicioEstuDeso': instance.dataHoraInicioEstuDeso,
-      'dataHoraFimEstuDeso': instance.dataHoraFimEstuDeso,
       'matricula': instance.matricula,
       'ordemServico': instance.ordemServico,
       'clientePrincipal': instance.clientePrincipal,

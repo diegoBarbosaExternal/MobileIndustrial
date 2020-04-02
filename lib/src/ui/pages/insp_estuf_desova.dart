@@ -1777,40 +1777,27 @@ class InspecaoEstufagemDesovaState extends State<InspecaoEstufagemDesova>
         existeContainer = false;
       }
 
-      if (dados.dataHoraInicioInspecao != null){
-          _dataHoraInicioInspecaoController.text = dados.dataHoraInicioInspecao.toString();
-          blocContainer.sinkDataHoraInicioInspecao.add(DateFormat('dd/MM/yyyy HH:mm:ss').parse(dados.dataHoraInicioInspecao));
-      }
-
-      if (dados.dataHoraFimInspecao != null){
-        _dataHoraFimInspecaoController.text = dados.dataHoraFimInspecao.toString();
-        blocContainer.sinkDataHoraFimInspecao.add(DateFormat('dd/MM/yyyy HH:mm:ss').parse(dados.dataHoraFimInspecao));
-
-//        String dataHoraFimInspecao = DateFormat ('dd/MM/yyyy HH:mm:ss')
-//            .format(DateTime.parse(dados.dataHoraFimInspecao));
-//        _dataHoraFimInspecaoController.text = dataHoraFimInspecao;
-//        blocContainer.sinkDataHoraFimInspecao.add(DateTime.parse(dados.dataHoraFimInspecao));
-      }
-
-      if (dados.dataHoraInicioEstuDeso != null){
-        _dataHoraInicioEstuDesoController.text = dados.dataHoraInicioEstuDeso.toString();
-        blocContainer.sinkDataHoraInicioEstuDeso.add(DateFormat('dd/MM/yyyy HH:mm:ss').parse(dados.dataHoraInicioEstuDeso));
-        /*
-       String dataHoraInicioEstuDeso = DateFormat ('dd/MM/yyyy HH:mm:ss')
-            .format(DateTime.parse(dados.dataHoraInicioEstuDeso));
-        _dataHoraInicioEstuDesoController.text = dataHoraInicioEstuDeso;
-        blocContainer.sinkDataHoraInicioEstuDeso.add(DateTime.parse(dados.dataHoraInicioEstuDeso));*/
-      }
-
-      if (dados.dataHoraFimEstuDeso != null){
-        _dataHoraFimEstuDesoController.text = dados.dataHoraFimEstuDeso.toString();
-        blocContainer.sinkDataHoraFimEstuDeso.add(DateFormat('dd/MM/yyyy HH:mm:ss').parse(dados.dataHoraFimEstuDeso));
-        /*
-        String dataHoraFimEstuDeso = DateFormat ('dd/MM/yyyy HH:mm:ss')
-            .format(DateTime.parse(dados.dataHoraFimEstuDeso));
-        _dataHoraFimEstuDesoController.text = dataHoraFimEstuDeso;
-        blocContainer.sinkDataHoraFimEstuDeso.add(DateTime.parse(dados.dataHoraFimEstuDeso));*/
-      }
+//      if (dados.dataHoraInicioInspecao != null){
+//          _dataHoraInicioInspecaoController.text = dados.dataHoraInicioInspecao.toString();
+//          blocContainer.sinkDataHoraInicioInspecao.add(DateFormat('dd/MM/yyyy HH:mm:ss').parse(dados.dataHoraInicioInspecao));
+//      }
+//
+//      if (dados.dataHoraFimInspecao != null){
+//        _dataHoraFimInspecaoController.text = dados.dataHoraFimInspecao.toString();
+//        blocContainer.sinkDataHoraFimInspecao.add(DateFormat('dd/MM/yyyy HH:mm:ss').parse(dados.dataHoraFimInspecao));
+//
+//      }
+//
+//      if (dados.dataHoraInicioEstuDeso != null){
+//        _dataHoraInicioEstuDesoController.text = dados.dataHoraInicioEstuDeso.toString();
+//        blocContainer.sinkDataHoraInicioEstuDeso.add(DateFormat('dd/MM/yyyy HH:mm:ss').parse(dados.dataHoraInicioEstuDeso));
+//
+//      }
+//
+//      if (dados.dataHoraFimEstuDeso != null){
+//        _dataHoraFimEstuDesoController.text = dados.dataHoraFimEstuDeso.toString();
+//        blocContainer.sinkDataHoraFimEstuDeso.add(DateFormat('dd/MM/yyyy HH:mm:ss').parse(dados.dataHoraFimEstuDeso));
+//      }
 
       if (dados.matricula != null) {
         _matriculaController.text = dados.matricula;

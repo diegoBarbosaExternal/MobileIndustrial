@@ -9,6 +9,8 @@ class InformacaoContainer {
   bool desova;
   String dataHoraInicioInspecao;
   String dataHoraFimInspecao;
+  String dataHoraInicioEstuDeso;
+  String dataHoraFimEstuDeso;
   String numeroContainer;
   double tara;
   int capacidade;
@@ -34,6 +36,8 @@ class InformacaoContainer {
       this.desova,
       this.dataHoraInicioInspecao,
       this.dataHoraFimInspecao,
+      this.dataHoraInicioEstuDeso,
+      this.dataHoraFimEstuDeso,
       this.numeroContainer,
       this.tara,
       this.capacidade,

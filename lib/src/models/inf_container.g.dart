@@ -8,6 +8,13 @@ part of 'inf_container.dart';
 
 InformacaoContainer _$InformacaoContainerFromJson(Map<String, dynamic> json) {
   return InformacaoContainer(
+    json['inspecao'] as bool,
+    json['estufagem'] as bool,
+    json['desova'] as bool,
+    json['dataHoraInicioInspecao'] as String,
+    json['dataHoraFimInspecao'] as String,
+    json['dataHoraInicioEstuDeso'] as String,
+    json['dataHoraFimEstuDeso'] as String,
     json['numeroContainer'] as String,
     (json['tara'] as num)?.toDouble(),
     json['capacidade'] as int,
@@ -23,11 +30,7 @@ InformacaoContainer _$InformacaoContainerFromJson(Map<String, dynamic> json) {
     json['data'] as String,
     (json['controleDeQuantidade'] as List)?.map((e) => e as int)?.toList(),
     json['total'] as int,
-  )
-    ..inspecao = json['inspecao'] as bool
-    ..estufagem = json['estufagem'] as bool
-    ..desova = json['desova'] as bool
-    ..produto = json['produto'] as String;
+  )..produto = json['produto'] as String;
 }
 
 Map<String, dynamic> _$InformacaoContainerToJson(
@@ -36,6 +39,10 @@ Map<String, dynamic> _$InformacaoContainerToJson(
       'inspecao': instance.inspecao,
       'estufagem': instance.estufagem,
       'desova': instance.desova,
+      'dataHoraInicioInspecao': instance.dataHoraInicioInspecao,
+      'dataHoraFimInspecao': instance.dataHoraFimInspecao,
+      'dataHoraInicioEstuDeso': instance.dataHoraInicioEstuDeso,
+      'dataHoraFimEstuDeso': instance.dataHoraFimEstuDeso,
       'numeroContainer': instance.numeroContainer,
       'tara': instance.tara,
       'capacidade': instance.capacidade,
